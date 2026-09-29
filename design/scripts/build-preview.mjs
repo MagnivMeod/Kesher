@@ -1,4 +1,4 @@
-// Builds design/preview.html: one page showing the logo options, colors,
+// Builds design/preview.html: one page showing the Kesher logo, colors,
 // font and status labels, so the owner can review the brand on a phone.
 // Run: node design/scripts/build-preview.mjs
 import { readFileSync, writeFileSync } from "node:fs";
@@ -15,56 +15,27 @@ const mark = (file) => {
   const n = ++copy;
   return readFileSync(join(designDir, "logo", file), "utf8")
     .replace(/<title>.*<\/title>\n/, "")
-    .replace(/id="(k[\w-]*)"/g, `id="$1-${n}"`)
-    .replace(/url\(#(k[\w-]*)\)/g, `url(#$1-${n})`)
+    .replace(/id="([\w-]+)"/g, `id="$1-${n}"`)
+    .replace(/url\(#([\w-]+)\)/g, `url(#$1-${n})`)
     .replace("<svg ", '<svg aria-hidden="true" ');
 };
 
-const options = [
-  {
-    letter: "A",
-    file: "option-a-linked-bubbles.svg",
-    name: "Linked bubbles",
-    idea: "Two speech bubbles linked like a knot: a customer and a store, in conversation. Closest to what Kesher does every day.",
-  },
-  {
-    letter: "B",
-    file: "option-b-k-knot.svg",
-    name: "K-knot",
-    idea: "The letter K, with its arm and leg made from one ribbon tied around the stem. A monogram that reads as the name.",
-  },
-  {
-    letter: "C",
-    file: "option-c-thread.svg",
-    name: "The thread",
-    idea: "One thread ties a knot between two people. Kesher means both “connection” and “knot”, and this shows both at once.",
-  },
-];
-
-const optionCards = options
-  .map(
-    (o) => `
-      <article class="option" aria-labelledby="opt-${o.letter}">
-        <header class="option-head">
-          <span class="option-letter">${o.letter}</span>
-          <h3 id="opt-${o.letter}">${o.name}</h3>
-        </header>
-        <div class="option-hero">${mark(o.file)}</div>
-        <p class="option-idea">${o.idea}</p>
-        <div class="lockups">
-          <div class="lockup" lang="en">${mark(o.file)}<span>Kesher</span></div>
-          <div class="lockup" lang="he" dir="rtl">${mark(o.file)}<span>קשר</span></div>
+const logoSection = `
+      <div class="logo-grid">
+        <div class="paper hero">${mark("kesher-mark-color.svg")}</div>
+        <div class="paper words">
+          <div class="wm" lang="en">${mark("kesher-wordmark-en.svg")}</div>
+          <div class="wm" lang="he" dir="rtl">${mark("kesher-wordmark-he.svg")}</div>
         </div>
-        <div class="sizes" aria-label="Option ${o.letter} at different sizes">
-          <figure><div class="app-icon">${mark(o.file)}</div><figcaption>App icon</figcaption></figure>
-          <figure><div class="s48">${mark(o.file)}</div><figcaption>48px</figcaption></figure>
-          <figure><div class="s32">${mark(o.file)}</div><figcaption>32px</figcaption></figure>
-          <figure><div class="s16">${mark(o.file)}</div><figcaption>16px</figcaption></figure>
-          <figure><div class="s32 mono">${mark(o.file)}</div><figcaption>1 color</figcaption></figure>
-        </div>
-      </article>`,
-  )
-  .join("");
+      </div>
+      <div class="sizes" aria-label="The logo at different sizes">
+        <figure><div class="app-icon">${mark("app-icon.svg")}</div><figcaption>App icon</figcaption></figure>
+        <figure><div class="s48">${mark("favicon.svg")}</div><figcaption>48px</figcaption></figure>
+        <figure><div class="s32">${mark("favicon.svg")}</div><figcaption>32px</figcaption></figure>
+        <figure><div class="s16">${mark("favicon.svg")}</div><figcaption>16px</figcaption></figure>
+        <figure><div class="wm-mono">${mark("kesher-wordmark-en-mono.svg")}</div><figcaption>1 color</figcaption></figure>
+        <figure><div class="wm-mono">${mark("kesher-wordmark-he-mono.svg")}</div><figcaption>1 color</figcaption></figure>
+      </div>`;
 
 const ratio = (fg, bg) => contrast(c[fg], c[bg]).toFixed(1);
 const swatches = [
@@ -112,7 +83,7 @@ const html = `<title>Kesher Brand Preview</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
 <style>
-/* Layout: one calm column; logo options stack on phones, sit side by side on wide screens. */
+/* Layout: one calm column; cards stack on phones and sit side by side on wide screens. */
 :root {
   --bg: ${c.background};
   --surface: ${c.surface};
@@ -156,27 +127,20 @@ section { display: grid; gap: 16px; }
 .masthead h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 500; }
 .masthead h1 span { color: var(--brand); }
 
-.options { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
-.option { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: grid; gap: 16px; align-content: start; min-width: 0; }
-.option-head { display: flex; align-items: center; gap: 10px; }
-.option-letter { width: 32px; height: 32px; border-radius: 999px; background: var(--brand); color: var(--surface); display: grid; place-items: center; font-weight: 700; }
-.option h3 { font-size: 18px; font-weight: 500; }
-.option-hero { color: var(--brand); background: var(--brand-soft); border-radius: 12px; display: grid; place-items: center; padding: 20px; }
-.option-hero svg { width: 150px; height: 150px; max-width: 100%; }
-.option-idea { color: var(--muted); font-size: 15px; }
-.lockups { display: flex; flex-wrap: wrap; gap: 12px 24px; }
-.lockup { display: flex; align-items: center; gap: 8px; color: var(--brand); }
-.lockup svg { width: 36px; height: 36px; }
-.lockup span { font-size: 28px; font-weight: 500; color: var(--fg); letter-spacing: -.01em; }
-.sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px; border-top: 1px solid var(--border); padding-top: 16px; }
+.logo-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.paper { background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: grid; place-items: center; min-width: 0; }
+.hero svg { width: 220px; max-width: 100%; height: auto; }
+.words { gap: 24px; }
+.wm svg { width: 230px; max-width: 100%; height: auto; display: block; }
+.sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px 20px; }
 .sizes figure { margin: 0; display: grid; justify-items: center; gap: 6px; }
 .sizes figcaption { font-size: 12px; color: var(--muted); }
-.app-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--icon-bg); color: var(--icon-fg); padding: 9px; }
-.s48 { width: 48px; height: 48px; color: var(--brand); }
-.s32 { width: 32px; height: 32px; color: var(--brand); }
-.s16 { width: 16px; height: 16px; color: var(--brand); }
-.mono { color: var(--mono-fg); }
-.sizes svg { width: 100%; height: 100%; display: block; }
+.app-icon { width: 72px; height: 72px; border-radius: 16px; overflow: hidden; }
+.s48 { width: 48px; height: 48px; }
+.s32 { width: 32px; height: 32px; }
+.s16 { width: 16px; height: 16px; }
+.wm-mono { color: var(--fg); width: 120px; }
+.sizes svg { width: 100%; height: auto; display: block; }
 
 .swatches { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .swatch { display: flex; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; min-width: 0; }
@@ -212,15 +176,14 @@ section { display: grid; gap: 16px; }
 
 <div class="wrap">
   <header class="masthead">
-    <div class="brandline">${mark("option-a-linked-bubbles.svg")}<span class="eyebrow">Step 1 of phase 1 · Brand</span></div>
-    <h1>Kesher brand options. <span>Pick your logo.</span></h1>
-    <p class="lead">Three logo ideas, the color palette, the font and the status labels. Every text color was checked against the WCAG AA contrast rule. The logo in each option works in one color and down to 16 pixels.</p>
+    <div class="brandline">${mark("kesher-mark.svg")}<span class="eyebrow">Phase 1 · Brand</span></div>
+    <h1>The Kesher brand. <span>Final version.</span></h1>
+    <p class="lead">The logo, colors, font and status labels that every Kesher screen, email and page will use. Every text color passes the WCAG AA contrast rule.</p>
   </header>
 
   <section aria-labelledby="h-logos">
-    <h2 id="h-logos">Logo options</h2>
-    <div class="options">${optionCards}
-    </div>
+    <h2 id="h-logos">Logo: linked bubbles</h2>
+    <p class="lead">Two speech bubbles linked like a knot: a customer and a store in conversation. The teal bubble is the store, the apricot bubble is the customer.</p>${logoSection}
   </section>
 
   <section aria-labelledby="h-colors">
@@ -266,8 +229,8 @@ section { display: grid; gap: 16px; }
   </section>
 
   <section class="pick" aria-labelledby="h-pick">
-    <strong id="h-pick">What I need from you</strong>
-    <p>Reply with the letter of your favorite logo: A, B or C. You can also ask for changes, like a different teal, a warmer accent, or combining two ideas. After you pick, I'll make the final app icon (1200×1200), the favicon, and the wordmark files.</p>
+    <strong id="h-pick">Where the files are</strong>
+    <p>All logo files are in the <code>design/logo</code> folder of the project: the 1200×1200 app icon for Shopify, favicons, and the logo with the name in English and Hebrew, in color and in one color.</p>
   </section>
 </div>
 `;

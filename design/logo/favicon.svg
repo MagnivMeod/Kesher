@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher">
+<title>Kesher</title>
+<rect width="100" height="100" rx="22" fill="#0F4C5C"/>
+<g transform="translate(50 50) scale(1.02) translate(-50 -53)"><defs><mask id="k-a" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="k-b" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#k-a)"><circle cx="38" cy="48" r="19" fill="none" stroke="#FFFFFF" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#k-b)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g></g>
+</svg>

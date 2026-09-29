@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
 <style>
-/* Layout: one calm column; logo options stack on phones, sit side by side on wide screens. */
+/* Layout: one calm column; cards stack on phones and sit side by side on wide screens. */
 :root {
   --bg: #F5F7F8;
   --surface: #FFFFFF;
@@ -47,27 +47,20 @@ section { display: grid; gap: 16px; }
 .masthead h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 500; }
 .masthead h1 span { color: var(--brand); }
 
-.options { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
-.option { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: grid; gap: 16px; align-content: start; min-width: 0; }
-.option-head { display: flex; align-items: center; gap: 10px; }
-.option-letter { width: 32px; height: 32px; border-radius: 999px; background: var(--brand); color: var(--surface); display: grid; place-items: center; font-weight: 700; }
-.option h3 { font-size: 18px; font-weight: 500; }
-.option-hero { color: var(--brand); background: var(--brand-soft); border-radius: 12px; display: grid; place-items: center; padding: 20px; }
-.option-hero svg { width: 150px; height: 150px; max-width: 100%; }
-.option-idea { color: var(--muted); font-size: 15px; }
-.lockups { display: flex; flex-wrap: wrap; gap: 12px 24px; }
-.lockup { display: flex; align-items: center; gap: 8px; color: var(--brand); }
-.lockup svg { width: 36px; height: 36px; }
-.lockup span { font-size: 28px; font-weight: 500; color: var(--fg); letter-spacing: -.01em; }
-.sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px; border-top: 1px solid var(--border); padding-top: 16px; }
+.logo-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.paper { background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: grid; place-items: center; min-width: 0; }
+.hero svg { width: 220px; max-width: 100%; height: auto; }
+.words { gap: 24px; }
+.wm svg { width: 230px; max-width: 100%; height: auto; display: block; }
+.sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px 20px; }
 .sizes figure { margin: 0; display: grid; justify-items: center; gap: 6px; }
 .sizes figcaption { font-size: 12px; color: var(--muted); }
-.app-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--icon-bg); color: var(--icon-fg); padding: 9px; }
-.s48 { width: 48px; height: 48px; color: var(--brand); }
-.s32 { width: 32px; height: 32px; color: var(--brand); }
-.s16 { width: 16px; height: 16px; color: var(--brand); }
-.mono { color: var(--mono-fg); }
-.sizes svg { width: 100%; height: 100%; display: block; }
+.app-icon { width: 72px; height: 72px; border-radius: 16px; overflow: hidden; }
+.s48 { width: 48px; height: 48px; }
+.s32 { width: 32px; height: 32px; }
+.s16 { width: 16px; height: 16px; }
+.wm-mono { color: var(--fg); width: 120px; }
+.sizes svg { width: 100%; height: auto; display: block; }
 
 .swatches { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .swatch { display: flex; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; min-width: 0; }
@@ -103,280 +96,87 @@ section { display: grid; gap: 16px; }
 
 <div class="wrap">
   <header class="masthead">
-    <div class="brandline"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-25" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-25" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-25)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-25)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+    <div class="brandline"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="14 24.5 72 57" role="img" aria-label="Kesher">
+<defs><mask id="k-a-10" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="k-b-10" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#k-a-10)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#k-b-10)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
 </svg>
-<span class="eyebrow">Step 1 of phase 1 · Brand</span></div>
-    <h1>Kesher brand options. <span>Pick your logo.</span></h1>
-    <p class="lead">Three logo ideas, the color palette, the font and the status labels. Every text color was checked against the WCAG AA contrast rule. The logo in each option works in one color and down to 16 pixels.</p>
+<span class="eyebrow">Phase 1 · Brand</span></div>
+    <h1>The Kesher brand. <span>Final version.</span></h1>
+    <p class="lead">The logo, colors, font and status labels that every Kesher screen, email and page will use. Every text color passes the WCAG AA contrast rule.</p>
   </header>
 
   <section aria-labelledby="h-logos">
-    <h2 id="h-logos">Logo options</h2>
-    <div class="options">
-      <article class="option" aria-labelledby="opt-A">
-        <header class="option-head">
-          <span class="option-letter">A</span>
-          <h3 id="opt-A">Linked bubbles</h3>
-        </header>
-        <div class="option-hero"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-1" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-1" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-1)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-1)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+    <h2 id="h-logos">Logo: linked bubbles</h2>
+    <p class="lead">Two speech bubbles linked like a knot: a customer and a store in conversation. The teal bubble is the store, the apricot bubble is the customer.</p>
+      <div class="logo-grid">
+        <div class="paper hero"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="14 24.5 72 57" role="img" aria-label="Kesher">
+<defs><mask id="k-a-1" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="k-b-1" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#k-a-1)"><circle cx="38" cy="48" r="19" fill="none" stroke="#0F4C5C" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#0F4C5C" stroke="#0F4C5C" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#k-b-1)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g>
 </svg>
 </div>
-        <p class="option-idea">Two speech bubbles linked like a knot: a customer and a store, in conversation. Closest to what Kesher does every day.</p>
-        <div class="lockups">
-          <div class="lockup" lang="en"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-2" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-2" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-2)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-2)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-</svg>
-<span>Kesher</span></div>
-          <div class="lockup" lang="he" dir="rtl"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-3" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-3" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-3)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-3)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-</svg>
-<span>קשר</span></div>
-        </div>
-        <div class="sizes" aria-label="Option A at different sizes">
-          <figure><div class="app-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-4" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-4" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-4)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-4)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-</svg>
-</div><figcaption>App icon</figcaption></figure>
-          <figure><div class="s48"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-5" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-5" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-5)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-5)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-</svg>
-</div><figcaption>48px</figcaption></figure>
-          <figure><div class="s32"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-6" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-6" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-6)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-6)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-</svg>
-</div><figcaption>32px</figcaption></figure>
-          <figure><div class="s16"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-7" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-7" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-7)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-7)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-</svg>
-</div><figcaption>16px</figcaption></figure>
-          <figure><div class="s32 mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
-<defs>
-  <mask id="kA-a-8" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-  <mask id="kA-b-8" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
-</defs>
-<g mask="url(#kA-a-8)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-<g mask="url(#kA-b-8)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
-</svg>
-</div><figcaption>1 color</figcaption></figure>
-        </div>
-      </article>
-      <article class="option" aria-labelledby="opt-B">
-        <header class="option-head">
-          <span class="option-letter">B</span>
-          <h3 id="opt-B">K-knot</h3>
-        </header>
-        <div class="option-hero"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-9" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-9" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-9)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-9)"/>
+        <div class="paper words">
+          <div class="wm" lang="en"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300.57 64" role="img" aria-label="Kesher">
+<g transform="translate(0 0) scale(1.12) translate(-14 -24.5)"><defs><mask id="ken-a-2" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="ken-b-2" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#ken-a-2)"><circle cx="38" cy="48" r="19" fill="none" stroke="#0F4C5C" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#0F4C5C" stroke="#0F4C5C" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#ken-b-2)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g></g>
+<path transform="translate(96.84 50)" d="M11.78 0L6.32 0Q5.70 0 5.27-0.43Q4.84-0.87 4.84-1.49L4.84-1.49L4.84-41.85Q4.84-42.53 5.27-42.97Q5.70-43.40 6.32-43.40L6.32-43.40L11.78-43.40Q12.46-43.40 12.90-42.97Q13.33-42.53 13.33-41.85L13.33-41.85L13.33-27.34L27.34-42.28Q27.59-42.59 28.18-43.00Q28.77-43.40 29.76-43.40L29.76-43.40L35.90-43.40Q36.39-43.40 36.80-43.03Q37.20-42.66 37.20-42.10L37.20-42.10Q37.20-41.66 36.95-41.35L36.95-41.35L19.90-22.63L38.13-2.11Q38.44-1.74 38.44-1.30L38.44-1.30Q38.44-0.74 38.04-0.37Q37.63 0 37.14 0L37.14 0L30.75 0Q29.70 0 29.11-0.46Q28.52-0.93 28.33-1.12L28.33-1.12L13.33-17.55L13.33-1.49Q13.33-0.87 12.90-0.43Q12.46 0 11.78 0L11.78 0ZM57.16 0.62L57.16 0.62Q50.28 0.62 46.25-3.35Q42.22-7.32 41.91-14.63L41.91-14.63Q41.85-15.25 41.85-16.21Q41.85-17.17 41.91-17.73L41.91-17.73Q42.16-22.44 44.05-25.82Q45.94-29.20 49.29-31.03Q52.64-32.86 57.16-32.86L57.16-32.86Q62.19-32.86 65.60-30.78Q69.01-28.71 70.74-25.02Q72.48-21.33 72.48-16.49L72.48-16.49L72.48-15.19Q72.48-14.57 72.04-14.14Q71.61-13.70 70.93-13.70L70.93-13.70L50.34-13.70L50.34-13.21Q50.41-11.04 51.18-9.21Q51.96-7.38 53.47-6.26Q54.99-5.15 57.10-5.15L57.10-5.15Q58.84-5.15 60.02-5.67Q61.19-6.20 61.94-6.88Q62.68-7.56 62.99-8.00L62.99-8.00Q63.55-8.74 63.89-8.90Q64.23-9.05 64.91-9.05L64.91-9.05L70.25-9.05Q70.87-9.05 71.27-8.68Q71.67-8.31 71.61-7.75L71.61-7.75Q71.55-6.76 70.59-5.33Q69.63-3.91 67.83-2.54Q66.03-1.18 63.33-0.28Q60.64 0.62 57.16 0.62ZM50.34-19.10L50.34-18.91L64.05-18.91L64.05-19.10Q64.05-21.51 63.24-23.34Q62.43-25.17 60.88-26.20Q59.33-27.22 57.16-27.22Q54.99-27.22 53.44-26.20Q51.89-25.17 51.12-23.34Q50.34-21.51 50.34-19.10L50.34-19.10ZM91.26 0.62L91.26 0.62Q87.54 0.62 84.91-0.25Q82.27-1.12 80.60-2.42Q78.93-3.72 78.12-5.02Q77.31-6.32 77.25-7.19L77.25-7.19Q77.19-7.87 77.66-8.28Q78.12-8.68 78.68-8.68L78.68-8.68L83.58-8.68Q83.82-8.68 84.01-8.62Q84.20-8.56 84.51-8.25L84.51-8.25Q85.31-7.56 86.21-6.82Q87.11-6.08 88.35-5.55Q89.59-5.02 91.45-5.02L91.45-5.02Q93.87-5.02 95.51-5.98Q97.15-6.94 97.15-8.74L97.15-8.74Q97.15-10.04 96.44-10.85Q95.73-11.66 93.81-12.31Q91.88-12.96 88.35-13.70L88.35-13.70Q84.88-14.51 82.58-15.75Q80.29-16.99 79.17-18.85Q78.06-20.71 78.06-23.19L78.06-23.19Q78.06-25.61 79.52-27.81Q80.97-30.01 83.86-31.43Q86.74-32.86 91.02-32.86L91.02-32.86Q94.36-32.86 96.84-32.02Q99.32-31.19 100.97-29.95Q102.61-28.71 103.48-27.43Q104.35-26.16 104.41-25.23L104.41-25.23Q104.47-24.55 104.04-24.15Q103.60-23.75 103.04-23.75L103.04-23.75L98.46-23.75Q98.15-23.75 97.90-23.87Q97.65-23.99 97.40-24.18L97.40-24.18Q96.72-24.80 95.91-25.51Q95.11-26.23 93.96-26.72Q92.81-27.22 90.95-27.22L90.95-27.22Q88.60-27.22 87.36-26.20Q86.12-25.17 86.12-23.62L86.12-23.62Q86.12-22.57 86.71-21.79Q87.30-21.02 89.09-20.34Q90.89-19.65 94.55-18.91L94.55-18.91Q98.70-18.17 101.15-16.71Q103.60-15.25 104.63-13.36Q105.65-11.47 105.65-9.18L105.65-9.18Q105.65-6.39 104.00-4.15Q102.36-1.92 99.17-0.65Q95.98 0.62 91.26 0.62ZM119.10 0L113.58 0Q112.96 0 112.53-0.43Q112.10-0.87 112.10-1.49L112.10-1.49L112.10-42.53Q112.10-43.15 112.53-43.59Q112.96-44.02 113.58-44.02L113.58-44.02L119.10-44.02Q119.78-44.02 120.19-43.59Q120.59-43.15 120.59-42.53L120.59-42.53L120.59-28.40Q122.26-30.38 124.68-31.62Q127.10-32.86 130.63-32.86L130.63-32.86Q134.42-32.86 137.24-31.16Q140.06-29.45 141.61-26.35Q143.16-23.25 143.16-18.91L143.16-18.91L143.16-1.49Q143.16-0.87 142.72-0.43Q142.29 0 141.67 0L141.67 0L136.09 0Q135.47 0 135.04-0.43Q134.60-0.87 134.60-1.49L134.60-1.49L134.60-18.54Q134.60-22.13 132.84-24.18Q131.07-26.23 127.72-26.23L127.72-26.23Q124.50-26.23 122.54-24.18Q120.59-22.13 120.59-18.54L120.59-18.54L120.59-1.49Q120.59-0.87 120.19-0.43Q119.78 0 119.10 0L119.10 0ZM164.92 0.62L164.92 0.62Q158.04 0.62 154.01-3.35Q149.98-7.32 149.67-14.63L149.67-14.63Q149.61-15.25 149.61-16.21Q149.61-17.17 149.67-17.73L149.67-17.73Q149.92-22.44 151.81-25.82Q153.70-29.20 157.05-31.03Q160.39-32.86 164.92-32.86L164.92-32.86Q169.94-32.86 173.35-30.78Q176.76-28.71 178.50-25.02Q180.23-21.33 180.23-16.49L180.23-16.49L180.23-15.19Q180.23-14.57 179.80-14.14Q179.37-13.70 178.68-13.70L178.68-13.70L158.10-13.70L158.10-13.21Q158.16-11.04 158.94-9.21Q159.71-7.38 161.23-6.26Q162.75-5.15 164.86-5.15L164.86-5.15Q166.59-5.15 167.77-5.67Q168.95-6.20 169.69-6.88Q170.44-7.56 170.75-8.00L170.75-8.00Q171.31-8.74 171.65-8.90Q171.99-9.05 172.67-9.05L172.67-9.05L178.00-9.05Q178.62-9.05 179.03-8.68Q179.43-8.31 179.37-7.75L179.37-7.75Q179.30-6.76 178.34-5.33Q177.38-3.91 175.58-2.54Q173.79-1.18 171.09-0.28Q168.39 0.62 164.92 0.62ZM158.10-19.10L158.10-18.91L171.80-18.91L171.80-19.10Q171.80-21.51 171.00-23.34Q170.19-25.17 168.64-26.20Q167.09-27.22 164.92-27.22Q162.75-27.22 161.20-26.20Q159.65-25.17 158.88-23.34Q158.10-21.51 158.10-19.10L158.10-19.10ZM193.69 0L188.29 0Q187.67 0 187.24-0.43Q186.81-0.87 186.81-1.49L186.81-1.49L186.81-30.69Q186.81-31.37 187.24-31.81Q187.67-32.24 188.29-32.24L188.29-32.24L193.32-32.24Q193.94-32.24 194.40-31.81Q194.87-31.37 194.87-30.69L194.87-30.69L194.87-28.15Q196.29-30.13 198.56-31.19Q200.82-32.24 203.79-32.24L203.79-32.24L206.34-32.24Q207.02-32.24 207.42-31.81Q207.82-31.37 207.82-30.75L207.82-30.75L207.82-26.29Q207.82-25.67 207.42-25.23Q207.02-24.80 206.34-24.80L206.34-24.80L201.50-24.80Q198.52-24.80 196.88-23.16Q195.24-21.51 195.24-18.54L195.24-18.54L195.24-1.49Q195.24-0.87 194.80-0.43Q194.37 0 193.69 0L193.69 0Z" fill="#1C2A30"/>
 </svg>
 </div>
-        <p class="option-idea">The letter K, with its arm and leg made from one ribbon tied around the stem. A monogram that reads as the name.</p>
-        <div class="lockups">
-          <div class="lockup" lang="en"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-10" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-10" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-10)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-10)"/>
-</svg>
-<span>Kesher</span></div>
-          <div class="lockup" lang="he" dir="rtl"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-11" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-11" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-11)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-11)"/>
-</svg>
-<span>קשר</span></div>
-        </div>
-        <div class="sizes" aria-label="Option B at different sizes">
-          <figure><div class="app-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-12" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-12" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-12)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-12)"/>
-</svg>
-</div><figcaption>App icon</figcaption></figure>
-          <figure><div class="s48"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-13" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-13" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-13)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-13)"/>
-</svg>
-</div><figcaption>48px</figcaption></figure>
-          <figure><div class="s32"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-14" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-14" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-14)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-14)"/>
-</svg>
-</div><figcaption>32px</figcaption></figure>
-          <figure><div class="s16"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-15" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-15" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-15)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-15)"/>
-</svg>
-</div><figcaption>16px</figcaption></figure>
-          <figure><div class="s32 mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
-<defs>
-  <mask id="kB-stem-16" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
-  <mask id="kB-rib-16" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
-</defs>
-<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-16)"/>
-<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-16)"/>
-</svg>
-</div><figcaption>1 color</figcaption></figure>
-        </div>
-      </article>
-      <article class="option" aria-labelledby="opt-C">
-        <header class="option-head">
-          <span class="option-letter">C</span>
-          <h3 id="opt-C">The thread</h3>
-        </header>
-        <div class="option-hero"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-17" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-17)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
+          <div class="wm" lang="he" dir="rtl"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.04 64" role="img" aria-label="קשר">
+<g transform="translate(131.2 0) scale(1.12) translate(-14 -24.5)"><defs><mask id="khe-a-3" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="khe-b-3" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#khe-a-3)"><circle cx="38" cy="48" r="19" fill="none" stroke="#0F4C5C" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#0F4C5C" stroke="#0F4C5C" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#khe-b-3)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g></g>
+<path transform="translate(-4.28 50)" d="M10.48 11.84L5.77 11.84Q5.15 11.84 4.71 11.41Q4.28 10.97 4.28 10.35L4.28 10.35L4.28-21.02Q4.28-21.64 4.71-22.07Q5.15-22.51 5.77-22.51L5.77-22.51L10.48-22.51Q11.16-22.51 11.56-22.07Q11.97-21.64 11.97-21.02L11.97-21.02L11.97 10.35Q11.97 10.97 11.56 11.41Q11.16 11.84 10.48 11.84L10.48 11.84ZM21.64-0.12L19.10 0.68Q18.48 0.81 17.98 0.37Q17.48-0.06 17.48-0.68L17.48-0.68L17.48-5.08Q17.48-5.70 17.89-6.20Q18.29-6.70 18.97-6.94L18.97-6.94L21.14-7.81Q23.25-8.68 24.99-10.01Q26.72-11.35 27.71-13.61Q28.71-15.87 28.71-19.47L28.71-19.47Q28.71-22.88 27.93-24.86Q27.16-26.85 25.27-27.71Q23.37-28.58 20.15-28.58L20.15-28.58L5.77-28.58Q5.15-28.58 4.71-29.02Q4.28-29.45 4.28-30.07L4.28-30.07L4.28-33.98Q4.28-34.60 4.71-35.00Q5.15-35.40 5.77-35.40L5.77-35.40L21.58-35.40Q27.22-35.40 30.54-33.70Q33.85-31.99 35.31-28.49Q36.77-24.99 36.77-19.53L36.77-19.53Q36.77-15.25 35.53-12.03Q34.29-8.80 32.12-6.48Q29.95-4.15 27.25-2.60Q24.55-1.05 21.64-0.12L21.64-0.12ZM61.26-6.14L62.99-6.14Q66.65-6.08 69.28-7.53Q71.92-8.99 73.38-11.59Q74.83-14.20 74.83-17.55L74.83-17.55L74.83-33.91Q74.83-34.60 75.24-35.00Q75.64-35.40 76.32-35.40L76.32-35.40L80.66-35.40Q81.34-35.40 81.75-34.97Q82.15-34.53 82.15-33.91L82.15-33.91L82.15-17.11Q82.15-13.08 80.82-9.80Q79.48-6.51 77.07-4.22Q74.65-1.92 71.39-0.71Q68.14 0.50 64.29 0.43L64.29 0.43L59.02 0.43Q54.50 0.43 51.09-1.46Q47.68-3.35 45.79-6.67Q43.90-9.98 43.90-14.20L43.90-14.20L43.90-33.91Q43.90-34.53 44.33-34.97Q44.76-35.40 45.38-35.40L45.38-35.40L49.79-35.40Q50.41-35.40 50.84-35.00Q51.27-34.60 51.27-33.91L51.27-33.91L51.40-17.61Q54.25-17.79 55.92-18.85L55.92-18.85Q57.97-20.03 58.78-22.16Q59.58-24.30 59.58-27.09L59.58-27.09L59.58-33.85Q59.58-34.53 59.98-34.97Q60.39-35.40 61.07-35.40L61.07-35.40L65.41-35.40Q66.03-35.40 66.46-34.97Q66.90-34.53 66.90-33.85L66.90-33.85L66.90-26.91Q66.90-22.32 65.04-18.94Q63.18-15.56 59.46-13.70L59.46-13.70Q56.48-12.21 52.27-11.90L52.27-11.90Q53.01-10.17 54.25-8.99L54.25-8.99Q57.04-6.14 61.26-6.14L61.26-6.14ZM114.08 0L109.24 0Q108.56 0 108.16-0.40Q107.76-0.81 107.76-1.49L107.76-1.49L107.76-19.96Q107.76-24.18 105.62-26.50Q103.48-28.83 98.83-28.83L98.83-28.83L90.15-28.83Q89.47-28.83 89.06-29.26Q88.66-29.70 88.66-30.38L88.66-30.38L88.66-33.91Q88.66-34.53 89.06-34.97Q89.47-35.40 90.15-35.40L90.15-35.40L99.20-35.40Q104.66-35.40 108.28-33.82Q111.91-32.24 113.74-28.89Q115.57-25.54 115.57-20.27L115.57-20.27L115.57-1.49Q115.57-0.87 115.16-0.43Q114.76 0 114.08 0L114.08 0Z" fill="#1C2A30"/>
 </svg>
 </div>
-        <p class="option-idea">One thread ties a knot between two people. Kesher means both “connection” and “knot”, and this shows both at once.</p>
-        <div class="lockups">
-          <div class="lockup" lang="en"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-18" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-18)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
-</svg>
-<span>Kesher</span></div>
-          <div class="lockup" lang="he" dir="rtl"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-19" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-19)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
-</svg>
-<span>קשר</span></div>
         </div>
-        <div class="sizes" aria-label="Option C at different sizes">
-          <figure><div class="app-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-20" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-20)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
+      </div>
+      <div class="sizes" aria-label="The logo at different sizes">
+        <figure><div class="app-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher">
+<rect width="100" height="100" fill="#0F4C5C"/>
+<g transform="translate(50 50) scale(1.02) translate(-50 -53)"><defs><mask id="k-a-4" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="k-b-4" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#k-a-4)"><circle cx="38" cy="48" r="19" fill="none" stroke="#FFFFFF" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#k-b-4)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g></g>
 </svg>
 </div><figcaption>App icon</figcaption></figure>
-          <figure><div class="s48"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-21" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-21)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
+        <figure><div class="s48"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher">
+<rect width="100" height="100" rx="22" fill="#0F4C5C"/>
+<g transform="translate(50 50) scale(1.02) translate(-50 -53)"><defs><mask id="k-a-5" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="k-b-5" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#k-a-5)"><circle cx="38" cy="48" r="19" fill="none" stroke="#FFFFFF" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#k-b-5)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g></g>
 </svg>
 </div><figcaption>48px</figcaption></figure>
-          <figure><div class="s32"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-22" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-22)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
+        <figure><div class="s32"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher">
+<rect width="100" height="100" rx="22" fill="#0F4C5C"/>
+<g transform="translate(50 50) scale(1.02) translate(-50 -53)"><defs><mask id="k-a-6" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="k-b-6" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#k-a-6)"><circle cx="38" cy="48" r="19" fill="none" stroke="#FFFFFF" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#k-b-6)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g></g>
 </svg>
 </div><figcaption>32px</figcaption></figure>
-          <figure><div class="s16"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-23" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-23)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
+        <figure><div class="s16"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher">
+<rect width="100" height="100" rx="22" fill="#0F4C5C"/>
+<g transform="translate(50 50) scale(1.02) translate(-50 -53)"><defs><mask id="k-a-7" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="k-b-7" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#k-a-7)"><circle cx="38" cy="48" r="19" fill="none" stroke="#FFFFFF" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#k-b-7)"><circle cx="62" cy="48" r="19" fill="none" stroke="#F0A45D" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="#F0A45D" stroke="#F0A45D" stroke-width="3" stroke-linejoin="round"/></g></g>
 </svg>
 </div><figcaption>16px</figcaption></figure>
-          <figure><div class="s32 mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
-<defs>
-  <mask id="kC-24" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
-</defs>
-<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-24)"/>
-<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-<circle cx="13" cy="68" r="7" fill="currentColor"/>
-<circle cx="87" cy="68" r="7" fill="currentColor"/>
+        <figure><div class="wm-mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300.57 64" role="img" aria-label="Kesher">
+<g transform="translate(0 0) scale(1.12) translate(-14 -24.5)"><defs><mask id="men-a-8" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="men-b-8" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#men-a-8)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#men-b-8)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g></g>
+<path transform="translate(96.84 50)" d="M11.78 0L6.32 0Q5.70 0 5.27-0.43Q4.84-0.87 4.84-1.49L4.84-1.49L4.84-41.85Q4.84-42.53 5.27-42.97Q5.70-43.40 6.32-43.40L6.32-43.40L11.78-43.40Q12.46-43.40 12.90-42.97Q13.33-42.53 13.33-41.85L13.33-41.85L13.33-27.34L27.34-42.28Q27.59-42.59 28.18-43.00Q28.77-43.40 29.76-43.40L29.76-43.40L35.90-43.40Q36.39-43.40 36.80-43.03Q37.20-42.66 37.20-42.10L37.20-42.10Q37.20-41.66 36.95-41.35L36.95-41.35L19.90-22.63L38.13-2.11Q38.44-1.74 38.44-1.30L38.44-1.30Q38.44-0.74 38.04-0.37Q37.63 0 37.14 0L37.14 0L30.75 0Q29.70 0 29.11-0.46Q28.52-0.93 28.33-1.12L28.33-1.12L13.33-17.55L13.33-1.49Q13.33-0.87 12.90-0.43Q12.46 0 11.78 0L11.78 0ZM57.16 0.62L57.16 0.62Q50.28 0.62 46.25-3.35Q42.22-7.32 41.91-14.63L41.91-14.63Q41.85-15.25 41.85-16.21Q41.85-17.17 41.91-17.73L41.91-17.73Q42.16-22.44 44.05-25.82Q45.94-29.20 49.29-31.03Q52.64-32.86 57.16-32.86L57.16-32.86Q62.19-32.86 65.60-30.78Q69.01-28.71 70.74-25.02Q72.48-21.33 72.48-16.49L72.48-16.49L72.48-15.19Q72.48-14.57 72.04-14.14Q71.61-13.70 70.93-13.70L70.93-13.70L50.34-13.70L50.34-13.21Q50.41-11.04 51.18-9.21Q51.96-7.38 53.47-6.26Q54.99-5.15 57.10-5.15L57.10-5.15Q58.84-5.15 60.02-5.67Q61.19-6.20 61.94-6.88Q62.68-7.56 62.99-8.00L62.99-8.00Q63.55-8.74 63.89-8.90Q64.23-9.05 64.91-9.05L64.91-9.05L70.25-9.05Q70.87-9.05 71.27-8.68Q71.67-8.31 71.61-7.75L71.61-7.75Q71.55-6.76 70.59-5.33Q69.63-3.91 67.83-2.54Q66.03-1.18 63.33-0.28Q60.64 0.62 57.16 0.62ZM50.34-19.10L50.34-18.91L64.05-18.91L64.05-19.10Q64.05-21.51 63.24-23.34Q62.43-25.17 60.88-26.20Q59.33-27.22 57.16-27.22Q54.99-27.22 53.44-26.20Q51.89-25.17 51.12-23.34Q50.34-21.51 50.34-19.10L50.34-19.10ZM91.26 0.62L91.26 0.62Q87.54 0.62 84.91-0.25Q82.27-1.12 80.60-2.42Q78.93-3.72 78.12-5.02Q77.31-6.32 77.25-7.19L77.25-7.19Q77.19-7.87 77.66-8.28Q78.12-8.68 78.68-8.68L78.68-8.68L83.58-8.68Q83.82-8.68 84.01-8.62Q84.20-8.56 84.51-8.25L84.51-8.25Q85.31-7.56 86.21-6.82Q87.11-6.08 88.35-5.55Q89.59-5.02 91.45-5.02L91.45-5.02Q93.87-5.02 95.51-5.98Q97.15-6.94 97.15-8.74L97.15-8.74Q97.15-10.04 96.44-10.85Q95.73-11.66 93.81-12.31Q91.88-12.96 88.35-13.70L88.35-13.70Q84.88-14.51 82.58-15.75Q80.29-16.99 79.17-18.85Q78.06-20.71 78.06-23.19L78.06-23.19Q78.06-25.61 79.52-27.81Q80.97-30.01 83.86-31.43Q86.74-32.86 91.02-32.86L91.02-32.86Q94.36-32.86 96.84-32.02Q99.32-31.19 100.97-29.95Q102.61-28.71 103.48-27.43Q104.35-26.16 104.41-25.23L104.41-25.23Q104.47-24.55 104.04-24.15Q103.60-23.75 103.04-23.75L103.04-23.75L98.46-23.75Q98.15-23.75 97.90-23.87Q97.65-23.99 97.40-24.18L97.40-24.18Q96.72-24.80 95.91-25.51Q95.11-26.23 93.96-26.72Q92.81-27.22 90.95-27.22L90.95-27.22Q88.60-27.22 87.36-26.20Q86.12-25.17 86.12-23.62L86.12-23.62Q86.12-22.57 86.71-21.79Q87.30-21.02 89.09-20.34Q90.89-19.65 94.55-18.91L94.55-18.91Q98.70-18.17 101.15-16.71Q103.60-15.25 104.63-13.36Q105.65-11.47 105.65-9.18L105.65-9.18Q105.65-6.39 104.00-4.15Q102.36-1.92 99.17-0.65Q95.98 0.62 91.26 0.62ZM119.10 0L113.58 0Q112.96 0 112.53-0.43Q112.10-0.87 112.10-1.49L112.10-1.49L112.10-42.53Q112.10-43.15 112.53-43.59Q112.96-44.02 113.58-44.02L113.58-44.02L119.10-44.02Q119.78-44.02 120.19-43.59Q120.59-43.15 120.59-42.53L120.59-42.53L120.59-28.40Q122.26-30.38 124.68-31.62Q127.10-32.86 130.63-32.86L130.63-32.86Q134.42-32.86 137.24-31.16Q140.06-29.45 141.61-26.35Q143.16-23.25 143.16-18.91L143.16-18.91L143.16-1.49Q143.16-0.87 142.72-0.43Q142.29 0 141.67 0L141.67 0L136.09 0Q135.47 0 135.04-0.43Q134.60-0.87 134.60-1.49L134.60-1.49L134.60-18.54Q134.60-22.13 132.84-24.18Q131.07-26.23 127.72-26.23L127.72-26.23Q124.50-26.23 122.54-24.18Q120.59-22.13 120.59-18.54L120.59-18.54L120.59-1.49Q120.59-0.87 120.19-0.43Q119.78 0 119.10 0L119.10 0ZM164.92 0.62L164.92 0.62Q158.04 0.62 154.01-3.35Q149.98-7.32 149.67-14.63L149.67-14.63Q149.61-15.25 149.61-16.21Q149.61-17.17 149.67-17.73L149.67-17.73Q149.92-22.44 151.81-25.82Q153.70-29.20 157.05-31.03Q160.39-32.86 164.92-32.86L164.92-32.86Q169.94-32.86 173.35-30.78Q176.76-28.71 178.50-25.02Q180.23-21.33 180.23-16.49L180.23-16.49L180.23-15.19Q180.23-14.57 179.80-14.14Q179.37-13.70 178.68-13.70L178.68-13.70L158.10-13.70L158.10-13.21Q158.16-11.04 158.94-9.21Q159.71-7.38 161.23-6.26Q162.75-5.15 164.86-5.15L164.86-5.15Q166.59-5.15 167.77-5.67Q168.95-6.20 169.69-6.88Q170.44-7.56 170.75-8.00L170.75-8.00Q171.31-8.74 171.65-8.90Q171.99-9.05 172.67-9.05L172.67-9.05L178.00-9.05Q178.62-9.05 179.03-8.68Q179.43-8.31 179.37-7.75L179.37-7.75Q179.30-6.76 178.34-5.33Q177.38-3.91 175.58-2.54Q173.79-1.18 171.09-0.28Q168.39 0.62 164.92 0.62ZM158.10-19.10L158.10-18.91L171.80-18.91L171.80-19.10Q171.80-21.51 171.00-23.34Q170.19-25.17 168.64-26.20Q167.09-27.22 164.92-27.22Q162.75-27.22 161.20-26.20Q159.65-25.17 158.88-23.34Q158.10-21.51 158.10-19.10L158.10-19.10ZM193.69 0L188.29 0Q187.67 0 187.24-0.43Q186.81-0.87 186.81-1.49L186.81-1.49L186.81-30.69Q186.81-31.37 187.24-31.81Q187.67-32.24 188.29-32.24L188.29-32.24L193.32-32.24Q193.94-32.24 194.40-31.81Q194.87-31.37 194.87-30.69L194.87-30.69L194.87-28.15Q196.29-30.13 198.56-31.19Q200.82-32.24 203.79-32.24L203.79-32.24L206.34-32.24Q207.02-32.24 207.42-31.81Q207.82-31.37 207.82-30.75L207.82-30.75L207.82-26.29Q207.82-25.67 207.42-25.23Q207.02-24.80 206.34-24.80L206.34-24.80L201.50-24.80Q198.52-24.80 196.88-23.16Q195.24-21.51 195.24-18.54L195.24-18.54L195.24-1.49Q195.24-0.87 194.80-0.43Q194.37 0 193.69 0L193.69 0Z" fill="currentColor"/>
 </svg>
 </div><figcaption>1 color</figcaption></figure>
-        </div>
-      </article>
-    </div>
+        <figure><div class="wm-mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.04 64" role="img" aria-label="קשר">
+<g transform="translate(131.2 0) scale(1.12) translate(-14 -24.5)"><defs><mask id="mhe-a-9" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M63.66 66.93 A19 19 0 0 1 43.29 51.3" fill="none" stroke="#000" stroke-width="14.9"/></mask><mask id="mhe-b-9" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36.34 29.07 A19 19 0 0 1 56.71 44.7" fill="none" stroke="#000" stroke-width="14.9"/></mask></defs>
+<g mask="url(#mhe-a-9)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#mhe-b-9)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g></g>
+<path transform="translate(-4.28 50)" d="M10.48 11.84L5.77 11.84Q5.15 11.84 4.71 11.41Q4.28 10.97 4.28 10.35L4.28 10.35L4.28-21.02Q4.28-21.64 4.71-22.07Q5.15-22.51 5.77-22.51L5.77-22.51L10.48-22.51Q11.16-22.51 11.56-22.07Q11.97-21.64 11.97-21.02L11.97-21.02L11.97 10.35Q11.97 10.97 11.56 11.41Q11.16 11.84 10.48 11.84L10.48 11.84ZM21.64-0.12L19.10 0.68Q18.48 0.81 17.98 0.37Q17.48-0.06 17.48-0.68L17.48-0.68L17.48-5.08Q17.48-5.70 17.89-6.20Q18.29-6.70 18.97-6.94L18.97-6.94L21.14-7.81Q23.25-8.68 24.99-10.01Q26.72-11.35 27.71-13.61Q28.71-15.87 28.71-19.47L28.71-19.47Q28.71-22.88 27.93-24.86Q27.16-26.85 25.27-27.71Q23.37-28.58 20.15-28.58L20.15-28.58L5.77-28.58Q5.15-28.58 4.71-29.02Q4.28-29.45 4.28-30.07L4.28-30.07L4.28-33.98Q4.28-34.60 4.71-35.00Q5.15-35.40 5.77-35.40L5.77-35.40L21.58-35.40Q27.22-35.40 30.54-33.70Q33.85-31.99 35.31-28.49Q36.77-24.99 36.77-19.53L36.77-19.53Q36.77-15.25 35.53-12.03Q34.29-8.80 32.12-6.48Q29.95-4.15 27.25-2.60Q24.55-1.05 21.64-0.12L21.64-0.12ZM61.26-6.14L62.99-6.14Q66.65-6.08 69.28-7.53Q71.92-8.99 73.38-11.59Q74.83-14.20 74.83-17.55L74.83-17.55L74.83-33.91Q74.83-34.60 75.24-35.00Q75.64-35.40 76.32-35.40L76.32-35.40L80.66-35.40Q81.34-35.40 81.75-34.97Q82.15-34.53 82.15-33.91L82.15-33.91L82.15-17.11Q82.15-13.08 80.82-9.80Q79.48-6.51 77.07-4.22Q74.65-1.92 71.39-0.71Q68.14 0.50 64.29 0.43L64.29 0.43L59.02 0.43Q54.50 0.43 51.09-1.46Q47.68-3.35 45.79-6.67Q43.90-9.98 43.90-14.20L43.90-14.20L43.90-33.91Q43.90-34.53 44.33-34.97Q44.76-35.40 45.38-35.40L45.38-35.40L49.79-35.40Q50.41-35.40 50.84-35.00Q51.27-34.60 51.27-33.91L51.27-33.91L51.40-17.61Q54.25-17.79 55.92-18.85L55.92-18.85Q57.97-20.03 58.78-22.16Q59.58-24.30 59.58-27.09L59.58-27.09L59.58-33.85Q59.58-34.53 59.98-34.97Q60.39-35.40 61.07-35.40L61.07-35.40L65.41-35.40Q66.03-35.40 66.46-34.97Q66.90-34.53 66.90-33.85L66.90-33.85L66.90-26.91Q66.90-22.32 65.04-18.94Q63.18-15.56 59.46-13.70L59.46-13.70Q56.48-12.21 52.27-11.90L52.27-11.90Q53.01-10.17 54.25-8.99L54.25-8.99Q57.04-6.14 61.26-6.14L61.26-6.14ZM114.08 0L109.24 0Q108.56 0 108.16-0.40Q107.76-0.81 107.76-1.49L107.76-1.49L107.76-19.96Q107.76-24.18 105.62-26.50Q103.48-28.83 98.83-28.83L98.83-28.83L90.15-28.83Q89.47-28.83 89.06-29.26Q88.66-29.70 88.66-30.38L88.66-30.38L88.66-33.91Q88.66-34.53 89.06-34.97Q89.47-35.40 90.15-35.40L90.15-35.40L99.20-35.40Q104.66-35.40 108.28-33.82Q111.91-32.24 113.74-28.89Q115.57-25.54 115.57-20.27L115.57-20.27L115.57-1.49Q115.57-0.87 115.16-0.43Q114.76 0 114.08 0L114.08 0Z" fill="currentColor"/>
+</svg>
+</div><figcaption>1 color</figcaption></figure>
+      </div>
   </section>
 
   <section aria-labelledby="h-colors">
@@ -496,7 +296,7 @@ section { display: grid; gap: 16px; }
   </section>
 
   <section class="pick" aria-labelledby="h-pick">
-    <strong id="h-pick">What I need from you</strong>
-    <p>Reply with the letter of your favorite logo: A, B or C. You can also ask for changes, like a different teal, a warmer accent, or combining two ideas. After you pick, I'll make the final app icon (1200×1200), the favicon, and the wordmark files.</p>
+    <strong id="h-pick">Where the files are</strong>
+    <p>All logo files are in the <code>design/logo</code> folder of the project: the 1200×1200 app icon for Shopify, favicons, and the logo with the name in English and Hebrew, in color and in one color.</p>
   </section>
 </div>

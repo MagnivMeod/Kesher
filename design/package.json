@@ -1,0 +1,15 @@
+{
+  "name": "kesher-design",
+  "private": true,
+  "type": "module",
+  "description": "Scripts that build Kesher's logo, icon and brand preview files.",
+  "scripts": {
+    "brand": "node scripts/build-brand.mjs && node scripts/build-preview.mjs",
+    "contrast": "node scripts/check-contrast.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/rubik": "^5.2.5",
+    "opentype.js": "^1.3.4",
+    "sharp": "^0.34.4"
+  }
+}
