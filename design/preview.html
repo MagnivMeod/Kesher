@@ -1,0 +1,502 @@
+<title>Kesher Brand Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+<style>
+/* Layout: one calm column; logo options stack on phones, sit side by side on wide screens. */
+:root {
+  --bg: #F5F7F8;
+  --surface: #FFFFFF;
+  --fg: #1C2A30;
+  --muted: #55636B;
+  --border: #D3DBDF;
+  --brand: #0F4C5C;
+  --brand-soft: #E3EFF1;
+  --accent: #F0A45D;
+  --accent-soft: #FDF1E6;
+  --icon-bg: #0F4C5C;
+  --icon-fg: #FFFFFF;
+  --mono-fg: #000000;
+  --font: 'Rubik', 'Segoe UI', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1A1E; --surface: #16252B; --fg: #E4ECEE; --muted: #A3B3B9; --border: #2B3D44;
+    --brand: #7CC7D4; --brand-soft: #1B3A42; --accent: #F0A45D; --accent-soft: #3A2A1C;
+    --mono-fg: #FFFFFF; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1A1E; --surface: #16252B; --fg: #E4ECEE; --muted: #A3B3B9; --border: #2B3D44;
+  --brand: #7CC7D4; --brand-soft: #1B3A42; --accent: #F0A45D; --accent-soft: #3A2A1C;
+  --mono-fg: #FFFFFF; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 16px; padding-block: 32px 64px; display: grid; gap: 48px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.2; }
+h2 { font-size: 22px; font-weight: 500; }
+p { margin: 0; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+section { display: grid; gap: 16px; }
+.lead { color: var(--muted); max-width: 62ch; }
+
+.masthead { display: grid; gap: 12px; }
+.masthead .brandline { display: flex; align-items: center; gap: 12px; color: var(--brand); }
+.masthead .brandline svg { width: 44px; height: 44px; }
+.masthead h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 500; }
+.masthead h1 span { color: var(--brand); }
+
+.options { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.option { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.option-head { display: flex; align-items: center; gap: 10px; }
+.option-letter { width: 32px; height: 32px; border-radius: 999px; background: var(--brand); color: var(--surface); display: grid; place-items: center; font-weight: 700; }
+.option h3 { font-size: 18px; font-weight: 500; }
+.option-hero { color: var(--brand); background: var(--brand-soft); border-radius: 12px; display: grid; place-items: center; padding: 20px; }
+.option-hero svg { width: 150px; height: 150px; max-width: 100%; }
+.option-idea { color: var(--muted); font-size: 15px; }
+.lockups { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.lockup { display: flex; align-items: center; gap: 8px; color: var(--brand); }
+.lockup svg { width: 36px; height: 36px; }
+.lockup span { font-size: 28px; font-weight: 500; color: var(--fg); letter-spacing: -.01em; }
+.sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px; border-top: 1px solid var(--border); padding-top: 16px; }
+.sizes figure { margin: 0; display: grid; justify-items: center; gap: 6px; }
+.sizes figcaption { font-size: 12px; color: var(--muted); }
+.app-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--icon-bg); color: var(--icon-fg); padding: 9px; }
+.s48 { width: 48px; height: 48px; color: var(--brand); }
+.s32 { width: 32px; height: 32px; color: var(--brand); }
+.s16 { width: 16px; height: 16px; color: var(--brand); }
+.mono { color: var(--mono-fg); }
+.sizes svg { width: 100%; height: 100%; display: block; }
+
+.swatches { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.swatch { display: flex; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; min-width: 0; }
+.swatch .chip { width: 56px; height: 56px; border-radius: 10px; flex: none; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+.swatch-text { display: grid; font-size: 14px; min-width: 0; }
+.swatch-text code { font-size: 13px; color: var(--muted); }
+.swatch-text span { color: var(--muted); }
+.swatch-text .pass { font-size: 12px; }
+
+.statuses { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.status-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; padding: 3px 10px; border-radius: 999px; }
+.badge i { width: 7px; height: 7px; border-radius: 999px; }
+.ratio { font-size: 12px; color: #55636B; font-variant-numeric: tabular-nums; }
+.note { font-size: 14px; color: var(--muted); }
+
+.type { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.type-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: grid; gap: 10px; min-width: 0; }
+.type-card .big { font-size: 34px; font-weight: 500; line-height: 1.15; }
+.type-card .weights { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 15px; }
+
+.chat { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: grid; gap: 12px; max-width: 560px; }
+.chat .meta { font-size: 12px; color: var(--muted); }
+.bubble { padding: 10px 14px; border-radius: 16px; max-width: 88%; font-size: 15px; }
+.bubble.customer { background: var(--bg); justify-self: start; border-end-start-radius: 4px; }
+.bubble.kesher { background: var(--brand-soft); justify-self: end; border-end-end-radius: 4px; }
+.used { display: flex; flex-wrap: wrap; gap: 6px; justify-self: end; }
+.used span { font-size: 12px; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; }
+
+.pick { background: var(--accent-soft); border-radius: 16px; padding: 20px; display: grid; gap: 8px; }
+.pick strong { font-size: 18px; font-weight: 500; }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="brandline"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-25" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-25" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-25)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-25)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+<span class="eyebrow">Step 1 of phase 1 · Brand</span></div>
+    <h1>Kesher brand options. <span>Pick your logo.</span></h1>
+    <p class="lead">Three logo ideas, the color palette, the font and the status labels. Every text color was checked against the WCAG AA contrast rule. The logo in each option works in one color and down to 16 pixels.</p>
+  </header>
+
+  <section aria-labelledby="h-logos">
+    <h2 id="h-logos">Logo options</h2>
+    <div class="options">
+      <article class="option" aria-labelledby="opt-A">
+        <header class="option-head">
+          <span class="option-letter">A</span>
+          <h3 id="opt-A">Linked bubbles</h3>
+        </header>
+        <div class="option-hero"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-1" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-1" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-1)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-1)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+</div>
+        <p class="option-idea">Two speech bubbles linked like a knot: a customer and a store, in conversation. Closest to what Kesher does every day.</p>
+        <div class="lockups">
+          <div class="lockup" lang="en"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-2" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-2" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-2)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-2)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+<span>Kesher</span></div>
+          <div class="lockup" lang="he" dir="rtl"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-3" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-3" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-3)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-3)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+<span>קשר</span></div>
+        </div>
+        <div class="sizes" aria-label="Option A at different sizes">
+          <figure><div class="app-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-4" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-4" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-4)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-4)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+</div><figcaption>App icon</figcaption></figure>
+          <figure><div class="s48"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-5" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-5" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-5)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-5)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+</div><figcaption>48px</figcaption></figure>
+          <figure><div class="s32"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-6" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-6" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-6)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-6)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+</div><figcaption>32px</figcaption></figure>
+          <figure><div class="s16"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-7" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-7" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-7)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-7)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+</div><figcaption>16px</figcaption></figure>
+          <figure><div class="s32 mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option A: linked bubbles">
+<defs>
+  <mask id="kA-a-8" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M53.97 65.22 A19 19 0 0 1 43.07 49.66" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+  <mask id="kA-b-8" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.03 30.78 A19 19 0 0 1 56.93 46.34" fill="none" stroke="#000" stroke-width="14.9"/></mask>
+</defs>
+<g mask="url(#kA-a-8)"><circle cx="38" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M34.05 66.58 L17.26 71.04 L24.8 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+<g mask="url(#kA-b-8)"><circle cx="62" cy="48" r="19" fill="none" stroke="currentColor" stroke-width="8.5"/><path d="M65.95 66.58 L82.74 71.04 L75.2 61.67 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>
+</div><figcaption>1 color</figcaption></figure>
+        </div>
+      </article>
+      <article class="option" aria-labelledby="opt-B">
+        <header class="option-head">
+          <span class="option-letter">B</span>
+          <h3 id="opt-B">K-knot</h3>
+        </header>
+        <div class="option-hero"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-9" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-9" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-9)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-9)"/>
+</svg>
+</div>
+        <p class="option-idea">The letter K, with its arm and leg made from one ribbon tied around the stem. A monogram that reads as the name.</p>
+        <div class="lockups">
+          <div class="lockup" lang="en"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-10" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-10" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-10)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-10)"/>
+</svg>
+<span>Kesher</span></div>
+          <div class="lockup" lang="he" dir="rtl"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-11" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-11" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-11)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-11)"/>
+</svg>
+<span>קשר</span></div>
+        </div>
+        <div class="sizes" aria-label="Option B at different sizes">
+          <figure><div class="app-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-12" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-12" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-12)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-12)"/>
+</svg>
+</div><figcaption>App icon</figcaption></figure>
+          <figure><div class="s48"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-13" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-13" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-13)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-13)"/>
+</svg>
+</div><figcaption>48px</figcaption></figure>
+          <figure><div class="s32"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-14" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-14" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-14)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-14)"/>
+</svg>
+</div><figcaption>32px</figcaption></figure>
+          <figure><div class="s16"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-15" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-15" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-15)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-15)"/>
+</svg>
+</div><figcaption>16px</figcaption></figure>
+          <figure><div class="s32 mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option B: K-knot">
+<defs>
+  <mask id="kB-stem-16" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M36 64 C 30 68 24 68 20 66" fill="none" stroke="#000" stroke-width="16"/></mask>
+  <mask id="kB-rib-16" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M29 28 V40" fill="none" stroke="#000" stroke-width="16"/></mask>
+</defs>
+<path d="M29 14 V86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" mask="url(#kB-stem-16)"/>
+<path d="M78 14 L42 40 C 30 30 12 34 12 50 C 12 66 30 70 42 60 L78 86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" mask="url(#kB-rib-16)"/>
+</svg>
+</div><figcaption>1 color</figcaption></figure>
+        </div>
+      </article>
+      <article class="option" aria-labelledby="opt-C">
+        <header class="option-head">
+          <span class="option-letter">C</span>
+          <h3 id="opt-C">The thread</h3>
+        </header>
+        <div class="option-hero"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-17" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-17)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+</div>
+        <p class="option-idea">One thread ties a knot between two people. Kesher means both “connection” and “knot”, and this shows both at once.</p>
+        <div class="lockups">
+          <div class="lockup" lang="en"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-18" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-18)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+<span>Kesher</span></div>
+          <div class="lockup" lang="he" dir="rtl"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-19" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-19)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+<span>קשר</span></div>
+        </div>
+        <div class="sizes" aria-label="Option C at different sizes">
+          <figure><div class="app-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-20" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-20)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+</div><figcaption>App icon</figcaption></figure>
+          <figure><div class="s48"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-21" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-21)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+</div><figcaption>48px</figcaption></figure>
+          <figure><div class="s32"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-22" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-22)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+</div><figcaption>32px</figcaption></figure>
+          <figure><div class="s16"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-23" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-23)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+</div><figcaption>16px</figcaption></figure>
+          <figure><div class="s32 mono"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kesher logo option C: the thread">
+<defs>
+  <mask id="kC-24" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="#000" stroke-width="15"/></mask>
+</defs>
+<path d="M18 68 C 42 68 62 66 62 44 A 12 12 0 0 0 38 44" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" mask="url(#kC-24)"/>
+<path d="M38 44 C 38 66 58 68 82 68" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+<circle cx="13" cy="68" r="7" fill="currentColor"/>
+<circle cx="87" cy="68" r="7" fill="currentColor"/>
+</svg>
+</div><figcaption>1 color</figcaption></figure>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-colors">
+    <h2 id="h-colors">Colors</h2>
+    <p class="lead">A calm deep teal for trust, one warm apricot for a human touch, and soft neutrals with a slight teal tint.</p>
+    <ul class="swatches">
+      <li class="swatch">
+        <div class="chip" style="background:#0F4C5C"></div>
+        <div class="swatch-text">
+          <strong>Deep teal</strong>
+          <code>#0F4C5C</code>
+          <span>Buttons, links, the logo</span>
+          <span class="pass">Contrast 9.5:1 · passes AA</span>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="chip" style="background:#F0A45D"></div>
+        <div class="swatch-text">
+          <strong>Warm apricot</strong>
+          <code>#F0A45D</code>
+          <span>Highlights and illustrations</span>
+          <span class="pass">Contrast 7.1:1 · passes AA</span>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="chip" style="background:#A5501A"></div>
+        <div class="swatch-text">
+          <strong>Apricot text</strong>
+          <code>#A5501A</code>
+          <span>Apricot when it has to be text</span>
+          <span class="pass">Contrast 5.6:1 · passes AA</span>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="chip" style="background:#1C2A30"></div>
+        <div class="swatch-text">
+          <strong>Ink</strong>
+          <code>#1C2A30</code>
+          <span>Main text</span>
+          <span class="pass">Contrast 14.8:1 · passes AA</span>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="chip" style="background:#55636B"></div>
+        <div class="swatch-text">
+          <strong>Muted ink</strong>
+          <code>#55636B</code>
+          <span>Secondary text</span>
+          <span class="pass">Contrast 6.2:1 · passes AA</span>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="chip" style="background:#F5F7F8"></div>
+        <div class="swatch-text">
+          <strong>Mist</strong>
+          <code>#F5F7F8</code>
+          <span>Page background</span>
+          <span class="pass">Contrast 13.7:1 · passes AA</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-status">
+    <h2 id="h-status">Conversation status labels</h2>
+    <p class="lead">Each status has its own color and a dot, so it's clear at a glance, even for people who can't tell red from green.</p>
+    <ul class="statuses">
+      <li class="status-row">
+        <span class="badge" style="color:#1D6B45;background:#E2F3E9"><i style="background:#1D6B45"></i>Handled by Kesher</span>
+        <span class="badge" dir="rtl" lang="he" style="color:#1D6B45;background:#E2F3E9"><i style="background:#1D6B45"></i>טופל ע״י קשר</span>
+        <span class="ratio">5.6:1</span>
+      </li>
+      <li class="status-row">
+        <span class="badge" style="color:#AE2E1E;background:#FCEBE8"><i style="background:#AE2E1E"></i>Needs a human</span>
+        <span class="badge" dir="rtl" lang="he" style="color:#AE2E1E;background:#FCEBE8"><i style="background:#AE2E1E"></i>צריך מענה אנושי</span>
+        <span class="ratio">5.7:1</span>
+      </li>
+      <li class="status-row">
+        <span class="badge" style="color:#855A00;background:#FFF3D6"><i style="background:#855A00"></i>Waiting for customer</span>
+        <span class="badge" dir="rtl" lang="he" style="color:#855A00;background:#FFF3D6"><i style="background:#855A00"></i>ממתין ללקוח</span>
+        <span class="ratio">5.5:1</span>
+      </li>
+      <li class="status-row">
+        <span class="badge" style="color:#3B5BA9;background:#E8EEFA"><i style="background:#3B5BA9"></i>Draft to approve</span>
+        <span class="badge" dir="rtl" lang="he" style="color:#3B5BA9;background:#E8EEFA"><i style="background:#3B5BA9"></i>טיוטה לאישור</span>
+        <span class="ratio">5.5:1</span>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-type">
+    <h2 id="h-type">Font: Rubik</h2>
+    <p class="lead">Rubik's Hebrew and Latin letters were designed together, so mixed messages like <bdi dir="rtl" lang="he">“הזמנתי חולצה בM”</bdi> look even. Its softly rounded corners feel warm and friendly without looking childish, and it comes in every weight we need. Heebo felt more technical, and Assistant gets thin at small sizes.</p>
+    <div class="type">
+      <div class="type-card" lang="he" dir="rtl">
+        <p class="big">כל לקוח מקבל תשובה. כמו שאדם היה עונה.</p>
+        <p>הזמנתי חולצה בM והגיע L ואני צריכה את זה לאירוע ביום שישי!!!</p>
+        <div class="weights"><span style="font-weight:400">רגיל 400</span><span style="font-weight:500">בינוני 500</span><span style="font-weight:700">מודגש 700</span></div>
+      </div>
+      <div class="type-card" lang="en">
+        <p class="big">Every customer answered. Like a person would.</p>
+        <p>hi i ordered the black one but i want to change adress is it posible</p>
+        <div class="weights"><span style="font-weight:400">Regular 400</span><span style="font-weight:500">Medium 500</span><span style="font-weight:700">Bold 700</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-chat">
+    <h2 id="h-chat">How it feels in a conversation</h2>
+    <p class="lead">An example with made-up order data, to show the colors and font together.</p>
+    <div class="chat" lang="he" dir="rtl">
+      <p class="meta">נועה כהן · אימייל · לפני 2 דקות</p>
+      <p class="bubble customer">היי הזמנתי לפני שבוע ועדיין כלום מה קורה</p>
+      <p class="bubble kesher">היי נועה! בדקתי את הזמנה #1042 שלך. היא יצאה ביום שלישי עם דואר ישראל ונמצאת עכשיו במרכז המיון בחולון. הנה קישור למעקב: il.post/RR123456789IL. אם יש עוד משהו, אני כאן.</p>
+      <div class="used"><span>find_orders</span><span>get_tracking_status</span><span class="badge" style="color:#3B5BA9;background:#E8EEFA"><i style="background:#3B5BA9"></i>טיוטה לאישור</span></div>
+    </div>
+  </section>
+
+  <section class="pick" aria-labelledby="h-pick">
+    <strong id="h-pick">What I need from you</strong>
+    <p>Reply with the letter of your favorite logo: A, B or C. You can also ask for changes, like a different teal, a warmer accent, or combining two ideas. After you pick, I'll make the final app icon (1200×1200), the favicon, and the wordmark files.</p>
+  </section>
+</div>
