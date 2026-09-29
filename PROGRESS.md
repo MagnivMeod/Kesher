@@ -1,7 +1,7 @@
 # Kesher: Progress
 
 ## Status
-**Current stage:** Phase 1, step 1 (brand) is **done**. Next is step 2: accounts and the app skeleton (the owner needs their PC).
+**Current stage:** Phase 1, AI brain (built first, by the owner's choice). The brain, safety layer, tests and the 59-message evaluation are built. **Waiting for:** the owner to add `ANTHROPIC_API_KEY` to the cloud environment, then run `cd core && npm install && npm run eval` and review `eval/reports/latest.html` together.
 
 ## Done
 - Read the brief and asked questions. The brief is saved in `docs/BRIEF.md`.
@@ -14,8 +14,18 @@
   - Contrast check: `node design/scripts/check-contrast.mjs` (all 20 pairs pass WCAG AA)
   - Preview page `design/preview.html`, built by `design/scripts/build-preview.mjs` and published as a private artifact for review
 
+- Step "Brain first" (in progress):
+  - `core/`: the AI brain, independent of Shopify and email. Store data comes through a `StoreData` plug (`core/src/store/StoreData.ts`); today a fake store "Nola" (`core/src/store/fake/fixtures.ts`) with 18 realistic Israeli orders and tracking data.
+  - Safety in code (`core/src/safety/access.ts`): orders are only visible when the channel-verified sender email/phone matches, or order number + last name / last 4 phone digits match. Lockout after 3 failed attempts. Missing and unverified orders look identical.
+  - Agent loop (`core/src/agent/runAgent.ts`): manual tool loop with Claude; every tool call logged; finishes with reply / escalate / no reply; safety nets escalate on refusal, too many steps, or no decision. Server-side fallback (`fallbacks: "default"`) is on.
+  - Instructions (`core/src/agent/prompt.ts`) and tools (`core/src/agent/tools.ts`).
+  - 36 automated tests (`cd core && npm test`), all passing.
+  - 59 messy test messages (`eval/messages.jsonl`) and the evaluation script (`core/scripts/eval.ts`) that writes an HTML report. A dry run works end to end.
+  - `SETUP.md` written (beginner guide).
+
 ## Next
-- Phase 1, step 2: accounts (Shopify Partner, development store, Railway) and the app skeleton.
+- Owner adds the API key → run the evaluation → review the report together → improve the instructions where replies aren't good enough.
+- Then: accounts (Shopify Dev Dashboard, development store, Railway), the Shopify app skeleton, and a Shopify version of the `StoreData` plug.
 
 ## Decisions log
 | Date | Decision | Why |
@@ -29,3 +39,6 @@
 | 2026-09-29 | Font: Rubik (Google Fonts) | Hebrew and Latin designed together, warm rounded shapes, full weight range. Inside Shopify admin, Polaris keeps Shopify's own font; Rubik is used for the logo, emails, landing page and our own components |
 | 2026-09-29 | Palette: deep teal #0F4C5C primary, apricot #F0A45D accent, teal-tinted neutrals, 4 status colors | Calm and trustworthy, with one warm touch; all text pairs pass WCAG AA |
 | 2026-09-29 | Logo: option A "linked bubbles", teal + apricot | Clearest meaning, best at small sizes, no Latin letter so it works in Hebrew and English |
+| 2026-09-29 | Build the AI brain first, on a fake store, before any Shopify setup | Owner wants to see a working product before investing further; the brain is the riskiest and most valuable part |
+| 2026-09-29 | Brain lives in `core/` as its own package, with a `StoreData` plug and `TrackingProvider` plug | Same brain works with fake data, Shopify, and later other platforms and channels |
+| 2026-09-29 | Identity comes from the channel (email envelope / WhatsApp number), never from message text | Anyone can type any email into a message |

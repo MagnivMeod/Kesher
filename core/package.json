@@ -1,0 +1,24 @@
+{
+  "name": "@kesher/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Kesher's AI brain: understands customer messages, looks up store data safely, and writes replies. Knows nothing about Shopify or email.",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "eval": "tsx scripts/eval.ts",
+    "try": "tsx scripts/try.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.129.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.2"
+  }
+}

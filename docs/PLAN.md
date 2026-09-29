@@ -137,6 +137,13 @@ There are **no write permissions in phase 1**, so Kesher cannot change anything 
 
 ```
 Kesher/
+├── core/                     The AI brain (independent of Shopify and email)
+│   ├── src/agent/            Instructions, tools, and the agent loop
+│   ├── src/safety/           Customer verification and access rules
+│   ├── src/store/            The StoreData plug (+ a fake test store)
+│   ├── src/tracking/         The TrackingProvider plug
+│   ├── tests/                Automated tests
+│   └── scripts/              eval.ts (test report), try.ts (one message)
 ├── app/                      The Shopify app (dashboard + server)
 │   ├── routes/               Each screen and each webhook
 │   │   ├── app._index.tsx        Home
@@ -175,6 +182,9 @@ Kesher/
 ---
 
 ## 8. Step-by-step plan for Phase 1
+
+> **Changed on 2026-09-29, at the owner's request:** the AI brain (step 4) is built first, on a fake store, before the accounts and the Shopify app (steps 2–3). The brain lives in its own folder, `core/`, so it can be tested without Shopify.
+
 
 Each step ends with **"how to test it"**, and I stop and wait for your OK.
 
