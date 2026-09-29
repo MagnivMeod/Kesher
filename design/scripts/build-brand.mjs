@@ -117,7 +117,14 @@ write("app-icon.svg", icon(false));
 write("favicon.svg", icon(true));
 
 // Wordmarks
-for (const [lang, font, text, rtl] of [["en", latin, "Kesher", false], ["he", hebrew, "קשר", true]]) {
+// opentype.js places glyphs left to right in the order given and does not apply
+// right-to-left ordering, so Hebrew must be passed in visual order (reversed).
+const visualOrder = (text) => [...text].reverse().join("");
+const hebrewVisual = visualOrder("קשר");
+const placed = hebrew.stringToGlyphs(hebrewVisual).map((g) => String.fromCodePoint(g.unicode)).join("");
+if (placed !== "רשק") throw new Error(`Hebrew wordmark letters are in the wrong order: ${placed}`);
+
+for (const [lang, font, text, rtl] of [["en", latin, "Kesher", false], ["he", hebrew, hebrewVisual, true]]) {
   const color = wordmark({ font, text, rtl, markA: c.primary, markB: c.accent, textColor: c.ink, id: `k${lang}` });
   write(`kesher-wordmark-${lang}.svg`, svgDoc(`0 0 ${color.width} ${color.height}`, color.body, lang === "he" ? "קשר" : "Kesher"));
   const mono = wordmark({ font, text, rtl, markA: "currentColor", markB: "currentColor", textColor: "currentColor", id: `m${lang}` });
