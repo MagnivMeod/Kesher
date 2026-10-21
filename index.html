@@ -54,11 +54,16 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
 
 /* HUD */
 .hud{position:fixed;z-index:10;pointer-events:none}
-#topbar{top:calc(env(safe-area-inset-top,0px) + 12px);left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+#topbar{z-index:11;top:calc(env(safe-area-inset-top,0px) + 12px);left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .pill{pointer-events:auto;background:rgba(20,15,20,.72);border:1px solid var(--line);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
 .dot.on{background:#7ccf8a;box-shadow:0 0 8px #7ccf8a}
 #hint{font-size:13px;color:var(--muted)}
+.netwrap{position:relative;pointer-events:auto}
+#netPill{color:var(--wall);font-family:var(--body);cursor:pointer}
+#netInfo{position:absolute;top:calc(100% + 6px);right:0;z-index:3;width:min(280px,80vw);background:rgba(20,15,20,.95);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.6;color:var(--wall)}
+#netInfo .row{display:flex;justify-content:space-between;gap:8px}
+#netInfo .ok{color:#7ccf8a} #netInfo .bad{color:var(--rose)} #netInfo .wait{color:var(--muted)}
 #joy{left:calc(max(16px,env(safe-area-inset-left,0px)) + 8px);bottom:calc(env(safe-area-inset-bottom,0px) + 24px);width:120px;height:120px;border-radius:50%;border:1.5px solid var(--line);background:rgba(20,15,20,.35)}
 #knob{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:rgba(214,164,108,.75)}
 #heartBtn{pointer-events:auto;right:calc(max(16px,env(safe-area-inset-right,0px)) + 8px);bottom:calc(env(safe-area-inset-bottom,0px) + 40px);width:68px;height:68px;border-radius:50%;border:1.5px solid var(--line);background:rgba(42,26,36,.85);color:var(--rose);font-size:30px;cursor:pointer}
@@ -146,7 +151,7 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
 <div id="loading" hidden>פותחים את הדלתות…</div>
 
 <div class="hud" id="topbar" hidden>
-  <div class="pill"><span class="dot" id="dot"></span><span id="who">לבד כרגע</span></div>
+  <div class="netwrap"><button class="pill" id="netPill" type="button" aria-expanded="false"><span class="dot" id="dot"></span><span id="who">לבד כרגע</span></button><div id="netInfo" hidden></div></div>
   <div class="pill" id="hint">ג׳ויסטיק משמאל · גוררים כדי להסתובב</div>
 </div>
 <div class="hud" id="together" style="opacity:0">ביחד ♥</div>
@@ -158,7 +163,7 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
 <div class="hud" id="plaque" hidden><div><div class="t" id="plT"></div><div class="m" id="plM"></div></div><button type="button" id="zoomBtn">הגדלה</button></div>
 <div id="viewer" hidden><img id="vImg" alt=""><div class="cap" id="vCap"></div><button class="btn" type="button" id="vClose">חזרה לאולם</button></div>
 
-<script src="https://cdn.jsdelivr.net/npm/mqtt@5.10.1/dist/mqtt.min.js"></script>
+<script src="vendor-mqtt.min.js"></script>
 <script type="module">
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
@@ -559,7 +564,13 @@ function collide(p){
 }
 
 /* ---------- live sync (public MQTT relay; positions and hearts only) ---------- */
-const BROKERS=["wss://broker.emqx.io:8084/mqtt","wss://broker.hivemq.com:8884/mqtt"];
+const BROKERS=[
+  "wss://mqtt.eclipseprojects.io:443/mqtt",   // standard port: works on networks that block unusual ports
+  "wss://broker.emqx.io:8084/mqtt",
+  "wss://broker.hivemq.com:8884/mqtt",
+  "wss://test.mosquitto.org:8081/mqtt",
+];
+const bstate=[]; let netStart=0;
 const TOPIC="kesher-museum/"+CODE_HASH.slice(0,24)+"/state";
 const MY_ID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
 const clients=[]; const others=new Map();   // id -> {av, tx,tz,ta, h, seq, seen}
@@ -569,15 +580,19 @@ const online=()=>clients.some(c=>c.connected);
 function connectNet(){
   if(window.__BROKERS) BROKERS.splice(0,BROKERS.length,...window.__BROKERS);
   if(!window.mqtt){ updateWho(); return; }
-  for(const url of BROKERS){
+  netStart=performance.now();
+  BROKERS.forEach((url,i)=>{
+    bstate[i]="wait";
     try{
       const c=window.mqtt.connect(url,{ clientId:"km_"+MY_ID+"_"+clients.length, clean:true, connectTimeout:8000, reconnectPeriod:3000, keepalive:30 });
       c.on("connect",()=>{ c.subscribe(TOPIC,{qos:0}); c.subscribe([CHAT_TOPIC,HIST_TOPIC],{qos:1}); updateWho(); sendPresence(true); });
-      c.on("close",updateWho); c.on("offline",updateWho); c.on("error",()=>{});
+      c.on("connect",()=>{ bstate[i]="ok"; updateWho(); });
+      c.on("close",()=>{ if(bstate[i]==="ok") bstate[i]="wait"; else bstate[i]="bad"; updateWho(); }); c.on("offline",updateWho); c.on("error",()=>{ bstate[i]="bad"; updateWho(); });
       c.on("message",(t,buf)=>{ if(t===TOPIC){ try{ onState(JSON.parse(buf.toString())); }catch(e){} } else onChatPacket(t,buf.toString()); });
       clients.push(c);
-    }catch(e){}
-  }
+    }catch(e){ bstate[i]="bad"; }
+  });
+  setInterval(updateWho,2000);
   setInterval(()=>{
     sendPresence(true);
     const now=performance.now();
@@ -602,10 +617,25 @@ function onState(st){
   o.seq=st.seq; o.seen=performance.now(); o.tx=x; o.tz=z; o.ta=a;
   const h=+st.h||0; if(h>o.h) spawnHearts(o.av.root.position,8); o.h=h;
 }
+function renderNet(){
+  const box=$("netInfo"); if(box.hidden) return;
+  box.textContent="";
+  const head=document.createElement("div"); head.style.fontWeight="700"; head.textContent="מצב החיבור"; box.appendChild(head);
+  BROKERS.forEach((u,i)=>{
+    const r=document.createElement("div"); r.className="row";
+    const a=document.createElement("span"); a.textContent="שרת "+(i+1)+" ("+u.replace(/^wss:\/\//,"").replace(/\/mqtt$/,"")+")";
+    const b=document.createElement("span"); const st=bstate[i]||"wait";
+    b.className=st; b.textContent= st==="ok"?"מחובר":st==="bad"?"נכשל":"מנסה…";
+    r.append(a,b); box.appendChild(r);
+  });
+  const n=document.createElement("div"); n.textContent="אנשים נוספים במוזיאון: "+others.size; box.appendChild(n);
+  const lib=document.createElement("div"); lib.textContent=window.mqtt?"ספריית חיבור: נטענה":"ספריית חיבור: לא נטענה"; lib.className=window.mqtt?"ok":"bad"; box.appendChild(lib);
+}
 function updateWho(){
   if(!myAvatar) return;
   $("dot").classList.toggle("on",online());
-  if(!online()){ $("who").textContent="מתחבר…"; return; }
+  renderNet();
+  if(!online()){ $("who").textContent = performance.now()-netStart>12000 ? "אין חיבור לשרת · לחצו לפרטים" : "מתחבר…"; return; }
   if(others.size===0) $("who").textContent=myAvatar.role==="him"?"מחכים לאלמוג":"מחכים ליצחק";
   else { const names=[...new Set([...others.values()].map(o=>o.av.role==="him"?"יצחק":"אלמוג"))]; $("who").textContent=`${names.join(" ו")} כאן איתך ♥`; }
 }
@@ -769,6 +799,7 @@ async function start(role){
   $("vClose").onclick=()=>{ $("viewer").hidden=true; };
   updateWho();
   bindChat();
+  $("netPill").onclick=()=>{ const b=$("netInfo"); b.hidden=!b.hidden; $("netPill").setAttribute("aria-expanded",String(!b.hidden)); renderNet(); };
   renderer.domElement.addEventListener("pointerdown",()=>{ if(!$("compose").hidden){ if(!$("msg").value) closeCompose(); else $("msg").blur(); } });
   connectNet();
   renderer.setAnimationLoop(tick);
