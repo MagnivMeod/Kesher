@@ -59,6 +59,8 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
 .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
 .dot.on{background:#7ccf8a;box-shadow:0 0 8px #7ccf8a}
 #hint{font-size:13px;color:var(--muted)}
+#updBar{z-index:25;pointer-events:auto;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 110px);background:var(--brass);color:#2a1a10;border-radius:999px;padding:6px 6px 6px 14px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.4);white-space:nowrap}
+#updBtn{border:0;border-radius:999px;background:#2a1a10;color:var(--wall);font:700 14px var(--body);padding:8px 14px;cursor:pointer}
 .netwrap{position:relative;pointer-events:auto}
 #netPill{color:var(--wall);font-family:var(--body);cursor:pointer}
 #netInfo{position:absolute;top:calc(100% + 6px);right:0;z-index:3;width:min(280px,80vw);background:rgba(20,15,20,.95);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.6;color:var(--wall)}
@@ -148,6 +150,7 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
   </div>
 </div>
 
+<div class="hud" id="updBar" hidden><span>יש גרסה חדשה של המוזיאון</span><button type="button" id="updBtn">עדכון</button></div>
 <div id="loading" hidden>פותחים את הדלתות…</div>
 
 <div class="hud" id="topbar" hidden>
@@ -169,19 +172,22 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 const CODE_HASH = "2ffc1b394e7e41ab42c6278b438297d262a541fc13fcc3ffede96806021151f6";
 const $ = id => document.getElementById(id);
 /* self-update: compare with version.json on the server and reload when newer */
-const APP_VERSION="6";
+const APP_VERSION="7";
 async function checkUpdate(){
   try{
     const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return;
     const v=String((await r.json()).v||"");
     if(v && v!==APP_VERSION){
+      if(window.__inGame){ $("updBar").hidden=false; $("updBtn").onclick=()=>location.replace(location.pathname+"?v="+v+"&t="+Date.now()); return; }
       const k="museum-reloaded-"+v; let done=null; try{ done=sessionStorage.getItem(k); }catch(e){}
       if(!done){ try{ sessionStorage.setItem(k,"1"); }catch(e){} location.replace(location.pathname+"?v="+v+"&t="+Date.now()); }
     }
   }catch(e){}
 }
 checkUpdate();
-document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible" && !window.__inGame) checkUpdate(); });
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") checkUpdate(); });
+addEventListener("pageshow",checkUpdate);
+setInterval(checkUpdate,120000);
 
 const store = { get(k){ try{return localStorage.getItem(k)}catch(e){return null} }, set(k,v){ try{localStorage.setItem(k,v)}catch(e){} } };
 
@@ -647,7 +653,7 @@ const BROKERS=[
   "wss://broker.hivemq.com:8884/mqtt",
   "wss://test.mosquitto.org:8081/mqtt",
 ];
-const bstate=[], berr=[]; let netStart=0; const VERSION="6";
+const bstate=[], berr=[]; let netStart=0; const VERSION="7";
 const TOPIC="kesher-museum/"+CODE_HASH.slice(0,24)+"/state";
 const MY_ID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
 const clients=[]; const others=new Map();   // id -> {av, tx,tz,ta, h, seq, seen}
