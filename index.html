@@ -169,6 +169,21 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 
 const CODE_HASH = "2ffc1b394e7e41ab42c6278b438297d262a541fc13fcc3ffede96806021151f6";
 const $ = id => document.getElementById(id);
+/* self-update: compare with version.json on the server and reload when newer */
+const APP_VERSION="5";
+async function checkUpdate(){
+  try{
+    const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return;
+    const v=String((await r.json()).v||"");
+    if(v && v!==APP_VERSION){
+      const k="museum-reloaded-"+v; let done=null; try{ done=sessionStorage.getItem(k); }catch(e){}
+      if(!done){ try{ sessionStorage.setItem(k,"1"); }catch(e){} location.replace(location.pathname+"?v="+v+"&t="+Date.now()); }
+    }
+  }catch(e){}
+}
+checkUpdate();
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible" && !window.__inGame) checkUpdate(); });
+
 const store = { get(k){ try{return localStorage.getItem(k)}catch(e){return null} }, set(k,v){ try{localStorage.setItem(k,v)}catch(e){} } };
 
 async function sha(s){
@@ -570,7 +585,7 @@ const BROKERS=[
   "wss://broker.hivemq.com:8884/mqtt",
   "wss://test.mosquitto.org:8081/mqtt",
 ];
-const bstate=[], berr=[]; let netStart=0; const VERSION="4";
+const bstate=[], berr=[]; let netStart=0; const VERSION="5";
 const TOPIC="kesher-museum/"+CODE_HASH.slice(0,24)+"/state";
 const MY_ID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
 const clients=[]; const others=new Map();   // id -> {av, tx,tz,ta, h, seq, seen}
@@ -768,6 +783,7 @@ function isTyping(e){ const t=e.target; return !!(t && t.closest && t.closest("i
 
 /* ---------- start ---------- */
 async function start(role){
+  window.__inGame=true;
   $("picker").hidden=true; $("loading").hidden=false;
   await unlockPhotos();
   try{ await Promise.race([Promise.all([document.fonts.load('900 60px "Frank Ruhl Libre"'),document.fonts.load('700 40px "Frank Ruhl Libre"'),document.fonts.load('400 20px "Assistant"'),document.fonts.load('700 20px "Assistant"')]), new Promise(r=>setTimeout(r,2500))]); }catch(e){}
