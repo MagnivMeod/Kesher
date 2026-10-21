@@ -4,3 +4,4 @@ node_modules/
 !.env.example
 .DS_Store
 eval/reports/report-dry-*
+museum/photos/
