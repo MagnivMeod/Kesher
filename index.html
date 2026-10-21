@@ -119,6 +119,33 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
 }
 @media (prefers-reduced-motion:reduce){#together,#chev{transition:none}}
 
+/* cinema */
+#stage canvas{position:absolute;top:0;left:0;z-index:1}
+#stage .css3d{z-index:0}
+#stage.watch .css3d{z-index:2}
+#cineEl iframe{width:100%;height:100%;border:0}
+.cbtn{pointer-events:auto;font:700 15px var(--body);border:0;border-radius:999px;padding:11px 18px;background:var(--brass);color:#2a1a10;cursor:pointer;white-space:nowrap}
+.cbtn.alt{background:rgba(20,15,20,.85);color:var(--wall);border:1px solid var(--line)}
+.cbtn:focus-visible{outline:2px solid var(--wall);outline-offset:2px}
+#cineHud{left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 36px);display:flex;gap:8px}
+@media (max-width:560px){#cineHud{bottom:calc(env(safe-area-inset-bottom,0px) + 200px)}}
+#watchBar{left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);display:flex;align-items:center;gap:10px;pointer-events:auto;z-index:13}
+#watchTip{white-space:nowrap;font-size:13px;color:var(--muted);background:rgba(20,15,20,.7);padding:6px 10px;border-radius:999px}
+@media (orientation:landscape){#watchTip{display:none}}
+#joinBar,#toast{left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 112px);z-index:24;pointer-events:auto;display:flex;align-items:center;gap:10px;border-radius:999px;padding:6px 6px 6px 14px;font-weight:700;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:calc(100vw - 32px)}
+#joinBar{background:var(--rose);color:#fff}
+#joinBar .cbtn{background:#fff;color:#7a1426;padding:8px 14px}
+#toast{top:calc(env(safe-area-inset-top,0px) + 160px);background:rgba(20,15,20,.92);color:var(--wall);border:1px solid var(--line);padding:10px 16px;text-align:center;line-height:1.4;border-radius:16px;pointer-events:none}
+.card.cine{text-align:right;width:min(520px,100%)}
+.card.cine form{display:flex;flex-direction:column;gap:6px}
+.card.cine label{font-weight:700;font-size:15px}
+.card.cine .row{display:flex;gap:8px}
+.card.cine .row.end{justify-content:flex-start}
+.card.cine input{flex:1;min-width:0;font:600 16px var(--body);padding:12px;border-radius:4px;border:1px solid var(--line);background:var(--ink);color:var(--wall);direction:ltr;text-align:left;-webkit-user-select:text;user-select:text}
+.card.cine input:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.card.cine .note{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+body.watching #chatPanel,body.watching #hint,body.watching #joy,body.watching #heartBtn,body.watching #together{display:none!important}
+@media (max-height:520px){#joinBar{top:calc(env(safe-area-inset-top,0px) + 60px)} #toast{top:calc(env(safe-area-inset-top,0px) + 104px)}}
 </style>
 
 </head>
@@ -164,15 +191,38 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
 <div class="hud" id="chatPanel" hidden><button id="chatHead" type="button" aria-label="הצגה או הסתרה של היסטוריית הצ׳אט"><span class="ttl">צ׳אט</span><span id="unread" hidden></span><span id="chev" aria-hidden="true">▾</span></button><div id="chatLog" role="log" aria-live="polite"></div></div>
 <form class="hud" id="compose" hidden autocomplete="off"><button type="button" id="composeX" aria-label="סגירה">✕</button><input id="msg" name="msg" maxlength="200" placeholder="כתבו הודעה…" enterkeyhint="send" aria-label="הודעה"><button type="submit" class="btn">שליחה</button></form>
 <div class="hud" id="plaque" hidden><div><div class="t" id="plT"></div><div class="m" id="plM"></div></div><button type="button" id="zoomBtn">הגדלה</button></div>
+<div class="hud" id="cineHud" hidden><button type="button" id="cinePick" class="cbtn">🎬 בחירת סרטון</button><button type="button" id="cineWatch" class="cbtn alt" hidden>צפייה במסך</button></div>
+<div class="hud" id="watchBar" hidden><button type="button" id="watchExit" class="cbtn alt">יציאה</button><span id="watchTip">סובבו למסך גדול</span><button type="button" id="watchPick" class="cbtn">החלפה</button></div>
+<div class="hud" id="joinBar" hidden><span id="joinTxt"></span><button type="button" id="joinBtn" class="cbtn">צפייה</button></div>
+<div class="hud" id="toast" hidden role="status"></div>
+<div class="veil" id="cinePanel" hidden>
+  <div class="card cine">
+    <div class="eyebrow">אולם הקולנוע</div>
+    <h1>מה רואים?</h1>
+    <form id="ytForm" autocomplete="off">
+      <label for="ytIn">יוטיוב: הדביקו קישור, או כתבו מה לחפש</label>
+      <div class="row"><input id="ytIn" name="ytIn" type="text" placeholder="https://youtu.be/… או: שיר אהבה" enterkeyhint="go"><button class="btn" type="submit">הפעלה</button></div>
+      <p class="note" id="ytNote">סרטון מיוטיוב מתנגן אצל שניכם יחד, עם סאונד. עצירה, המשך ודילוג מתעדכנים אצל שניכם.</p>
+    </form>
+    <form id="webForm" autocomplete="off">
+      <label for="webIn">אתר או קובץ וידאו</label>
+      <div class="row"><input id="webIn" name="webIn" type="url" inputmode="url" placeholder="https://…" enterkeyhint="go"><button class="btn" type="submit">פתיחה</button></div>
+      <p class="note" id="webNote">קובץ וידאו (mp4) מסונכרן כמו יוטיוב. אתר רגיל נפתח אצל שניכם, אבל כל אחד שולט בו לבד. נטפליקס, דיסני+ ודומיהם חוסמים הצגה בתוך אתר אחר.</p>
+    </form>
+    <div class="row end"><button type="button" class="cbtn alt" id="cineStop" hidden>כיבוי המסך</button><button type="button" class="cbtn" id="cineClose">סגירה</button></div>
+  </div>
+</div>
 <div id="viewer" hidden><img id="vImg" alt=""><div class="cap" id="vCap"></div><button class="btn" type="button" id="vClose">חזרה לאולם</button></div>
 
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import * as THREE from "three";
+import { CSS3DRenderer, CSS3DObject } from "three/addons/renderers/CSS3DRenderer.js";
 
 const CODE_HASH = "2ffc1b394e7e41ab42c6278b438297d262a541fc13fcc3ffede96806021151f6";
 const $ = id => document.getElementById(id);
 /* self-update: compare with version.json on the server and reload when newer */
-const APP_VERSION="7";
+const APP_VERSION="8";
 async function checkUpdate(){
   try{
     const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return;
@@ -280,7 +330,7 @@ function buildRoom(){
   // walls
   const wallMat = new THREE.MeshStandardMaterial({ color:0xe9dfd2, roughness:.92 });
   const mk = (w,h,x,y,z,ry)=>{ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h), wallMat); m.position.set(x,y,z); m.rotation.y=ry; scene.add(m); };
-  mk(W*2,H,0,H/2,-D,0); mk(W*2,H,0,H/2,D,Math.PI); mk(D*2,H,-W,H/2,0,Math.PI/2); mk(D*2,H,W,H/2,0,-Math.PI/2);
+  mk(W*2,H,0,H/2,-D,0); mk(W-1.3,H,-(W+1.3)/2,H/2,D,Math.PI); mk(W-1.3,H,(W+1.3)/2,H/2,D,Math.PI); mk(2.6,H-3.1,0,3.1+(H-3.1)/2,D,Math.PI); mk(D*2,H,-W,H/2,0,Math.PI/2); mk(D*2,H,W,H/2,0,-Math.PI/2);
   // wainscot + molding
   const wain = new THREE.MeshStandardMaterial({ color:0x3b2430, roughness:.7 });
   const mold = new THREE.MeshStandardMaterial({ color:0xd6a46c, roughness:.35, metalness:.6 });
@@ -289,7 +339,7 @@ function buildRoom(){
     const r=new THREE.Mesh(new THREE.BoxGeometry(len,.04,.09),mold); r.position.set(x,.92,z); r.rotation.y=ry; scene.add(r);
     const c=new THREE.Mesh(new THREE.BoxGeometry(len,.18,.16),new THREE.MeshStandardMaterial({color:0xf3ece2,roughness:.8})); c.position.set(x,H-.09,z); c.rotation.y=ry; scene.add(c);
   };
-  band(W*2,0,-D+.03,0); band(W*2,0,D-.03,0); band(D*2,-W+.03,0,Math.PI/2); band(D*2,W-.03,0,Math.PI/2);
+  band(W*2,0,-D+.03,0); band(W-1.3,-(W+1.3)/2,D-.03,0); band(W-1.3,(W+1.3)/2,D-.03,0); band(D*2,-W+.03,0,Math.PI/2); band(D*2,W-.03,0,Math.PI/2);
   // pilasters
   const pil = new THREE.MeshStandardMaterial({ color:0xf3ece2, roughness:.85 });
   for(const x of [-W+.25,W-.25]) for(const z of [-D+.25,D-.25]){ const p=new THREE.Mesh(new THREE.BoxGeometry(.5,H,.5),pil); p.position.set(x,H/2,z); scene.add(p); }
@@ -576,11 +626,12 @@ function bindInput(el){
 
 function collide(p){
   const m=.35;
-  p.x=Math.max(-W+m+.2,Math.min(W-m-.2,p.x)); p.z=Math.max(-D+m+.2,Math.min(D-m-.2,p.z));
+  keepInside(p);
   for(const o of obstacles){
     if(o.type==="c"){ const dx=p.x-o.x, dz=p.z-o.z, d=Math.hypot(dx,dz), r=o.r+m; if(d<r && d>1e-4){ p.x=o.x+dx/d*r; p.z=o.z+dz/d*r; } }
     else { const dx=p.x-o.x, dz=p.z-o.z, px=o.hx+m-Math.abs(dx), pz=o.hz+m-Math.abs(dz); if(px>0&&pz>0){ if(px<pz) p.x+=Math.sign(dx)*px; else p.z+=Math.sign(dz)*pz; } }
   }
+  keepInside(p);
 }
 
 /* ---------- tiny MQTT 3.1.1 client over WebSocket (QoS 0) ---------- */
@@ -653,7 +704,7 @@ const BROKERS=[
   "wss://broker.hivemq.com:8884/mqtt",
   "wss://test.mosquitto.org:8081/mqtt",
 ];
-const bstate=[], berr=[]; let netStart=0; const VERSION="7";
+const bstate=[], berr=[]; let netStart=0; const VERSION="8";
 const TOPIC="kesher-museum/"+CODE_HASH.slice(0,24)+"/state";
 const MY_ID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
 const clients=[]; const others=new Map();   // id -> {av, tx,tz,ta, h, seq, seen}
@@ -667,10 +718,10 @@ function connectNet(){
     bstate[i]="wait";
     try{
       const c=miniMqtt(url,"km_"+MY_ID+"_"+i);
-      c.on("connect",()=>{ c.subscribe([TOPIC,CHAT_TOPIC,HIST_TOPIC]); updateWho(); sendPresence(true); });
+      c.on("connect",()=>{ c.subscribe([TOPIC,CHAT_TOPIC,HIST_TOPIC,CINE_TOPIC]); updateWho(); sendPresence(true); });
       c.on("connect",()=>{ bstate[i]="ok"; updateWho(); });
       c.on("close",()=>{ if(bstate[i]==="ok") bstate[i]="wait"; else bstate[i]="bad"; updateWho(); }); c.on("offline",updateWho); c.on("error",e=>{ bstate[i]="bad"; berr[i]=String((e&&e.message)||e||"").slice(0,90); updateWho(); });
-      c.on("message",(t,buf)=>{ if(t===TOPIC){ try{ onState(JSON.parse(buf.toString())); }catch(e){} } else onChatPacket(t,buf.toString()); });
+      c.on("message",(t,buf)=>{ if(t===TOPIC){ try{ onState(JSON.parse(buf.toString())); }catch(e){} } else if(t===CINE_TOPIC) onCinePacket(buf.toString()); else onChatPacket(t,buf.toString()); });
       clients.push(c);
     }catch(e){ bstate[i]="bad"; berr[i]=String((e&&e.message)||e).slice(0,90); }
   });
@@ -847,6 +898,274 @@ function bindChat(){
 }
 function isTyping(e){ const t=e.target; return !!(t && t.closest && t.closest("input,textarea")); }
 
+/* ---------- cinema hall: room, shared screen, synced playback ---------- */
+const DOOR=1.3, DOOR_H=3.1;                 // doorway in the museum's front wall
+const CX=7, CL=14, CH=5.6;                  // cinema half-width, length, height
+const CZ0=D, CZ1=D+CL;                      // cinema spans z from D to D+CL
+const SW=8.4, SH=SW*9/16, SY=2.95, SZ=CZ1-.14;
+const WALK=[
+  { x0:-W+.55, x1:W-.55, z0:-D+.55, z1:D-.55 },            // museum
+  { x0:-DOOR+.45, x1:DOOR-.45, z0:D-1.2, z1:D+1.2 },        // doorway
+  { x0:-CX+.55, x1:CX-.55, z0:CZ0+.55, z1:CZ1-1.4 },        // cinema
+];
+const inCinema=()=>me.z>D+.3;
+let cineHost=null, cssRenderer=null, cssScene=null, cssObj=null, screenMesh=null, screenIdleMat=null, screenHoleMat=null, screenGlow=null;
+
+function buildCinema(){
+  const darkWall=new THREE.MeshStandardMaterial({ color:0x2b1822, roughness:.95 });
+  const trim=new THREE.MeshStandardMaterial({ color:0xd6a46c, roughness:.35, metalness:.6 });
+  const plane=(w,h,mat,x,y,z,ry,rx=0)=>{ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat); m.position.set(x,y,z); m.rotation.set(rx,ry,0); scene.add(m); return m; };
+
+  // carpet
+  const carpet=canvasTex(512,512,(g,w,h)=>{
+    g.fillStyle="#1d1630"; g.fillRect(0,0,w,h);
+    for(let y=0;y<h;y+=64) for(let x=0;x<w;x+=64){ g.fillStyle=((x+y)/64)%2?"#2a1f45":"#231a3a"; g.beginPath(); g.arc(x+32,y+32,14,0,7); g.fill(); g.fillStyle="#c9925a"; g.fillRect(x+30,y+30,4,4); }
+  });
+  carpet.wrapS=carpet.wrapT=THREE.RepeatWrapping; carpet.repeat.set(4,8);
+  plane(CX*2,CL,new THREE.MeshStandardMaterial({ map:carpet, roughness:1 }),0,0,CZ0+CL/2,0,-Math.PI/2);
+  plane(CX*2,CL,new THREE.MeshStandardMaterial({ color:0x120c12, roughness:1 }),0,CH,CZ0+CL/2,0,Math.PI/2);
+  plane(CL,CH,darkWall,-CX,CH/2,CZ0+CL/2,Math.PI/2);
+  plane(CL,CH,darkWall, CX,CH/2,CZ0+CL/2,-Math.PI/2);
+  plane(CX*2,CH,darkWall,0,CH/2,CZ1,Math.PI);
+  // back wall of the cinema (the museum's front wall seen from inside), with the doorway
+  const sideW=CX-DOOR;
+  plane(sideW,CH,darkWall,-(CX+DOOR)/2,CH/2,CZ0+.01,0);
+  plane(sideW,CH,darkWall, (CX+DOOR)/2,CH/2,CZ0+.01,0);
+  plane(DOOR*2,CH-DOOR_H,darkWall,0,DOOR_H+(CH-DOOR_H)/2,CZ0+.01,0);
+  // door frame (both sides)
+  for(const s of [-1,1]){ const p=new THREE.Mesh(new THREE.BoxGeometry(.14,DOOR_H,.5),trim); p.position.set(s*(DOOR+.07),DOOR_H/2,D); scene.add(p); }
+  const top=new THREE.Mesh(new THREE.BoxGeometry(DOOR*2+.28,.14,.5),trim); top.position.set(0,DOOR_H+.07,D); scene.add(top);
+  // sign above the doorway, museum side
+  const sign=canvasTex(1024,200,(g,w,h)=>{ g.fillStyle="#2a1a24"; roundRect(g,8,8,w-16,h-16,30); g.fill(); g.strokeStyle="#d6a46c"; g.lineWidth=6; roundRect(g,18,18,w-36,h-36,24); g.stroke();
+    g.direction="rtl"; g.textAlign="center"; g.fillStyle="#efe6da"; g.font='900 92px "Frank Ruhl Libre", serif'; g.fillText("אולם הקולנוע",w/2,128); });
+  plane(3.4,.66,new THREE.MeshBasicMaterial({ map:sign }),0,DOOR_H+.75,D-.02,Math.PI);
+
+  // screen: idle texture until something is picked, then a see-through hole onto the video layer
+  const idle=canvasTex(1280,720,(g,w,h)=>{
+    const gr=g.createLinearGradient(0,0,0,h); gr.addColorStop(0,"#1b1730"); gr.addColorStop(1,"#0d0b16"); g.fillStyle=gr; g.fillRect(0,0,w,h);
+    g.direction="rtl"; g.textAlign="center"; g.fillStyle="#efe6da"; g.font='900 110px "Frank Ruhl Libre", serif'; g.fillText("קולנוע שלנו",w/2,320);
+    g.fillStyle="#d6a46c"; g.font='600 48px "Assistant", sans-serif'; g.fillText("קרבו למסך ובחרו סרטון מיוטיוב",w/2,430);
+  });
+  screenIdleMat=new THREE.MeshBasicMaterial({ map:idle, fog:false });
+  screenHoleMat=new THREE.MeshBasicMaterial({ color:0x000000, opacity:0, transparent:false, blending:THREE.NoBlending, fog:false });
+  screenMesh=new THREE.Mesh(new THREE.PlaneGeometry(SW,SH),screenIdleMat); screenMesh.position.set(0,SY,SZ); screenMesh.rotation.y=Math.PI; scene.add(screenMesh);
+  const frame=new THREE.Mesh(new THREE.BoxGeometry(SW+.3,SH+.3,.08),new THREE.MeshStandardMaterial({ color:0x050405, roughness:.6 })); frame.position.set(0,SY,SZ+.06); scene.add(frame);
+  // curtains + valance
+  const velvet=new THREE.MeshStandardMaterial({ color:0x7a1426, roughness:.85 });
+  for(const s of [-1,1]){
+    for(let k=0;k<5;k++){ const c=new THREE.Mesh(new THREE.CylinderGeometry(.16,.16,CH-.2,10),velvet); c.position.set(s*(SW/2+.35+k*.26),(CH-.2)/2,SZ-.25+k*.02); scene.add(c); }
+  }
+  const val=new THREE.Mesh(new THREE.BoxGeometry(SW+3.2,.55,.3),velvet); val.position.set(0,CH-.35,SZ-.3); scene.add(val);
+  const valT=new THREE.Mesh(new THREE.BoxGeometry(SW+3.2,.05,.32),trim); valT.position.set(0,CH-.62,SZ-.3); scene.add(valT);
+  // stage lip
+  const stage=new THREE.Mesh(new THREE.BoxGeometry(CX*2,.3,1.1),new THREE.MeshStandardMaterial({ color:0x1a1018, roughness:.7 })); stage.position.set(0,.15,CZ1-.55); scene.add(stage);
+
+  // seats: three rows, centre aisle
+  const seatMat=new THREE.MeshStandardMaterial({ color:0x8a1a2e, roughness:.8 });
+  const armMat=new THREE.MeshStandardMaterial({ color:0x140d12, roughness:.5, metalness:.3 });
+  for(const rz of [CZ0+5.8, CZ0+7.8, CZ0+9.8]){
+    for(const side of [-1,1]){
+      for(let k=0;k<4;k++){
+        const x=side*(1.25+k*.85);
+        const base=new THREE.Mesh(new THREE.BoxGeometry(.7,.42,.62),seatMat); base.position.set(x,.32,rz); scene.add(base);
+        const back=new THREE.Mesh(new THREE.BoxGeometry(.7,.75,.14),seatMat); back.position.set(x,.8,rz-.3); back.rotation.x=-.12; scene.add(back);
+        const arm=new THREE.Mesh(new THREE.BoxGeometry(.08,.5,.6),armMat); arm.position.set(x+.39,.4,rz); scene.add(arm);
+      }
+      obstacles.push({ type:"b", x:side*(1.25+1.5*.85), z:rz-.05, hx:1.75, hz:.42 });
+    }
+  }
+  // sconces + low warm light, a cool glow from the screen when it is on
+  for(const s of [-1,1]) for(const z of [CZ0+3,CZ0+8]){
+    const sc=new THREE.Mesh(new THREE.BoxGeometry(.08,.35,.22),new THREE.MeshBasicMaterial({ color:0xffcf9a })); sc.position.set(s*(CX-.05),2.6,z); scene.add(sc);
+  }
+  const warm=new THREE.PointLight(0xffb27a,5,12,1.5); warm.position.set(0,CH-.6,CZ0+5); scene.add(warm);
+  screenGlow=new THREE.PointLight(0x9fb4ff,0,14,1.4); screenGlow.position.set(0,SY,SZ-3); scene.add(screenGlow);
+
+  // video layer (DOM, positioned in 3D behind the WebGL canvas)
+  cssScene=new THREE.Scene();
+  cssRenderer=new CSS3DRenderer();
+  const el=cssRenderer.domElement; el.className="css3d"; el.dir="ltr"; el.style.direction="ltr"; el.style.position="absolute"; el.style.inset="0"; el.style.pointerEvents="none";
+  $("stage").insertBefore(el, $("stage").firstChild);
+  const host=document.createElement("div"); cineHost=host; host.id="cineEl"; host.style.width="1280px"; host.style.height="720px"; host.style.background="#000"; host.style.pointerEvents="auto";
+  cssObj=new CSS3DObject(host); cssObj.position.set(0,SY,SZ); cssObj.rotation.y=Math.PI; cssObj.scale.setScalar(SW/1280); cssObj.visible=false;
+  cssScene.add(cssObj);
+}
+
+/* walkable area: keep the player inside the nearest room rectangle */
+function keepInside(p){
+  let best=null, bd=1e9;
+  for(const r of WALK){
+    const x=Math.max(r.x0,Math.min(r.x1,p.x)), z=Math.max(r.z0,Math.min(r.z1,p.z));
+    const d=(x-p.x)**2+(z-p.z)**2; if(d<bd){ bd=d; best=[x,z]; }
+  }
+  p.x=best[0]; p.z=best[1];
+}
+
+/* ---- playback state shared by both phones ---- */
+const CINE_TOPIC=TOPIC.replace(/state$/,"cine");
+let cine={ kind:null, src:"", playing:false, pos:0, at:0, by:"", from:"", seq:0 };
+let yt=null, ytReady=null, video=null, webFrame=null, suppressUntil=0, watching=false, lastBroadcast={pos:0,at:0,playing:false};
+
+function parseYouTube(s){
+  s=String(s||"").trim();
+  if(/^[\w-]{11}$/.test(s)) return s;
+  try{
+    const u=new URL(s.startsWith("http")?s:"https://"+s);
+    const h=u.hostname.replace(/^www\.|^m\./,"");
+    if(h==="youtu.be") return (u.pathname.slice(1).match(/^[\w-]{11}/)||[])[0]||null;
+    if(h.endsWith("youtube.com")||h.endsWith("youtube-nocookie.com")){
+      if(u.searchParams.get("v")) return (u.searchParams.get("v").match(/^[\w-]{11}/)||[])[0]||null;
+      const m=u.pathname.match(/\/(embed|shorts|live|v)\/([\w-]{11})/); if(m) return m[2];
+    }
+  }catch(e){}
+  return null;
+}
+function loadYTApi(){
+  if(ytReady) return ytReady;
+  ytReady=new Promise(res=>{
+    if(window.YT && window.YT.Player) return res();
+    window.onYouTubeIframeAPIReady=()=>res();
+    const s=document.createElement("script"); s.src="https://www.youtube.com/iframe_api"; s.async=true; document.head.appendChild(s);
+  });
+  return ytReady;
+}
+function clearScreen(){
+  cineHost.textContent=""; yt=null; video=null; webFrame=null;
+  cssObj.visible=false; screenMesh.material=screenIdleMat; screenGlow.intensity=0;
+}
+async function showMedia(kind,src){
+  clearScreen();
+  if(!kind) return;
+  const host=cineHost; cssObj.visible=true; screenMesh.material=screenHoleMat; screenGlow.intensity=2.2;
+  if(camera) cssRenderer.render(cssScene,camera);
+  if(kind==="yt"){
+    const holder=document.createElement("div"); holder.id="ytHolder"; host.appendChild(holder);
+    await loadYTApi();
+    await new Promise(res=>{
+      yt=new YT.Player(holder,{ width:"1280", height:"720", videoId:src,
+        playerVars:{ playsinline:1, rel:0, modestbranding:1, origin:location.origin },
+        events:{ onReady:()=>res(), onStateChange:onYTState, onError:e=>{ toast(e.data===101||e.data===150?"הסרטון הזה לא מאפשר הצגה מחוץ ליוטיוב. נסו סרטון אחר.":"יוטיוב לא הצליח לטעון את הסרטון."); res(); } } });
+    });
+  } else if(kind==="video"){
+    video=document.createElement("video"); video.src=src; video.playsInline=true; video.setAttribute("playsinline",""); video.controls=true; video.preload="auto";
+    video.style.width="100%"; video.style.height="100%"; video.style.background="#000";
+    for(const ev of ["play","pause","seeked"]) video.addEventListener(ev,()=>{ if(performance.now()<suppressUntil) return; broadcastFromPlayer(); });
+    video.addEventListener("error",()=>toast("לא הצלחתי לטעון את קובץ הווידאו."));
+    host.appendChild(video);
+  } else if(kind==="web"){
+    webFrame=document.createElement("iframe"); webFrame.src=src; webFrame.allow="autoplay; fullscreen; encrypted-media; picture-in-picture";
+    webFrame.referrerPolicy="no-referrer-when-downgrade"; webFrame.style.cssText="width:100%;height:100%;border:0;background:#fff";
+    host.appendChild(webFrame);
+  }
+}
+const curTime=()=> yt&&yt.getCurrentTime ? (yt.getCurrentTime()||0) : video ? video.currentTime : 0;
+const isPlaying=()=> yt&&yt.getPlayerState ? yt.getPlayerState()===1 : video ? !video.paused : false;
+function onYTState(e){
+  if(performance.now()<suppressUntil) return;
+  if(e.data===1||e.data===2||e.data===0) broadcastFromPlayer();
+}
+function broadcastFromPlayer(){
+  if(!cine.kind || cine.kind==="web") return;
+  sendCine({ ...cine, playing:isPlaying(), pos:curTime() });
+}
+async function sendCine(st){
+  cine={ ...st, at:Date.now(), by:MY_ID, from:myAvatar.role, seq:Date.now() };
+  lastBroadcast={ pos:cine.pos, at:performance.now(), playing:cine.playing };
+  try{ const msg=await seal(cine); for(const c of clients) if(c.connected) c.publish(CINE_TOPIC,msg,{retain:true}); }catch(e){}
+}
+async function onCinePacket(str){
+  let st; try{ st=await open_(str); }catch(e){ return; }
+  if(!st || st.by===MY_ID || !(st.seq>cine.seq)) return;
+  if(st.kind && !["yt","video","web"].includes(st.kind)) return;
+  if(st.kind==="yt" && !/^[\w-]{11}$/.test(st.src)) return;
+  if((st.kind==="video"||st.kind==="web") && !/^https:\/\//.test(st.src)) return;
+  const changed = st.kind!==cine.kind || st.src!==cine.src;
+  cine=st; suppressUntil=performance.now()+2500;
+  if(changed){ await showMedia(st.kind,st.src); if(st.kind) toast(NAME[st.from]+" בחר/ה משהו במסך הקולנוע 🎬"); }
+  applyCine();
+  renderCineHud();
+}
+function applyCine(){
+  if(!cine.kind || cine.kind==="web") return;
+  const stale = Date.now()-cine.at > 6*3600e3;
+  const target = cine.pos + (cine.playing && !stale ? (Date.now()-cine.at)/1000 : 0);
+  suppressUntil=performance.now()+2500;
+  try{
+    if(Math.abs(curTime()-target)>1.5){ if(yt) yt.seekTo(target,true); else if(video) video.currentTime=target; }
+    if(cine.playing && !stale){ if(yt) yt.playVideo(); else if(video) video.play().catch(()=>{}); }
+    else { if(yt) yt.pauseVideo(); else if(video) video.pause(); }
+  }catch(e){}
+  if(cine.playing && !stale) setTimeout(()=>{ if(cine.playing && !isPlaying()){ $("joinBar").hidden=false; $("joinTxt").textContent=NAME[cine.from]+" הפעיל/ה סרטון. לחצו כדי לצפות ולשמוע"; } },1800);
+}
+// notice seeks made with the player's own controls
+setInterval(()=>{
+  if(!cine.kind || cine.kind==="web" || performance.now()<suppressUntil) return;
+  const p=isPlaying(); const expect=lastBroadcast.pos+(lastBroadcast.playing?(performance.now()-lastBroadcast.at)/1000:0);
+  if(p!==lastBroadcast.playing || Math.abs(curTime()-expect)>2.5) broadcastFromPlayer();
+  if(p) $("joinBar").hidden=true;
+},1000);
+
+/* volume follows distance to the screen */
+setInterval(()=>{
+  if(!cine.kind || !myAvatar) return;
+  const d=Math.hypot(me.x,me.z-SZ);
+  const v = watching ? 100 : inCinema() ? Math.round(Math.max(25,Math.min(100,115-d*6))) : 12;
+  try{ if(yt&&yt.setVolume) yt.setVolume(v); if(video) video.volume=v/100; }catch(e){}
+},500);
+
+/* ---- UI ---- */
+function toast(t){ const el=$("toast"); el.textContent=t; el.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>el.hidden=true,4200); }
+function renderCineHud(){
+  const near=inCinema() && !watching;
+  $("cineHud").hidden=!near;
+  $("cineWatch").hidden=!cine.kind;
+  $("watchBar").hidden=!watching;
+  $("stage").classList.toggle("watch",watching);
+  document.body.classList.toggle("watching",watching);
+  if(myAvatar) myAvatar.root.visible=!watching;
+}
+function enterWatch(){
+  watching=true; $("joinBar").hidden=true;
+  me.x=0; me.z=CZ0+4.6; me.a=0;
+  renderCineHud();
+  if(cine.playing && !isPlaying()) applyCine();
+}
+function exitWatch(){ watching=false; camYaw=Math.PI; renderCineHud(); }
+function openCinePanel(){ $("cinePanel").hidden=false; $("cineStop").hidden=!cine.kind; }
+function closeCinePanel(){ $("cinePanel").hidden=true; }
+async function pickMedia(kind,src){
+  closeCinePanel();
+  await showMedia(kind,src);
+  await sendCine({ kind, src, playing:false, pos:0 });
+  enterWatch();
+  toast(kind==="web" ? "האתר נפתח במסך. אצל השני/ה הוא ייפתח גם." : "לחצו על הסרטון כדי להתחיל. הוא יתנגן אצל שניכם.");
+}
+function bindCinema(){
+  $("cinePick").onclick=openCinePanel;
+  $("cineWatch").onclick=enterWatch;
+  $("watchExit").onclick=exitWatch;
+  $("watchPick").onclick=openCinePanel;
+  $("cineClose").onclick=closeCinePanel;
+  $("joinBtn").onclick=()=>{ enterWatch(); try{ if(yt) yt.playVideo(); else if(video) video.play(); }catch(e){} };
+  $("cineStop").onclick=async()=>{ closeCinePanel(); exitWatch(); await showMedia(null,""); await sendCine({ kind:null, src:"", playing:false, pos:0 }); };
+  $("ytForm").addEventListener("submit",e=>{
+    e.preventDefault(); const v=$("ytIn").value.trim(); if(!v) return;
+    const id=parseYouTube(v);
+    if(id){ $("ytIn").value=""; pickMedia("yt",id); }
+    else { window.open("https://www.youtube.com/results?search_query="+encodeURIComponent(v),"_blank","noopener"); $("ytNote").textContent="פתחתי חיפוש ביוטיוב. בוחרים סרטון ← שיתוף ← העתקת קישור, חוזרים לכאן ומדביקים."; }
+  });
+  $("webForm").addEventListener("submit",e=>{
+    e.preventDefault(); let v=$("webIn").value.trim(); if(!v) return;
+    const id=parseYouTube(v); if(id){ $("webIn").value=""; return pickMedia("yt",id); }
+    if(!/^https?:\/\//i.test(v)) v="https://"+v;
+    v=v.replace(/^http:\/\//i,"https://");
+    let u; try{ u=new URL(v); }catch(err){ $("webNote").textContent="הכתובת לא תקינה."; return; }
+    const kind=/\.(mp4|webm|m3u8|mov)(\?|$)/i.test(u.pathname)?"video":"web";
+    $("webIn").value=""; pickMedia(kind,u.href);
+  });
+  renderCineHud();
+}
+
 /* ---------- start ---------- */
 async function start(role){
   window.__inGame=true;
@@ -854,7 +1173,7 @@ async function start(role){
   await unlockPhotos();
   try{ await Promise.race([Promise.all([document.fonts.load('900 60px "Frank Ruhl Libre"'),document.fonts.load('700 40px "Frank Ruhl Libre"'),document.fonts.load('400 20px "Assistant"'),document.fonts.load('700 20px "Assistant"')]), new Promise(r=>setTimeout(r,2500))]); }catch(e){}
 
-  renderer=new THREE.WebGLRenderer({ antialias:true, powerPreference:"high-performance" });
+  renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:"high-performance" });
   renderer.setPixelRatio(Math.min(devicePixelRatio,1.75)); renderer.setSize(innerWidth,innerHeight,false);
   renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
   $("stage").appendChild(renderer.domElement);
@@ -865,13 +1184,13 @@ async function start(role){
   shadowTex=canvasTex(128,128,(g,w,h)=>{ const gr=g.createRadialGradient(64,64,4,64,64,62); gr.addColorStop(0,"rgba(0,0,0,.55)"); gr.addColorStop(1,"rgba(0,0,0,0)"); g.fillStyle=gr; g.fillRect(0,0,w,h); });
   heartTex=canvasTex(128,128,(g,w,h)=>{ g.fillStyle="#e2667f"; g.font="110px serif"; g.textAlign="center"; g.textBaseline="middle"; g.fillText("♥",64,70); });
 
-  buildRoom(); hangArt();
+  buildRoom(); hangArt(); buildCinema();
   myAvatar=makeAvatar(role); myAvatar.tag.visible=false; scene.add(myAvatar.root);
   fill=new THREE.DirectionalLight(0xffe8d6,.55); scene.add(fill); scene.add(fill.target);
   me.x = role==="her" ? .55 : -.55;
 
   bindInput(renderer.domElement);
-  const fit=()=>{ const r=$("stage").getBoundingClientRect(); const w=Math.max(1,Math.round(r.width||innerWidth)), h=Math.max(1,Math.round(r.height||innerHeight)); camera.aspect=w/h; camera.fov=h>w?70:58; camera.updateProjectionMatrix(); renderer.setSize(w,h,false); };
+  const fit=()=>{ const r=$("stage").getBoundingClientRect(); const w=Math.max(1,Math.round(r.width||innerWidth)), h=Math.max(1,Math.round(r.height||innerHeight)); camera.aspect=w/h; camera.fov=h>w?70:58; camera.updateProjectionMatrix(); renderer.setSize(w,h,false); cssRenderer.setSize(w,h); };
   const standaloneFix=()=>{ if(!navigator.standalone) return; const port=innerHeight>=innerWidth; $("stage").style.height=(port?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width))+"px"; };
   standaloneFix(); addEventListener("resize",()=>{ standaloneFix(); fit(); });
   fit(); setTimeout(()=>{ standaloneFix(); fit(); },300); setTimeout(()=>{ standaloneFix(); fit(); },1200);
@@ -885,14 +1204,14 @@ async function start(role){
   $("zoomBtn").onclick=()=>{ if(!nearArt || !nearArt.a.src) return; $("vImg").src=nearArt.a.src; $("vImg").alt=nearArt.a.t; $("vCap").textContent=nearArt.a.t; $("viewer").hidden=false; };
   $("vClose").onclick=()=>{ $("viewer").hidden=true; };
   updateWho();
-  bindChat();
+  bindChat(); bindCinema();
   $("netPill").onclick=()=>{ const b=$("netInfo"); b.hidden=!b.hidden; $("netPill").setAttribute("aria-expanded",String(!b.hidden)); renderNet(); };
   renderer.domElement.addEventListener("pointerdown",()=>{ if(!$("compose").hidden){ if(!$("msg").value) closeCompose(); else $("msg").blur(); } });
   connectNet();
   renderer.setAnimationLoop(tick);
 }
 
-let nearArt=null, togetherT=0;
+let nearArt=null, togetherT=0, lastInCinema=false;
 const tmp=new THREE.Vector3();
 function tick(){
   const dt=Math.min(clock.getDelta(),.05), t=clock.elapsedTime;
@@ -926,10 +1245,18 @@ function tick(){
 
   // camera
   const portrait=innerHeight>innerWidth, dist=portrait?5.4:4.4;
-  let cx=me.x+Math.sin(camYaw)*Math.cos(camPitch)*dist, cz=me.z+Math.cos(camYaw)*Math.cos(camPitch)*dist, cy=1.5+Math.sin(camPitch)*dist;
-  cx=Math.max(-W+.25,Math.min(W-.25,cx)); cz=Math.max(-D+.25,Math.min(D-.25,cz)); cy=Math.min(H-.3,cy);
-  camera.position.lerp(tmp.set(cx,cy,cz),Math.min(1,dt*8));
-  camera.lookAt(me.x,portrait?1.25:1.4,me.z);
+  const ic=inCinema(); if(ic!==lastInCinema){ lastInCinema=ic; renderCineHud(); }
+  if(watching){
+    const vf=THREE.MathUtils.degToRad(camera.fov)/2, hf=Math.atan(Math.tan(vf)*camera.aspect);
+    const d=Math.min(SZ-CZ0-.5, Math.max((SW/2)/Math.tan(hf),(SH/2)/Math.tan(vf))*1.04);
+    camera.position.lerp(tmp.set(0,SY,SZ-d),Math.min(1,dt*6)); camera.lookAt(0,SY,SZ);
+  } else {
+    let cx=me.x+Math.sin(camYaw)*Math.cos(camPitch)*dist, cz=me.z+Math.cos(camYaw)*Math.cos(camPitch)*dist, cy=1.5+Math.sin(camPitch)*dist;
+    if(ic){ cx=Math.max(-CX+.25,Math.min(CX-.25,cx)); cz=Math.max(CZ0+.25,Math.min(CZ1-.6,cz)); cy=Math.min(CH-.3,cy); }
+    else { cx=Math.max(-W+.25,Math.min(W-.25,cx)); cz=Math.max(-D+.25,Math.min(D-.25,cz)); cy=Math.min(H-.3,cy); }
+    camera.position.lerp(tmp.set(cx,cy,cz),Math.min(1,dt*8));
+    camera.lookAt(me.x,portrait?1.25:1.4,me.z);
+  }
   fill.position.copy(camera.position); fill.target.position.set(me.x,1.2,me.z);
 
   // sculpture
@@ -953,6 +1280,7 @@ function tick(){
     if(best){ $("plT").textContent=best.a.t; $("plM").textContent="מס׳ "+best.a.no+" · "+best.a.m; }
   }
   renderer.render(scene,camera);
+  if(cssObj.visible) cssRenderer.render(cssScene,camera);
 }
 </script>
 </body>
