@@ -146,6 +146,56 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
 .card.cine .note{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
 body.watching #chatPanel,body.watching #hint,body.watching #joy,body.watching #heartBtn,body.watching #together{display:none!important}
 @media (max-height:520px){#joinBar{top:calc(env(safe-area-inset-top,0px) + 60px)} #toast{top:calc(env(safe-area-inset-top,0px) + 104px)}}
+/* studio */
+body.studio #topbar,body.studio #heartBtn,body.studio #chatBtn,body.studio #chatPanel,body.studio #together,body.studio #cineHud{display:none!important}
+body.studio.sheet-open #joy{display:none!important}
+body.sheet-open .stround{display:none!important}
+#stTop{top:0;left:0;right:0;z-index:15;pointer-events:auto;display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top,0px) + 10px) max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px));background:rgba(20,15,20,.88);border-bottom:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.st-title{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.2}
+.st-title b{font-family:var(--display);font-size:18px}
+#stStatus{font-size:12px;color:#7ccf8a}
+#stStatus.dirty{color:var(--brass)}
+.st-title .cnt{font-size:11px;color:var(--muted)}
+#stTop .cbtn{padding:9px 13px;font-size:14px}
+#stUndo[disabled]{opacity:.4}
+.stround{pointer-events:auto;right:calc(max(16px,env(safe-area-inset-right,0px)) + 8px);width:60px;height:60px;border-radius:50%;border:1.5px solid var(--line);background:rgba(42,26,36,.9);color:var(--wall);font-size:26px;cursor:pointer;display:grid;place-items:center}
+#stAddBtn{bottom:calc(env(safe-area-inset-bottom,0px) + 36px);width:72px;height:72px;font-size:40px;background:var(--brass);color:#2a1a10;border:0}
+#stSetBtn{bottom:calc(env(safe-area-inset-bottom,0px) + 124px)}
+.sheet{pointer-events:auto;z-index:14;left:0;right:0;bottom:0;max-height:56vh;overflow-y:auto;overscroll-behavior:contain;background:rgba(32,21,29,.97);border-top:1px solid var(--line);border-radius:18px 18px 0 0;padding:12px max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 14px) max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:12px;box-shadow:0 -10px 40px rgba(0,0,0,.45)}
+.sh-head{display:flex;align-items:center;gap:10px}
+.sh-head b{font-family:var(--display);font-size:20px}
+.sh-head .pos{flex:1;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sh-head .x{margin-inline-start:auto;border:0;background:transparent;color:var(--muted);font-size:20px;width:40px;height:40px;cursor:pointer}
+.sheet .note{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px;border-radius:12px;border:1px solid var(--line);background:var(--ink);color:var(--wall);font:600 13px var(--body);cursor:pointer}
+.tile .ti{font-size:26px;line-height:1;color:var(--brass)}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.grp{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:var(--muted);font-weight:700}
+.pad{display:grid;grid-template-columns:repeat(3,40px);grid-template-rows:repeat(3,34px);gap:2px;direction:ltr}
+.pad button{border:1px solid var(--line);background:var(--ink);color:var(--wall);border-radius:8px;font-size:15px;cursor:pointer}
+#pFwd{grid-column:2;grid-row:1} #pLeft{grid-column:1;grid-row:2} #pRight{grid-column:3;grid-row:2} #pBack{grid-column:2;grid-row:3}
+.pm{display:flex;gap:6px;flex-wrap:wrap}
+.pm button{min-width:44px;height:38px;border:1px solid var(--line);background:var(--ink);color:var(--wall);border-radius:8px;font-size:18px;cursor:pointer}
+.sws{display:flex;flex-wrap:wrap;gap:6px}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.25);cursor:pointer}
+.cpick{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.cpick input,.fld input[type=color]{width:44px;height:32px;border:0;background:transparent;padding:0}
+.tin{font:600 16px var(--body);padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--ink);color:var(--wall);width:100%}
+.fld{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.fld input[type=range]{width:100%}
+.sheet .row{display:flex;flex-wrap:wrap;gap:8px}
+.cbtn.danger{color:var(--rose);border-color:rgba(226,102,127,.5)}
+.sheet button:focus-visible,.stround:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+@media (max-width:420px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-height:520px) and (orientation:landscape){
+  .sheet{left:auto;top:calc(env(safe-area-inset-top,0px) + 62px);width:min(400px,52vw);max-height:none;border-radius:18px 0 0 0;border-top:0;border-inline-start:1px solid var(--line)}
+  body.studio.sheet-open #joy{display:block!important}
+  #stAddBtn{width:60px;height:60px;font-size:32px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
+  #stSetBtn{bottom:calc(env(safe-area-inset-bottom,0px) + 84px)}
+  body.sheet-open .stround{display:none}
+}
 </style>
 
 </head>
@@ -212,6 +262,59 @@ body.watching #chatPanel,body.watching #hint,body.watching #joy,body.watching #h
     <div class="row end"><button type="button" class="cbtn alt" id="cineStop" hidden>כיבוי המסך</button><button type="button" class="cbtn" id="cineClose">סגירה</button></div>
   </div>
 </div>
+<div class="veil" id="stLock" hidden>
+  <div class="card">
+    <div class="eyebrow">גישה פרטית · רק ליצחק</div>
+    <h1>הסטודיו</h1>
+    <p>עורך העולם של המוזיאון. מוסיפים, מזיזים ומעצבים, ולוחצים פרסום.</p>
+    <form id="stForm" autocomplete="off">
+      <input id="stPw" name="stPw" type="password" autocomplete="current-password" placeholder="סיסמה" aria-label="סיסמה" style="font:600 18px var(--body);text-align:center;direction:ltr;padding:14px;border-radius:4px;border:1px solid var(--line);background:var(--ink);color:var(--wall)">
+      <button class="btn" id="stGo" type="submit">פתיחה</button>
+      <div class="err" id="stErr" role="status"></div>
+    </form>
+  </div>
+</div>
+<div class="hud" id="stTop" hidden>
+  <button type="button" class="cbtn alt" id="stExit">יציאה</button>
+  <div class="st-title"><b>הסטודיו</b><span id="stStatus"></span><span id="stCount" class="cnt"></span></div>
+  <button type="button" class="cbtn alt" id="stUndo" aria-label="ביטול הפעולה האחרונה">↶</button>
+  <button type="button" class="cbtn" id="stPublish">פרסום</button>
+</div>
+<button type="button" class="hud stround" id="stSetBtn" hidden aria-label="הגדרות העולם">⚙</button>
+<button type="button" class="hud stround big" id="stAddBtn" hidden aria-label="הוספת אובייקט">+</button>
+<div class="hud sheet" id="stAdd" hidden>
+  <div class="sh-head"><b>הוספה לעולם</b><button type="button" class="x" data-close="stAdd" aria-label="סגירה">✕</button></div>
+  <div class="grid" id="stPalette"></div>
+  <p class="note">האובייקט מופיע מול הדמות שלכם. לחיצה עליו בוחרת אותו, וגרירה שלו מזיזה אותו.</p>
+</div>
+<div class="hud sheet" id="stProps" hidden>
+  <div class="sh-head"><b id="pName"></b><span id="pPos" class="pos"></span><button type="button" class="x" data-close="stProps" aria-label="סגירה">✕</button></div>
+  <div class="pgrid">
+    <div class="grp"><span class="lbl">הזזה</span>
+      <div class="pad"><button type="button" id="pFwd" aria-label="קדימה">▲</button><button type="button" id="pRight" aria-label="ימינה">▶</button><button type="button" id="pLeft" aria-label="שמאלה">◀</button><button type="button" id="pBack" aria-label="אחורה">▼</button></div>
+    </div>
+    <div class="grp"><span class="lbl">גובה מהרצפה</span><div class="pm"><button type="button" id="pDown">−</button><button type="button" id="pUp">+</button></div>
+      <span class="lbl">סיבוב</span><div class="pm"><button type="button" id="pRotR">↻</button><button type="button" id="pRotL">↺</button></div></div>
+    <div class="grp"><span class="lbl">גודל</span><div class="pm"><button type="button" id="pSmall">−</button><button type="button" id="pBig">+</button></div>
+      <span class="lbl">מתיחה לגובה · לרוחב</span><div class="pm"><button type="button" id="pShort">↧</button><button type="button" id="pTall">↥</button><button type="button" id="pNarrow">⇥⇤</button><button type="button" id="pWide">⇤⇥</button></div></div>
+  </div>
+  <div class="grp"><span class="lbl">צבע</span><div class="sws" id="pSw"></div><label class="cpick">צבע אחר <input type="color" id="pColor"></label></div>
+  <div class="grp" id="pText" hidden><label class="lbl" for="pTextIn">הטקסט על השלט</label><input id="pTextIn" maxlength="60" class="tin"></div>
+  <div class="grp" id="pPhoto" hidden><button type="button" class="cbtn alt" id="pPhotoBtn">החלפת התמונה</button></div>
+  <div class="row"><button type="button" class="cbtn alt" id="pHere">הבאה אליי</button><button type="button" class="cbtn alt" id="pDup">שכפול</button><button type="button" class="cbtn alt danger" id="pDel">מחיקה</button></div>
+</div>
+<div class="hud sheet" id="stSet" hidden>
+  <div class="sh-head"><b>הגדרות העולם</b><button type="button" class="x" data-close="stSet" aria-label="סגירה">✕</button></div>
+  <label class="fld">צבע הקירות במוזיאון <input type="color" id="setWall"></label>
+  <label class="fld">תאורה <span id="setLightV"></span><input type="range" id="setLight" min="40" max="180" step="5"></label>
+  <label class="fld">הכותרת על הקיר <input id="setTitle" maxlength="40" class="tin"></label>
+  <label class="fld">השורה מתחת לכותרת <input id="setSub" maxlength="60" class="tin"></label>
+  <div class="row"><button type="button" class="cbtn" id="setApply">החלה</button><button type="button" class="cbtn alt" id="setReset">חזרה לברירת המחדל</button></div>
+  <div class="row"><button type="button" class="cbtn alt" id="stExport">גיבוי לקובץ</button><button type="button" class="cbtn alt" id="stImportBtn">טעינת גיבוי</button><button type="button" class="cbtn alt danger" id="stClear">ניקוי כל האובייקטים</button></div>
+  <p class="note">השינויים נשמרים כטיוטה במכשיר. רק לחיצה על "פרסום" מעדכנת את העולם אצל אלמוג.</p>
+</div>
+<input type="file" id="stFile" accept="image/*" hidden>
+<input type="file" id="stImport" accept="application/json,.json" hidden>
 <div id="viewer" hidden><img id="vImg" alt=""><div class="cap" id="vCap"></div><button class="btn" type="button" id="vClose">חזרה לאולם</button></div>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
@@ -221,16 +324,17 @@ import { CSS3DRenderer, CSS3DObject } from "three/addons/renderers/CSS3DRenderer
 
 const CODE_HASH = "2ffc1b394e7e41ab42c6278b438297d262a541fc13fcc3ffede96806021151f6";
 const $ = id => document.getElementById(id);
+const STUDIO=/[?&]studio=1/.test(location.search);
 /* self-update: compare with version.json on the server and reload when newer */
-const APP_VERSION="9";
+const APP_VERSION="10";
 async function checkUpdate(){
   try{
     const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return;
     const v=String((await r.json()).v||"");
     if(v && v!==APP_VERSION){
-      if(window.__inGame){ $("updBar").hidden=false; $("updBtn").onclick=()=>location.replace(location.pathname+"?v="+v+"&t="+Date.now()); return; }
+      if(window.__inGame){ $("updBar").hidden=false; $("updBtn").onclick=()=>location.replace(location.pathname+"?v="+v+(STUDIO?"&studio=1":"")+"&t="+Date.now()); return; }
       const k="museum-reloaded-"+v; let done=null; try{ done=sessionStorage.getItem(k); }catch(e){}
-      if(!done){ try{ sessionStorage.setItem(k,"1"); }catch(e){} location.replace(location.pathname+"?v="+v+"&t="+Date.now()); }
+      if(!done){ try{ sessionStorage.setItem(k,"1"); }catch(e){} location.replace(location.pathname+"?v="+v+(STUDIO?"&studio=1":"")+"&t="+Date.now()); }
     }
   }catch(e){}
 }
@@ -255,7 +359,7 @@ $("gateForm").addEventListener("submit", async e => {
 });
 function showPicker(){ $("gate").hidden = true; $("picker").hidden = false; }
 let CODE = null;
-{ const c=store.get("museum-code"); if(c){ sha(c).then(h=>{ if(h===CODE_HASH){ CODE=c; showPicker(); } }); } }
+{ const c=store.get("museum-code"); if(c && !STUDIO){ sha(c).then(h=>{ if(h===CODE_HASH){ CODE=c; showPicker(); } }); } }
 $("pickHim").onclick = () => start("him");
 $("pickHer").onclick = () => start("her");
 
@@ -328,7 +432,7 @@ function buildRoom(){
   rug.rotation.x=-Math.PI/2; rug.rotation.z=Math.PI/2; rug.position.y=.01; scene.add(rug);
 
   // walls
-  const wallMat = new THREE.MeshStandardMaterial({ color:0xe9dfd2, roughness:.92 });
+  const wallMat = new THREE.MeshStandardMaterial({ color:0xe9dfd2, roughness:.92 }); scene.userData.wallMat=wallMat;
   const mk = (w,h,x,y,z,ry)=>{ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h), wallMat); m.position.set(x,y,z); m.rotation.y=ry; scene.add(m); };
   mk(W*2,H,0,H/2,-D,0); mk(W-1.3,H,-(W+1.3)/2,H/2,D,Math.PI); mk(W-1.3,H,(W+1.3)/2,H/2,D,Math.PI); mk(2.6,H-3.1,0,3.1+(H-3.1)/2,D,Math.PI); mk(D*2,H,-W,H/2,0,Math.PI/2); mk(D*2,H,W,H/2,0,-Math.PI/2);
   // wainscot + molding
@@ -356,11 +460,7 @@ function buildRoom(){
   sky.material.map = starTex; sky.material.color.set(0xffffff); sky.material.needsUpdate = true;
 
   // title on back wall
-  const title = canvasTex(1024,256,(g,w,h)=>{
-    g.direction="rtl"; g.textAlign="center"; g.fillStyle="#3b2430";
-    g.font='900 120px "Frank Ruhl Libre", serif'; g.fillText("המוזיאון שלנו",w/2,140);
-    g.font='600 36px "Assistant", sans-serif'; g.fillStyle="#8a6a4a"; g.fillText("תערוכת קבע · שנים של רגעים קטנים",w/2,210);
-  });
+  const title = canvasTex(1024,256,(g,w,h)=>drawTitle(g,w,h,DEF_SET.title,DEF_SET.sub)); scene.userData.titleTex=title;
   const tm = new THREE.Mesh(new THREE.PlaneGeometry(5,1.25), new THREE.MeshBasicMaterial({ map:title, transparent:true }));
   tm.position.set(0,3.7,-D+.02); scene.add(tm);
 
@@ -395,7 +495,7 @@ function buildRoom(){
   }
 
   // lights
-  scene.add(new THREE.HemisphereLight(0xfff1e0, 0x2a1a20, .7));
+  scene.userData.hemi=new THREE.HemisphereLight(0xfff1e0, 0x2a1a20, .7); scene.add(scene.userData.hemi);
   const dl = new THREE.DirectionalLight(0xbfd0ff, .35); dl.position.set(0,H,2); scene.add(dl);
 }
 
@@ -627,7 +727,7 @@ function bindInput(el){
 function collide(p){
   const m=.35;
   keepInside(p);
-  for(const o of obstacles){
+  for(const o of obstacles.concat(worldObstacles)){
     if(o.type==="c"){ const dx=p.x-o.x, dz=p.z-o.z, d=Math.hypot(dx,dz), r=o.r+m; if(d<r && d>1e-4){ p.x=o.x+dx/d*r; p.z=o.z+dz/d*r; } }
     else { const dx=p.x-o.x, dz=p.z-o.z, px=o.hx+m-Math.abs(dx), pz=o.hz+m-Math.abs(dz); if(px>0&&pz>0){ if(px<pz) p.x+=Math.sign(dx)*px; else p.z+=Math.sign(dz)*pz; } }
   }
@@ -704,7 +804,7 @@ const BROKERS=[
   "wss://broker.hivemq.com:8884/mqtt",
   "wss://test.mosquitto.org:8081/mqtt",
 ];
-const bstate=[], berr=[]; let netStart=0; const VERSION="9";
+const bstate=[], berr=[]; let netStart=0; const VERSION="10";
 const TOPIC="kesher-museum/"+CODE_HASH.slice(0,24)+"/state";
 const MY_ID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
 const clients=[]; const others=new Map();   // id -> {av, tx,tz,ta, h, seq, seen}
@@ -718,10 +818,10 @@ function connectNet(){
     bstate[i]="wait";
     try{
       const c=miniMqtt(url,"km_"+MY_ID+"_"+i);
-      c.on("connect",()=>{ c.subscribe([TOPIC,CHAT_TOPIC,HIST_TOPIC,CINE_TOPIC,ARC_BASE+"+"]); arcOnConnect(c); updateWho(); sendPresence(true); });
+      c.on("connect",()=>{ c.subscribe([TOPIC,CHAT_TOPIC,HIST_TOPIC,CINE_TOPIC,ARC_BASE+"+",WORLD_TOPIC,IMG_BASE+"+"]); arcOnConnect(c); worldOnConnect(c); updateWho(); sendPresence(true); });
       c.on("connect",()=>{ bstate[i]="ok"; updateWho(); });
       c.on("close",()=>{ if(bstate[i]==="ok") bstate[i]="wait"; else bstate[i]="bad"; updateWho(); }); c.on("offline",updateWho); c.on("error",e=>{ bstate[i]="bad"; berr[i]=String((e&&e.message)||e||"").slice(0,90); updateWho(); });
-      c.on("message",(t,buf)=>{ if(t===TOPIC){ try{ onState(JSON.parse(buf.toString())); }catch(e){} } else if(t===CINE_TOPIC) onCinePacket(buf.toString()); else if(t.startsWith(ARC_BASE)) onArcPacket(t,buf.toString()); else onChatPacket(t,buf.toString()); });
+      c.on("message",(t,buf)=>{ if(t===TOPIC){ try{ onState(JSON.parse(buf.toString())); }catch(e){} } else if(t===CINE_TOPIC) onCinePacket(buf.toString()); else if(t.startsWith(ARC_BASE)) onArcPacket(t,buf.toString()); else if(t===WORLD_TOPIC) onWorldPacket(buf.toString(),c); else if(t.startsWith(IMG_BASE)) onImgPacket(t,buf.toString()); else onChatPacket(t,buf.toString()); });
       clients.push(c);
     }catch(e){ bstate[i]="bad"; berr[i]=String((e&&e.message)||e).slice(0,90); }
   });
@@ -774,7 +874,7 @@ function updateWho(){
   else { const names=[...new Set([...others.values()].map(o=>o.av.role==="him"?"יצחק":"אלמוג"))]; $("who").textContent=`${names.join(" ו")} כאן איתך ♥`; }
 }
 function sendPresence(force){
-  if(!online() || !myAvatar) return;
+  if(STUDIO || !online() || !myAvatar) return;
   const now=performance.now(); if(!force && now-lastSendT<90) return;
   const st={ r:myAvatar.role, x:+me.x.toFixed(2), z:+me.z.toFixed(2), a:+me.a.toFixed(2), h:me.hearts };
   if(!force && st.x===lastSent.x && st.z===lastSent.z && st.a===lastSent.a && st.h===lastSent.h) return;
@@ -1214,6 +1314,396 @@ function bindCinema(){
   renderCineHud();
 }
 
+/* ---------- custom world: objects and settings made in the studio, signed by the owner ---------- */
+// The game shows only worlds signed with the studio's private key (ECDSA P-256), which only the owner's password unlocks.
+const WORLD_PUB="BGWpsn+nfuhngl2aDkJCuYcniLZt6AbaW1fWJ3bziZ9pyyjgFfw67n2Qbsj/ORNZpCLekWmTZ70UurXAM4fZuKo=";
+const WORLD_TOPIC=TOPIC.replace(/state$/,"world"), IMG_BASE=TOPIC.replace(/state$/,"img/");
+let world={ v:1, rev:0, objects:[], settings:{} }, worldPacket=null, worldPubKey=null, worldGroup=null;
+const worldObstacles=[], animated=[], heardWorld=new WeakSet(), heardImg=new Set();
+const imgURL=new Map(), imgPayload=new Map(), imgAspect=new Map(), imgTex=new Map(), pendingImg=new Map();
+const TYPES={
+  box:{n:"קופסה",i:"▢"}, sphere:{n:"כדור",i:"●"}, cylinder:{n:"גליל",i:"▮"}, cone:{n:"חרוט",i:"▲"},
+  heart:{n:"לב",i:"♥"}, star:{n:"כוכב",i:"★"}, sign:{n:"שלט עם טקסט",i:"א"}, photo:{n:"תמונה",i:"🖼"},
+  light:{n:"מנורה",i:"💡"}, plant:{n:"עציץ",i:"🌿"}, bench:{n:"ספסל",i:"▬"}, column:{n:"עמוד",i:"┃"},
+  balloon:{n:"בלון",i:"🎈"}, rug:{n:"שטיח",i:"▭"},
+};
+const DEF_SET={ wall:"#e9dfd2", light:100, title:"המוזיאון שלנו", sub:"תערוכת קבע · שנים של רגעים קטנים" };
+const okHex=c=>typeof c==="string" && /^#[0-9a-f]{6}$/i.test(c);
+const num=(v,d,min,max)=>{ v=+v; return Number.isFinite(v)?Math.max(min,Math.min(max,v)):d; };
+function sanitizeObj(o){
+  if(!o || !TYPES[o.t] || typeof o.id!=="string" || !/^[\w-]{1,40}$/.test(o.id)) return null;
+  const s=Array.isArray(o.s)?o.s:[1,1,1];
+  return { id:o.id, t:o.t, x:+num(o.x,0,-30,40).toFixed(2), y:+num(o.y,0,-1,8).toFixed(2), z:+num(o.z,0,-30,40).toFixed(2), ry:+num(o.ry,0,-50,50).toFixed(3),
+    s:[+num(s[0],1,.05,20).toFixed(2),+num(s[1],1,.05,20).toFixed(2),+num(s[2],1,.05,20).toFixed(2)], c:okHex(o.c)?o.c:"#d6a46c",
+    text:typeof o.text==="string"?o.text.replace(/[\u0000-\u001f]/g," ").slice(0,60):"",
+    img:typeof o.img==="string" && /^[\w-]{1,40}$/.test(o.img)?o.img:"", h:typeof o.h==="string" && /^[0-9a-f]{64}$/.test(o.h)?o.h:"" };
+}
+function cleanSettings(s){ s=s||{}; return { wall:okHex(s.wall)?s.wall:DEF_SET.wall, light:Math.round(num(s.light,100,40,180)),
+  title:typeof s.title==="string"?s.title.replace(/[\u0000-\u001f]/g," ").slice(0,40):DEF_SET.title, sub:typeof s.sub==="string"?s.sub.replace(/[\u0000-\u001f]/g," ").slice(0,60):DEF_SET.sub }; }
+function drawTitle(g,w,h,t1,t2){
+  g.direction="rtl"; g.textAlign="center"; g.fillStyle="#3b2430";
+  let fs=120; g.font=`900 ${fs}px "Frank Ruhl Libre", serif`; while(g.measureText(t1).width>w-40 && fs>50){ fs-=8; g.font=`900 ${fs}px "Frank Ruhl Libre", serif`; }
+  g.fillText(t1,w/2,140);
+  g.font='600 36px "Assistant", sans-serif'; g.fillStyle="#8a6a4a"; g.fillText(t2,w/2,210);
+}
+let lastTitle="";
+function applySettings(st){
+  const s=cleanSettings(st), u=scene.userData;
+  u.wallMat.color.set(s.wall);
+  u.hemi.intensity=.7*s.light/100; renderer.toneMappingExposure=1.05*(.6+.4*s.light/100);
+  const key=s.title+"|"+s.sub;
+  if(key!==lastTitle){ lastTitle=key; const cv=u.titleTex.image, g=cv.getContext("2d"); g.clearRect(0,0,cv.width,cv.height); drawTitle(g,cv.width,cv.height,s.title,s.sub); u.titleTex.needsUpdate=true; }
+}
+
+/* object builders: each object stands on its own base point (x, y, z) */
+const geoCache={}; const G=(k,f)=>geoCache[k]||(geoCache[k]=f());
+const M=(c,extra={})=>new THREE.MeshStandardMaterial({ color:c, roughness:.55, ...extra });
+function heartGeo(){ return G("heart",()=>{ const hs=new THREE.Shape();
+  hs.moveTo(25,25); hs.bezierCurveTo(25,25,20,0,0,0); hs.bezierCurveTo(-30,0,-30,35,-30,35); hs.bezierCurveTo(-30,55,-10,77,25,95);
+  hs.bezierCurveTo(60,77,80,55,80,35); hs.bezierCurveTo(80,35,80,0,50,0); hs.bezierCurveTo(35,0,25,25,25,25);
+  const g=new THREE.ExtrudeGeometry(hs,{ depth:18, bevelEnabled:true, bevelSegments:3, bevelSize:6, bevelThickness:6, curveSegments:18 });
+  g.center(); g.rotateZ(Math.PI); g.scale(.009,.009,.009); g.translate(0,.45,0); return g; }); }
+function starGeo(){ return G("star",()=>{ const s=new THREE.Shape();
+  for(let i=0;i<10;i++){ const r=i%2?.21:.5, a=i/10*Math.PI*2+Math.PI/2, x=Math.cos(a)*r, y=Math.sin(a)*r; i?s.lineTo(x,y):s.moveTo(x,y); }
+  s.closePath(); const g=new THREE.ExtrudeGeometry(s,{ depth:.12, bevelEnabled:true, bevelSize:.03, bevelThickness:.03, bevelSegments:2 }); g.center(); g.translate(0,.5,0); return g; }); }
+function signTex(text,bg){
+  return canvasTex(1024,320,(c,w,h)=>{
+    c.fillStyle=bg; roundRect(c,0,0,w,h,40); c.fill(); c.strokeStyle="#d6a46c"; c.lineWidth=10; roundRect(c,14,14,w-28,h-28,30); c.stroke();
+    const col=new THREE.Color(bg), lum=.3*col.r+.59*col.g+.11*col.b;
+    c.fillStyle=lum>.55?"#2a1a10":"#efe6da"; c.direction="rtl"; c.textAlign="center"; c.textBaseline="middle";
+    let fs=130; c.font=`900 ${fs}px "Frank Ruhl Libre", serif`; while(c.measureText(text).width>w-90 && fs>40){ fs-=8; c.font=`900 ${fs}px "Frank Ruhl Libre", serif`; }
+    c.fillText(text||" ",w/2,h/2+6);
+  });
+}
+function buildObject(o,i){
+  const root=new THREE.Group(); root.userData.wid=o.id;
+  const inner=new THREE.Group(); root.add(inner);
+  const add=(geo,m,y=0,parent=inner)=>{ const me=new THREE.Mesh(geo,m); me.position.y=y; parent.add(me); return me; };
+  const S=()=>inner.scale.set(o.s[0],o.s[1],o.s[2]);
+  switch(o.t){
+    case "box": add(G("box",()=>new THREE.BoxGeometry(1,1,1)),M(o.c),.5); S(); break;
+    case "sphere": add(G("sph",()=>new THREE.SphereGeometry(.5,28,20)),M(o.c),.5); S(); break;
+    case "cylinder": add(G("cyl",()=>new THREE.CylinderGeometry(.5,.5,1,28)),M(o.c),.5); S(); break;
+    case "cone": add(G("cone",()=>new THREE.ConeGeometry(.5,1,28)),M(o.c),.5); S(); break;
+    case "column": add(G("colb",()=>new THREE.BoxGeometry(.6,.08,.6)),M(o.c),.04); add(G("col",()=>new THREE.CylinderGeometry(.22,.26,1,20)),M(o.c,{roughness:.8}),.5); add(G("colb",()=>null),M(o.c),.96); S(); break;
+    case "heart": add(heartGeo(),M(o.c,{ roughness:.25, metalness:.35 })); S(); break;
+    case "star": add(starGeo(),M(o.c,{ roughness:.3, metalness:.5, emissive:o.c, emissiveIntensity:.25 })); S(); animated.push({ k:"spin", o:inner }); break;
+    case "rug": { const r=add(G("rug",()=>new THREE.PlaneGeometry(1,1)),M(o.c,{ roughness:1 }),.013); r.rotation.x=-Math.PI/2; inner.scale.set(o.s[0],1,o.s[2]); break; }
+    case "bench": { add(G("bseat",()=>new THREE.BoxGeometry(1.8,.14,.55)),M(o.c,{ roughness:.8 }),.46);
+      for(const x of [-.75,.75]) { const l=add(G("bleg",()=>new THREE.BoxGeometry(.08,.4,.48)),M("#1a1416",{ metalness:.5, roughness:.4 }),.2); l.position.x=x; } S(); break; }
+    case "plant": { add(G("pot",()=>new THREE.CylinderGeometry(.3,.22,.55,18)),M("#2a2a2e",{ roughness:.5 }),.275);
+      const leaf=M(o.c,{ roughness:.8 }); [[0,.95,0,.3],[.18,.8,.1,.22],[-.16,.85,-.08,.24],[.05,1.2,-.1,.22],[-.1,1.1,.14,.2],[.12,1.05,-.16,.2]].forEach(([x,y,z,r])=>{ const m=add(G("leaf",()=>new THREE.SphereGeometry(1,12,9)),leaf,y); m.position.x=x; m.position.z=z; m.scale.setScalar(r); }); S(); break; }
+    case "balloon": { const b=add(G("bal",()=>new THREE.SphereGeometry(.32,22,16)),M(o.c,{ roughness:.25, metalness:.1 }),1.75); b.scale.y=1.18;
+      add(G("str",()=>new THREE.CylinderGeometry(.006,.006,1.45,4)),M("#efe6da"),.72); S(); animated.push({ k:"bob", o:inner, p:i*1.7 }); break; }
+    case "light": { add(G("lamp",()=>new THREE.CylinderGeometry(.06,.18,1,14)),M("#1a1416",{ metalness:.5, roughness:.4 }),.5);
+      add(G("bulb",()=>new THREE.SphereGeometry(.2,16,12)),new THREE.MeshBasicMaterial({ color:o.c }),1.12);
+      const L=new THREE.PointLight(o.c,6*o.s[1],9*o.s[0],1.6); L.position.y=1.15; inner.add(L); break; }
+    case "sign": { const w=2.2*o.s[0], h=.69*o.s[1];
+      const back=add(G("signb",()=>new THREE.BoxGeometry(1,1,1)),M("#1a1416"),h/2); back.scale.set(w+.06,h+.06,.04); back.position.z=-.03;
+      const f=add(G("signf",()=>new THREE.PlaneGeometry(1,1)),new THREE.MeshBasicMaterial({ map:signTex(o.text,o.c) }),h/2); f.scale.set(w,h,1); f.position.z=.0; break; }
+    case "photo": { const asp=imgAspect.get(o.img)||4/3, w=1.4*o.s[0], h=w/asp;
+      const fr=add(G("pfr",()=>new THREE.BoxGeometry(1,1,1)),M("#c9944f",{ roughness:.3, metalness:.75 }),h/2+.12); fr.scale.set(w+.24,h+.24,.07);
+      const mt=add(G("pmt",()=>new THREE.PlaneGeometry(1,1)),M("#f6efe6",{ roughness:.9 }),h/2+.12); mt.scale.set(w+.14,h+.14,1); mt.position.z=.037;
+      let tex=imgTex.get(o.img); if(!tex && imgURL.has(o.img)){ tex=new THREE.TextureLoader().load(imgURL.get(o.img)); tex.colorSpace=THREE.SRGBColorSpace; tex.anisotropy=4; imgTex.set(o.img,tex); }
+      const ph=add(G("pph",()=>new THREE.PlaneGeometry(1,1)),new THREE.MeshBasicMaterial(tex?{ map:tex }:{ color:0x555055 }),h/2+.12); ph.scale.set(w,h,1); ph.position.z=.04; break; }
+  }
+  root.position.set(o.x,o.y,o.z); root.rotation.y=o.ry;
+  return root;
+}
+function disposeTree(obj){ obj.traverse(m=>{ if(m.isMesh && m.material){ if(m.material.map && ![...imgTex.values()].includes(m.material.map)) m.material.map.dispose(); m.material.dispose(); } }); }
+function applyWorld(w){
+  if(!worldGroup){ worldGroup=new THREE.Group(); scene.add(worldGroup); }
+  for(const ch of [...worldGroup.children]){ worldGroup.remove(ch); disposeTree(ch); }
+  worldObstacles.length=0; animated.length=0;
+  let lights=0;
+  (w.objects||[]).forEach((raw,i)=>{
+    const o=sanitizeObj(raw); if(!o) return;
+    if(o.t==="light" && ++lights>6) return;
+    worldGroup.add(buildObject(o,i));
+    if(o.y<1.2){
+      const turned=Math.abs(Math.sin(o.ry))>.7;
+      if(o.t==="box"||o.t==="bench"){ const hx=(o.t==="bench"?.9:.5)*o.s[0], hz=(o.t==="bench"?.28:.5)*o.s[2]; worldObstacles.push({ type:"b", x:o.x, z:o.z, hx:turned?hz:hx, hz:turned?hx:hz }); }
+      else if(["sphere","cylinder","cone","column","plant","heart"].includes(o.t)) worldObstacles.push({ type:"c", x:o.x, z:o.z, r:Math.max(o.s[0],o.s[2])*(o.t==="column"?.3:o.t==="plant"?.35:.45) });
+    }
+  });
+  applySettings(w.settings);
+}
+function worldTick(dt,t){
+  for(const a of animated){ if(a.k==="spin") a.o.rotation.y+=dt*.8; else if(a.k==="bob") a.o.position.y=Math.sin(t*1.3+a.p)*.08; }
+}
+
+/* encrypted image bytes (with the entry-code key), checked against the hash named in the signed world */
+async function sealBytes(u8){ const iv=crypto.getRandomValues(new Uint8Array(12)); const ct=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv},KEY,u8)); const out=new Uint8Array(12+ct.length); out.set(iv); out.set(ct,12); return JSON.stringify({ enc:b64(out) }); }
+async function openBytes(str){ const u=unb64(JSON.parse(str).enc); return new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv:u.slice(0,12)},KEY,u.slice(12))); }
+async function sha256hex(u8){ return [...new Uint8Array(await crypto.subtle.digest("SHA-256",u8))].map(x=>x.toString(16).padStart(2,"0")).join(""); }
+const idb=(()=>{ let dbp=null;
+  const open=()=>dbp||(dbp=new Promise((res,rej)=>{ const r=indexedDB.open("museum",1); r.onupgradeneeded=()=>r.result.createObjectStore("kv"); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }));
+  return {
+    async get(k){ try{ const db=await open(); return await new Promise(res=>{ const q=db.transaction("kv").objectStore("kv").get(k); q.onsuccess=()=>res(q.result); q.onerror=()=>res(undefined); }); }catch(e){ return undefined; } },
+    async set(k,v){ try{ const db=await open(); await new Promise(res=>{ const tx=db.transaction("kv","readwrite"); tx.objectStore("kv").put(v,k); tx.oncomplete=res; tx.onerror=res; }); }catch(e){} },
+  }; })();
+const currentObjects=()=> (STUDIO && draft ? draft.objects : world.objects) || [];
+let rebuildT=null;
+async function storeImage(id,str){
+  if(imgURL.has(id)) return true;
+  let u8; try{ u8=await openBytes(str); }catch(e){ return false; }
+  const h=await sha256hex(u8);
+  const want=currentObjects().filter(o=>o.img===id).map(o=>o.h);
+  if(!want.length){ pendingImg.set(id,str); return false; }
+  if(!want.includes(h)) return false;
+  const url=URL.createObjectURL(new Blob([u8],{type:"image/jpeg"}));
+  try{ const im=new Image(); im.src=url; await im.decode(); imgAspect.set(id,im.naturalWidth/im.naturalHeight); }catch(e){}
+  imgURL.set(id,url); imgPayload.set(id,str); pendingImg.delete(id); idb.set("img:"+id,str);
+  clearTimeout(rebuildT); rebuildT=setTimeout(()=>applyWorld(STUDIO&&draft?draft:world),200);
+  return true;
+}
+async function loadImagesFor(objs){
+  for(const o of objs){ if(o.t!=="photo" || !o.img || imgURL.has(o.img)) continue;
+    if(pendingImg.has(o.img)){ await storeImage(o.img,pendingImg.get(o.img)); continue; }
+    const s=await idb.get("img:"+o.img); if(s) await storeImage(o.img,s); }
+}
+async function verifyWorldPacket(str){
+  let p; try{ p=JSON.parse(str); }catch(e){ return null; }
+  if(!p || typeof p.w!=="string" || typeof p.s!=="string" || p.w.length>400000) return null;
+  try{
+    if(!worldPubKey) worldPubKey=await crypto.subtle.importKey("raw",unb64(WORLD_PUB),{name:"ECDSA",namedCurve:"P-256"},false,["verify"]);
+    if(!await crypto.subtle.verify({name:"ECDSA",hash:"SHA-256"},worldPubKey,unb64(p.s),new TextEncoder().encode(p.w))) return null;
+    const w=JSON.parse(p.w); if(!w || !Array.isArray(w.objects) || !Number.isFinite(w.rev)) return null;
+    return w;
+  }catch(e){ return null; }
+}
+async function worldInit(){
+  let s=null; try{ s=localStorage.getItem("museum-world"); }catch(e){}
+  if(s){ const w=await verifyWorldPacket(s); if(w){ world=w; worldPacket=s; } }
+  applyWorld(world); loadImagesFor(world.objects);
+}
+async function onWorldPacket(str,c){
+  if(c) heardWorld.add(c);
+  const w=await verifyWorldPacket(str); if(!w) return;
+  if(w.rev<world.rev){ if(worldPacket && c && c.connected) c.publish(WORLD_TOPIC,worldPacket,{retain:true}); return; }
+  if(w.rev===world.rev) return;
+  world=w; worldPacket=str; try{ localStorage.setItem("museum-world",str); }catch(e){}
+  if(STUDIO){ studioOnRemoteWorld(w); } else { applyWorld(w); toast("העולם עודכן ✨"); }
+  loadImagesFor(w.objects);
+}
+function onImgPacket(topic,str){
+  const id=topic.slice(IMG_BASE.length); if(!/^[\w-]{1,40}$/.test(id) || str.length>600000) return;
+  heardImg.add(id); storeImage(id,str);
+}
+function worldOnConnect(c){
+  setTimeout(async()=>{
+    if(!c.connected) return;
+    if(worldPacket && !heardWorld.has(c)) c.publish(WORLD_TOPIC,worldPacket,{retain:true});
+    for(const o of currentObjects()) if(o.img && !heardImg.has(o.img)){ const s=imgPayload.get(o.img)||await idb.get("img:"+o.img); if(s) c.publish(IMG_BASE+o.img,s,{retain:true}); }
+  },6000);
+}
+
+/* ---------- studio: the owner's world editor (opened with ?studio=1 and the owner's password) ---------- */
+const STUDIO_LOCK={"salt": "6sdcRKPMf1wCZX88vJuQ4Q==", "iv": "5HHT48REEf9get0r", "ct": "5g1JH9vzZwLc6Ml5DLN3SZo0p4Otg/RD7Rw7UHEb/7BLqjVSG6DjzzXMHGqO5h56uCDByr7/DFT4lVNgwf8TfyYP6tfHNAmQOmh8u0DO1RX3gZOc/75i+Ks4Xsb1CMSByld0wUh++2MXJ8a5OrgRii0N8KZSxiAl3NkP+idKEa7IrLLADUvsXN/TI848M7DtMG7FKazoYQO3olVrVnutMCGFqEl4qHwq08eCVGZAUOVRyGnKg1l1/0bsxmJ20WkbsuEM9u8QeTsDHw4olp/0OueKkWLVcqUgocTCFPl51VOeMXrT+w==", "it": 600000};
+let SIGN=null, draft=null, studioDirty=false, selId=null, selHelper=null, exitArmed=false, clearArmed=false;
+const undoStack=[];
+const DEFAULTS={
+  box:{ s:[1,1,1], c:"#d6a46c" }, sphere:{ s:[.8,.8,.8], c:"#e2667f" }, cylinder:{ s:[.8,1.2,.8], c:"#efe6da" }, cone:{ s:[.8,1.2,.8], c:"#7ccf8a" },
+  heart:{ s:[1,1,1], c:"#c8324f", y:.2 }, star:{ s:[1,1,1], c:"#f2c14e", y:1.1 }, sign:{ s:[1,1,1], c:"#2a1a24", y:1.5, text:"כתבו כאן", face:true },
+  photo:{ s:[1,1,1], c:"#c9944f", y:.9, face:true }, light:{ s:[1,1,1], c:"#ffd9a8" }, plant:{ s:[1,1,1], c:"#2f5a3a" },
+  bench:{ s:[1,1,1], c:"#5a1f33" }, column:{ s:[1,3,1], c:"#f3ece2" }, balloon:{ s:[1,1,1], c:"#e2667f" }, rug:{ s:[3,1,2], c:"#5a1f33" },
+};
+const SWATCHES=["#efe6da","#d6a46c","#c8324f","#e2667f","#f2c14e","#7ccf8a","#2f5a3a","#4a7bd1","#7b4bd1","#2a1a24","#1a1416","#ffffff"];
+
+function studioBoot(){
+  $("gate").hidden=true; $("picker").hidden=true; $("stLock").hidden=false;
+  $("stForm").addEventListener("submit",async e=>{
+    e.preventDefault(); const pw=$("stPw").value; if(!pw) return;
+    $("stGo").disabled=true; $("stErr").textContent="פותח…";
+    try{
+      const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
+      const k=await crypto.subtle.deriveKey({name:"PBKDF2",salt:unb64(STUDIO_LOCK.salt),iterations:STUDIO_LOCK.it,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+      const sec=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:unb64(STUDIO_LOCK.iv)},k,unb64(STUDIO_LOCK.ct))));
+      SIGN=await crypto.subtle.importKey("pkcs8",unb64(sec.sk),{name:"ECDSA",namedCurve:"P-256"},false,["sign"]);
+      CODE=sec.code; $("stPw").value=""; $("stLock").hidden=true; start("him");
+    }catch(err){
+      studioBoot.fails=(studioBoot.fails||0)+1; const wait=Math.min(30,2*studioBoot.fails);
+      $("stErr").textContent="סיסמה שגויה. אפשר לנסות שוב בעוד "+wait+" שניות.";
+      setTimeout(()=>{ $("stGo").disabled=false; $("stErr").textContent="סיסמה שגויה. נסו שוב."; },wait*1000);
+    }
+  });
+}
+
+function studioInit(){
+  document.body.classList.add("studio");
+  let d=null; try{ d=JSON.parse(localStorage.getItem("studio-draft")||"null"); }catch(e){}
+  draft = d && Array.isArray(d.objects) && d.base>=world.rev ? { v:1, rev:world.rev, objects:d.objects, settings:d.settings||{} } : JSON.parse(JSON.stringify(world));
+  studioDirty = !!(d && d.dirty && d.base>=world.rev);
+  selHelper=new THREE.BoxHelper(undefined,0xffd166); selHelper.visible=false; scene.add(selHelper);
+  applyWorld(draft); loadImagesFor(draft.objects);
+  for(const id of ["stTop","stAddBtn","stSetBtn"]) $(id).hidden=false;
+  $("hint").textContent="ג׳ויסטיק להליכה · לחיצה על אובייקט בוחרת אותו · גרירה שלו מזיזה";
+  // palette
+  const pal=$("stPalette"); pal.textContent="";
+  for(const [t,info] of Object.entries(TYPES)){ const b=document.createElement("button"); b.type="button"; b.className="tile";
+    const i=document.createElement("span"); i.className="ti"; i.textContent=info.i; const n=document.createElement("span"); n.textContent=info.n; b.append(i,n);
+    b.onclick=()=>{ closeSheets(); if(t==="photo") pickPhoto(null); else addObject(t); }; pal.appendChild(b); }
+  $("stAddBtn").onclick=()=>{ select(null); openSheet("stAdd"); };
+  $("stSetBtn").onclick=()=>{ select(null); fillSettings(); openSheet("stSet"); };
+  document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>{ closeSheets(); if(b.dataset.close==="stProps") select(null); });
+  $("stUndo").onclick=undo;
+  $("stPublish").onclick=publishWorld;
+  $("stExit").onclick=()=>{ if(studioDirty && !exitArmed){ exitArmed=true; $("stExit").textContent="לצאת בלי לפרסם?"; setTimeout(()=>{ exitArmed=false; $("stExit").textContent="יציאה"; },3500); return; } location.href="index.html"; };
+  $("stFile").addEventListener("change",onPhotoFile);
+  $("setApply").onclick=()=>commit(w=>{ w.settings={ wall:$("setWall").value, light:+$("setLight").value, title:$("setTitle").value.trim()||DEF_SET.title, sub:$("setSub").value.trim() }; });
+  $("setReset").onclick=()=>{ commit(w=>{ w.settings={...DEF_SET}; }); fillSettings(); };
+  $("setLight").oninput=()=>{ $("setLightV").textContent=$("setLight").value+"%"; };
+  $("stExport").onclick=exportBackup;
+  $("stImportBtn").onclick=()=>$("stImport").click();
+  $("stImport").addEventListener("change",importBackup);
+  $("stClear").onclick=()=>{ if(!clearArmed){ clearArmed=true; $("stClear").textContent="בטוח? לחצו שוב"; setTimeout(()=>{ clearArmed=false; $("stClear").textContent="ניקוי כל האובייקטים"; },3500); return; } clearArmed=false; $("stClear").textContent="ניקוי כל האובייקטים"; commit(w=>{ w.objects=[]; }); };
+  bindStudioPointer(); bindProps();
+  renderStudio();
+}
+function studioOnRemoteWorld(w){
+  if(studioDirty){ toast("יש גרסה חדשה של העולם מהמכשיר השני. הטיוטה שלכם נשמרה, פרסום ידרוס אותה."); return; }
+  draft=JSON.parse(JSON.stringify(w)); applyWorld(draft); select(null); renderStudio();
+}
+const objById=id=>draft.objects.find(o=>o.id===id);
+const rootById=id=>worldGroup && worldGroup.children.find(r=>r.userData.wid===id);
+function saveDraft(){ try{ localStorage.setItem("studio-draft",JSON.stringify({ base:world.rev, dirty:studioDirty, objects:draft.objects, settings:draft.settings })); }catch(e){ toast("הזיכרון במכשיר מלא. פרסמו כדי לא לאבד שינויים."); } }
+function commit(mut){
+  undoStack.push(JSON.stringify({ objects:draft.objects, settings:draft.settings })); if(undoStack.length>60) undoStack.shift();
+  mut(draft); draft.objects=draft.objects.map(sanitizeObj).filter(Boolean); draft.settings=cleanSettings(draft.settings);
+  studioDirty=true; saveDraft(); applyWorld(draft); select(selId && objById(selId) ? selId : null); renderStudio();
+}
+function undo(){
+  if(!undoStack.length) return; const u=JSON.parse(undoStack.pop()); draft.objects=u.objects; draft.settings=u.settings;
+  studioDirty=true; saveDraft(); applyWorld(draft); select(selId && objById(selId) ? selId : null); renderStudio();
+}
+function newId(p="o"){ return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function frontOfMe(dist=2){ return { x:+(me.x+Math.sin(me.a)*dist).toFixed(2), z:+(me.z+Math.cos(me.a)*dist).toFixed(2) }; }
+function addObject(t,extra={}){
+  const d=DEFAULTS[t], p=frontOfMe(t==="rug"?2.5:2), id=newId();
+  commit(w=>{ w.objects.push({ id, t, x:p.x, y:d.y||0, z:p.z, ry:d.face?+(me.a+Math.PI).toFixed(3):0, s:[...d.s], c:d.c, text:d.text||"", ...extra }); });
+  select(id);
+}
+function select(id){
+  selId=id||null;
+  const r=selId && rootById(selId);
+  if(r){ selHelper.setFromObject(r); selHelper.visible=true; } else { selHelper.visible=false; if(id) selId=null; }
+  if(selId){ renderProps(); openSheet("stProps"); } else if(!$("stProps").hidden) $("stProps").hidden=true;
+}
+function openSheet(id){ for(const s of ["stAdd","stSet","stProps"]) $(s).hidden = s!==id; document.body.classList.add("sheet-open"); }
+function closeSheets(){ for(const s of ["stAdd","stSet","stProps"]) $(s).hidden=true; document.body.classList.remove("sheet-open"); }
+function renderStudio(){
+  $("stStatus").textContent = studioDirty ? "יש שינויים שלא פורסמו" : (world.rev ? "הכול פורסם ✓" : "עוד לא פורסם כלום");
+  $("stStatus").classList.toggle("dirty",studioDirty);
+  $("stUndo").disabled=!undoStack.length;
+  $("stCount").textContent=draft.objects.length+" אובייקטים";
+}
+/* properties of the selected object */
+function renderProps(){
+  const o=objById(selId); if(!o) return;
+  $("pName").textContent=TYPES[o.t].n;
+  $("pText").hidden=o.t!=="sign"; $("pTextIn").value=o.text||"";
+  $("pPhoto").hidden=o.t!=="photo";
+  $("pColor").value=o.c;
+  $("pPos").textContent=`x ${o.x.toFixed(1)} · גובה ${o.y.toFixed(1)} · z ${o.z.toFixed(1)} · סיבוב ${Math.round(((o.ry*180/Math.PI)%360+360)%360)}°`;
+  const sw=$("pSw"); if(!sw.childElementCount) for(const c of SWATCHES){ const b=document.createElement("button"); b.type="button"; b.className="sw"; b.style.background=c; b.setAttribute("aria-label","צבע "+c); b.onclick=()=>edit(o=>{ o.c=c; }); sw.appendChild(b); }
+}
+function edit(f){ if(!selId) return; commit(w=>{ const o=w.objects.find(o=>o.id===selId); if(o) f(o); }); renderProps(); }
+function bindProps(){
+  const step=.25;
+  const mv=(f,r)=>edit(o=>{ const fx=-Math.sin(camYaw), fz=-Math.cos(camYaw), rx=Math.cos(camYaw), rz=-Math.sin(camYaw); o.x+=(fx*f+rx*r)*step; o.z+=(fz*f+rz*r)*step; });
+  $("pFwd").onclick=()=>mv(1,0); $("pBack").onclick=()=>mv(-1,0); $("pLeft").onclick=()=>mv(0,-1); $("pRight").onclick=()=>mv(0,1);
+  $("pUp").onclick=()=>edit(o=>{ o.y+=.1; }); $("pDown").onclick=()=>edit(o=>{ o.y=Math.max(-1,o.y-.1); });
+  $("pRotL").onclick=()=>edit(o=>{ o.ry+=Math.PI/12; }); $("pRotR").onclick=()=>edit(o=>{ o.ry-=Math.PI/12; });
+  $("pBig").onclick=()=>edit(o=>{ o.s=o.s.map(v=>v*1.12); }); $("pSmall").onclick=()=>edit(o=>{ o.s=o.s.map(v=>v/1.12); });
+  $("pTall").onclick=()=>edit(o=>{ o.s[1]*=1.12; }); $("pShort").onclick=()=>edit(o=>{ o.s[1]/=1.12; });
+  $("pWide").onclick=()=>edit(o=>{ o.s[0]*=1.12; o.s[2]*=1.12; }); $("pNarrow").onclick=()=>edit(o=>{ o.s[0]/=1.12; o.s[2]/=1.12; });
+  $("pColor").onchange=()=>{ const c=$("pColor").value; edit(o=>{ o.c=c; }); };
+  $("pTextIn").onchange=()=>{ const v=$("pTextIn").value; edit(o=>{ o.text=v; }); };
+  $("pHere").onclick=()=>{ const p=frontOfMe(2); edit(o=>{ o.x=p.x; o.z=p.z; }); };
+  $("pDup").onclick=()=>{ const o=objById(selId); if(!o) return; const id=newId(); commit(w=>{ w.objects.push({ ...JSON.parse(JSON.stringify(o)), id, x:o.x+.6, z:o.z+.6 }); }); select(id); };
+  $("pDel").onclick=()=>{ const id=selId; select(null); closeSheets(); commit(w=>{ w.objects=w.objects.filter(o=>o.id!==id); }); };
+  $("pPhotoBtn").onclick=()=>pickPhoto(selId);
+}
+/* tapping and dragging objects in the 3D view */
+const ray=new THREE.Raycaster(), ndc=new THREE.Vector2(), hitPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0), hitPt=new THREE.Vector3();
+function setRay(e){ const r=renderer.domElement.getBoundingClientRect(); ndc.set(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1); ray.setFromCamera(ndc,camera); }
+function pick(e){
+  if(!worldGroup) return null; setRay(e);
+  const hit=ray.intersectObjects(worldGroup.children,true)[0]; if(!hit) return null;
+  let o=hit.object; while(o && !o.userData.wid) o=o.parent; return o?o.userData.wid:null;
+}
+function floorPoint(e,y){ setRay(e); hitPlane.constant=-y; return ray.ray.intersectPlane(hitPlane,hitPt)?hitPt.clone():null; }
+function bindStudioPointer(){
+  const stage=$("stage"); let tap=null, drag=null;
+  stage.addEventListener("pointerdown",e=>{
+    if(e.target!==renderer.domElement) return;
+    tap={ x:e.clientX, y:e.clientY, t:performance.now(), id:e.pointerId };
+    if(selId && pick(e)===selId){ const o=objById(selId), p=floorPoint(e,o.y);
+      if(p){ drag={ id:e.pointerId, ox:o.x-p.x, oz:o.z-p.z, y:o.y, moved:false }; e.stopPropagation(); } }
+  },{ capture:true });
+  stage.addEventListener("pointermove",e=>{
+    if(!drag || e.pointerId!==drag.id) return;
+    const p=floorPoint(e,drag.y), r=rootById(selId);
+    if(p && r){ r.position.x=p.x+drag.ox; r.position.z=p.z+drag.oz; selHelper.setFromObject(r); drag.moved=true; }
+    e.stopPropagation();
+  },{ capture:true });
+  const up=e=>{
+    if(drag && e.pointerId===drag.id){ const r=rootById(selId), moved=drag.moved; drag=null; e.stopPropagation();
+      if(moved && r){ const nx=r.position.x, nz=r.position.z; edit(o=>{ o.x=nx; o.z=nz; }); } return; }
+    if(tap && e.pointerId===tap.id && e.type==="pointerup" && joy.id!==e.pointerId && Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<10 && performance.now()-tap.t<450){
+      const id=pick(e); if(id) select(id); else if(selId){ select(null); closeSheets(); } }
+    tap=null;
+  };
+  stage.addEventListener("pointerup",up,{ capture:true }); stage.addEventListener("pointercancel",up,{ capture:true });
+}
+/* photos: shrink on the phone, encrypt, upload */
+let photoTarget=null;
+function pickPhoto(targetId){ photoTarget=targetId; $("stFile").value=""; $("stFile").click(); }
+async function onPhotoFile(){
+  const f=$("stFile").files[0]; if(!f) return;
+  toast("מכין את התמונה…");
+  try{
+    let src; try{ src=await createImageBitmap(f); }catch(e){ src=await new Promise((res,rej)=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=rej; im.src=URL.createObjectURL(f); }); }
+    const sw=src.width, sh=src.height, k=Math.min(1,900/Math.max(sw,sh));
+    const cv=document.createElement("canvas"); cv.width=Math.round(sw*k); cv.height=Math.round(sh*k); cv.getContext("2d").drawImage(src,0,0,cv.width,cv.height);
+    let q=.74, blob; do{ blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",q)); q-=.08; }while(blob.size>110000 && q>.35);
+    const u8=new Uint8Array(await blob.arrayBuffer()), h=await sha256hex(u8), id=newId("i"), str=await sealBytes(u8);
+    imgURL.set(id,URL.createObjectURL(blob)); imgPayload.set(id,str); imgAspect.set(id,cv.width/cv.height); idb.set("img:"+id,str);
+    for(const c of clients) if(c.connected) c.publish(IMG_BASE+id,str,{retain:true});
+    if(photoTarget && objById(photoTarget)){ const t=photoTarget; selId=t; edit(o=>{ o.img=id; o.h=h; }); }
+    else addObject("photo",{ img:id, h });
+    toast(online()?"התמונה נוספה.":"התמונה נוספה. היא תעלה לשרת כשיהיה חיבור.");
+  }catch(e){ toast("לא הצלחתי לקרוא את התמונה. נסו תמונה אחרת."); }
+}
+/* publish: sign the world so the game accepts it */
+async function publishWorld(){
+  if(!online()){ toast("אין חיבור לשרת. עברו לסלולר ונסו שוב."); return; }
+  const w={ v:1, rev:Math.max(Date.now(),world.rev+1), objects:draft.objects.map(sanitizeObj).filter(Boolean), settings:cleanSettings(draft.settings) };
+  const json=JSON.stringify(w);
+  const sig=new Uint8Array(await crypto.subtle.sign({name:"ECDSA",hash:"SHA-256"},SIGN,new TextEncoder().encode(json)));
+  const pkt=JSON.stringify({ w:json, s:b64(sig) });
+  if(pkt.length>350000){ toast("העולם גדול מדי לפרסום. מחקו כמה אובייקטים."); return; }
+  for(const c of clients) if(c.connected){ c.publish(WORLD_TOPIC,pkt,{retain:true}); for(const o of w.objects) if(o.img && imgPayload.has(o.img)) c.publish(IMG_BASE+o.img,imgPayload.get(o.img),{retain:true}); }
+  world=w; worldPacket=pkt; try{ localStorage.setItem("museum-world",pkt); }catch(e){}
+  draft=JSON.parse(json); studioDirty=false; saveDraft(); renderStudio();
+  toast("פורסם! השינויים מופיעים עכשיו גם אצל אלמוג.");
+}
+function fillSettings(){ const s=cleanSettings(draft.settings); $("setWall").value=s.wall; $("setLight").value=s.light; $("setLightV").textContent=s.light+"%"; $("setTitle").value=s.title; $("setSub").value=s.sub; }
+function exportBackup(){
+  const imgs={}; for(const o of draft.objects) if(o.img && imgPayload.has(o.img)) imgs[o.img]=imgPayload.get(o.img);
+  const data=JSON.stringify({ kind:"museum-studio-backup", v:1, at:Date.now(), objects:draft.objects, settings:draft.settings, images:imgs });
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([data],{type:"application/json"})); a.download="museum-world-"+new Date().toISOString().slice(0,10)+".json"; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1000);
+}
+async function importBackup(){
+  const f=$("stImport").files[0]; if(!f) return;
+  try{
+    const d=JSON.parse(await f.text()); if(d.kind!=="museum-studio-backup" || !Array.isArray(d.objects)) throw 0;
+    commit(w=>{ w.objects=d.objects; w.settings=d.settings||{}; });
+    for(const [id,str] of Object.entries(d.images||{})) if(/^[\w-]{1,40}$/.test(id) && typeof str==="string"){ await storeImage(id,str); for(const c of clients) if(c.connected) c.publish(IMG_BASE+id,str,{retain:true}); }
+    toast("הגיבוי נטען. לחצו פרסום כדי שיופיע אצל אלמוג.");
+  }catch(e){ toast("הקובץ הזה לא גיבוי של הסטודיו."); }
+}
+
 /* ---------- start ---------- */
 async function start(role){
   window.__inGame=true;
@@ -1233,6 +1723,7 @@ async function start(role){
   heartTex=canvasTex(128,128,(g,w,h)=>{ g.fillStyle="#e2667f"; g.font="110px serif"; g.textAlign="center"; g.textBaseline="middle"; g.fillText("♥",64,70); });
 
   buildRoom(); hangArt(); buildCinema();
+  await worldInit();
   myAvatar=makeAvatar(role); myAvatar.tag.visible=false; scene.add(myAvatar.root);
   fill=new THREE.DirectionalLight(0xffe8d6,.55); scene.add(fill); scene.add(fill.target);
   me.x = role==="her" ? .55 : -.55;
@@ -1258,6 +1749,7 @@ async function start(role){
   connectNet();
   setTimeout(()=>chat.forEach(archiveMsg),4000);   // messages from before the archive existed
   renderer.setAnimationLoop(tick);
+  if(STUDIO) studioInit();
 }
 
 let nearArt=null, togetherT=0, lastInCinema=false;
@@ -1276,7 +1768,7 @@ function tick(){
   me.x+=vx*dt; me.z+=vz*dt; collide(me);
   me.speed=Math.hypot(me.x-px,me.z-pz)/Math.max(dt,1e-4);
   if(Math.hypot(vx,vz)>.1){ const ta=Math.atan2(vx,vz); let d=ta-me.a; d=Math.atan2(Math.sin(d),Math.cos(d)); me.a+=d*Math.min(1,dt*10); }
-  myAvatar.root.position.set(me.x,0,me.z); myAvatar.root.rotation.y=me.a; myAvatar.animate(dt,me.speed); tickBubbles(dt);
+  myAvatar.root.position.set(me.x,0,me.z); myAvatar.root.rotation.y=me.a; myAvatar.animate(dt,me.speed); tickBubbles(dt); worldTick(dt,t);
   sendPresence(false);
 
   // others
@@ -1331,6 +1823,7 @@ function tick(){
   renderer.render(scene,camera);
   if(cssObj.visible) cssRenderer.render(cssScene,camera);
 }
+if(STUDIO) studioBoot();
 </script>
 </body>
 </html>
