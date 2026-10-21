@@ -32,7 +32,7 @@
 [hidden]{display:none!important}
 html,body{height:100%;margin:0}
 body{background:var(--ink);color:var(--wall);font-family:var(--body);overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;direction:rtl}
-#stage{position:fixed;inset:0}
+#stage{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100lvh}
 #stage canvas{display:block;width:100%;height:100%;touch-action:none}
 
 /* gate + role picker */
@@ -570,7 +570,7 @@ const BROKERS=[
   "wss://broker.hivemq.com:8884/mqtt",
   "wss://test.mosquitto.org:8081/mqtt",
 ];
-const bstate=[]; let netStart=0;
+const bstate=[], berr=[]; let netStart=0; const VERSION="4";
 const TOPIC="kesher-museum/"+CODE_HASH.slice(0,24)+"/state";
 const MY_ID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
 const clients=[]; const others=new Map();   // id -> {av, tx,tz,ta, h, seq, seen}
@@ -587,10 +587,10 @@ function connectNet(){
       const c=window.mqtt.connect(url,{ clientId:"km_"+MY_ID+"_"+clients.length, clean:true, connectTimeout:8000, reconnectPeriod:3000, keepalive:30 });
       c.on("connect",()=>{ c.subscribe(TOPIC,{qos:0}); c.subscribe([CHAT_TOPIC,HIST_TOPIC],{qos:1}); updateWho(); sendPresence(true); });
       c.on("connect",()=>{ bstate[i]="ok"; updateWho(); });
-      c.on("close",()=>{ if(bstate[i]==="ok") bstate[i]="wait"; else bstate[i]="bad"; updateWho(); }); c.on("offline",updateWho); c.on("error",()=>{ bstate[i]="bad"; updateWho(); });
+      c.on("close",()=>{ if(bstate[i]==="ok") bstate[i]="wait"; else bstate[i]="bad"; updateWho(); }); c.on("offline",updateWho); c.on("error",e=>{ bstate[i]="bad"; berr[i]=String((e&&e.message)||e||"").slice(0,90); updateWho(); });
       c.on("message",(t,buf)=>{ if(t===TOPIC){ try{ onState(JSON.parse(buf.toString())); }catch(e){} } else onChatPacket(t,buf.toString()); });
       clients.push(c);
-    }catch(e){ bstate[i]="bad"; }
+    }catch(e){ bstate[i]="bad"; berr[i]=String((e&&e.message)||e).slice(0,90); }
   });
   setInterval(updateWho,2000);
   setInterval(()=>{
@@ -627,9 +627,11 @@ function renderNet(){
     const b=document.createElement("span"); const st=bstate[i]||"wait";
     b.className=st; b.textContent= st==="ok"?"מחובר":st==="bad"?"נכשל":"מנסה…";
     r.append(a,b); box.appendChild(r);
+    if(st!=="ok" && berr[i]){ const er=document.createElement("div"); er.className="bad"; er.style.fontSize="11px"; er.style.direction="ltr"; er.textContent=berr[i]; box.appendChild(er); }
   });
   const n=document.createElement("div"); n.textContent="אנשים נוספים במוזיאון: "+others.size; box.appendChild(n);
   const lib=document.createElement("div"); lib.textContent=window.mqtt?"ספריית חיבור: נטענה":"ספריית חיבור: לא נטענה"; lib.className=window.mqtt?"ok":"bad"; box.appendChild(lib);
+  const v=document.createElement("div"); v.className="wait"; v.textContent="גרסה "+VERSION+" · "+(navigator.onLine?"יש אינטרנט":"אין אינטרנט"); box.appendChild(v);
 }
 function updateWho(){
   if(!myAvatar) return;
@@ -771,7 +773,7 @@ async function start(role){
   try{ await Promise.race([Promise.all([document.fonts.load('900 60px "Frank Ruhl Libre"'),document.fonts.load('700 40px "Frank Ruhl Libre"'),document.fonts.load('400 20px "Assistant"'),document.fonts.load('700 20px "Assistant"')]), new Promise(r=>setTimeout(r,2500))]); }catch(e){}
 
   renderer=new THREE.WebGLRenderer({ antialias:true, powerPreference:"high-performance" });
-  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75)); renderer.setSize(innerWidth,innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75)); renderer.setSize(innerWidth,innerHeight,false);
   renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
   $("stage").appendChild(renderer.domElement);
   scene=new THREE.Scene(); scene.background=new THREE.Color(0x140f14); scene.fog=new THREE.Fog(0x140f14,18,34);
@@ -787,7 +789,8 @@ async function start(role){
   me.x = role==="her" ? .55 : -.55;
 
   bindInput(renderer.domElement);
-  const fit=()=>{ const w=innerWidth,h=innerHeight; camera.aspect=w/h; camera.fov=h>w?70:58; camera.updateProjectionMatrix(); renderer.setSize(w,h); };
+  const fit=()=>{ const r=$("stage").getBoundingClientRect(); const w=Math.max(1,Math.round(r.width||innerWidth)), h=Math.max(1,Math.round(r.height||innerHeight)); camera.aspect=w/h; camera.fov=h>w?70:58; camera.updateProjectionMatrix(); renderer.setSize(w,h,false); };
+  fit(); setTimeout(fit,300); setTimeout(fit,1200);
   addEventListener("resize",fit);
   addEventListener("orientationchange",()=>{ setTimeout(fit,200); setTimeout(fit,600); });
   screen.orientation?.addEventListener?.("change",()=>setTimeout(fit,200));
