@@ -549,13 +549,12 @@ async function start(role){
   buildRoom(); hangArt();
   myAvatar=makeAvatar(role); myAvatar.tag.visible=false; scene.add(myAvatar.root);
   fill=new THREE.DirectionalLight(0xffe8d6,.55); scene.add(fill); scene.add(fill.target);
-  if(role==="her"){ me.x=1.2; }
-  else { me.x=-1.2; }
+  me.x = role==="her" ? .55 : -.55;
 
   bindInput(renderer.domElement);
   addEventListener("resize",()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
   const touch = matchMedia("(pointer:coarse)").matches;
-  $("hint").textContent = touch ? "ג׳ויסטיק משמאל · גוררים מימין כדי להסתובב" : "WASD / חצים להליכה · גרירה עם העכבר להסתובב";
+  $("hint").textContent = touch ? "ג׳ויסטיק משמאל · גרירה מימין להסתובב" : "WASD / חצים להליכה · גרירה עם העכבר להסתובב";
   $("loading").hidden=true; $("topbar").hidden=false; $("heartBtn").hidden=false; $("joy").hidden=!touch;
   $("heartBtn").onclick=()=>{ me.hearts++; spawnHearts(myAvatar.root.position,8); sendPresence(true); };
   $("zoomBtn").onclick=()=>{ if(!nearArt) return; $("vImg").src=nearArt.a.src; $("vImg").alt=nearArt.a.t; $("vCap").textContent=nearArt.a.t; $("viewer").hidden=false; };
