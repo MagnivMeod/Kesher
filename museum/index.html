@@ -83,8 +83,8 @@ input#code:focus-visible,button:focus-visible{outline:2px solid var(--brass);out
     <div class="eyebrow">מי נכנס עכשיו?</div>
     <h1>בחרו דמות</h1>
     <div class="roles">
-      <button class="role" id="pickHim" type="button"><span class="sw" style="background:#1f2d50"></span><b>הוא</b>זקן, שיער קצר</button>
-      <button class="role" id="pickHer" type="button"><span class="sw" style="background:#1b2238"></span><b>היא</b>תלתלים, קפוצ׳ון</button>
+      <button class="role" id="pickHim" type="button"><span class="sw" style="background:#1f2d50"></span><b>יצחק</b>זקן, שיער קצר</button>
+      <button class="role" id="pickHer" type="button"><span class="sw" style="background:#1b2238"></span><b>אלמוג</b>תלתלים, קפוצ׳ון</button>
     </div>
     <p>כששניכם בפנים, תראו אחד את השנייה בזמן אמת.</p>
   </div>
@@ -407,7 +407,7 @@ function makeAvatar(role){
   const tag=new THREE.Sprite(new THREE.SpriteMaterial({ map:canvasTex(256,96,(g,w,h)=>{
     g.fillStyle="rgba(20,15,20,.75)"; roundRect(g,8,10,w-16,h-20,36); g.fill();
     g.direction="rtl"; g.textAlign="center"; g.fillStyle="#efe6da"; g.font='700 44px "Frank Ruhl Libre", serif';
-    g.fillText(him?"הוא":"היא",w/2,64);
+    g.fillText(him?"יצחק":"אלמוג",w/2,64);
   }), depthTest:false }));
   tag.scale.set(.48,.18,1); tag.position.y=2.2; tag.renderOrder=5; root.add(tag);
 
@@ -519,8 +519,8 @@ function updateWho(){
   const n=others.size;
   $("dot").classList.toggle("on",!!room);
   if(!room){ $("who").textContent="לבד במוזיאון"; return; }
-  if(n===0) $("who").textContent="מחכים שהשני/ה ייכנס/תיכנס";
-  else { const roles=[...others.values()].map(o=>o.av.role==="him"?"הוא":"היא"); $("who").textContent=`${roles.join(" ו")} כאן איתך ♥`; }
+  if(n===0) $("who").textContent=myAvatar.role==="him"?"מחכים לאלמוג":"מחכים ליצחק";
+  else { const names=[...new Set([...others.values()].map(o=>o.av.role==="him"?"יצחק":"אלמוג"))]; $("who").textContent=`${names.join(" ו")} כאן איתך ♥`; }
 }
 function sendPresence(force){
   if(!room) return;
