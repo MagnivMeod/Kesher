@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data:; connect-src wss://mqtt.eclipseprojects.io wss://broker.emqx.io:8084 wss://broker.hivemq.com:8884 wss://test.mosquitto.org:8081; base-uri 'none'; form-action 'none'">
+<title>הארכיון שלנו</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&family=Assistant:wght@400;600;700&display=swap">
+<style>
+/* Layout: one reading column; sticky toolbar; days as sticky date headers, newest first. Same night-gallery look as the museum. */
+:root{
+  --ink:#140f14; --velvet:#2a1a24; --panel:#1d141b; --wall:#efe6da; --muted:#b9a99b; --brass:#d6a46c; --rose:#e2667f; --line:rgba(214,164,108,.3);
+  --theirs:#3a2634;
+  --display:"Frank Ruhl Libre","Times New Roman",serif; --body:"Assistant","Segoe UI",Arial,sans-serif;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--ink);color:var(--wall);font:16px/1.5 var(--body)}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+h1{font-family:var(--display);font-weight:900;font-size:36px;line-height:1.1;margin:0;text-wrap:balance}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--brass);font-weight:700}
+.muted{color:var(--muted)}
+/* lock */
+#lock{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px max(16px,env(safe-area-inset-left,0px))}
+.card{width:min(400px,100%);background:var(--velvet);border:1px solid var(--line);border-radius:4px;padding:30px 24px;display:flex;flex-direction:column;gap:14px;text-align:center}
+.card form{display:flex;flex-direction:column;gap:10px}
+input{font:600 17px var(--body);padding:13px;border-radius:4px;border:1px solid var(--line);background:var(--ink);color:var(--wall)}
+input#pw{text-align:center;direction:ltr;letter-spacing:.08em}
+input:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.btn{font:700 16px var(--body);padding:12px 18px;border-radius:4px;border:0;background:var(--brass);color:#2a1a10;cursor:pointer}
+.btn[disabled]{opacity:.5;cursor:wait}
+.ghost{font:600 14px var(--body);padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--wall);cursor:pointer;white-space:nowrap}
+.err{color:var(--rose);font-weight:600;min-height:1.5em}
+/* archive */
+header.top{padding-top:calc(env(safe-area-inset-top,0px) + 24px);padding-bottom:12px;display:flex;flex-direction:column;gap:6px}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted);margin-inline-end:6px;vertical-align:middle}
+.dot.on{background:#7ccf8a}
+.toolbar{position:sticky;top:0;z-index:5;background:var(--ink);padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.toolbar input{flex:1 1 180px;min-width:0;padding:10px 12px;font-size:16px}
+select{font:600 15px var(--body);padding:10px;border-radius:4px;border:1px solid var(--line);background:var(--panel);color:var(--wall);max-width:100%}
+.day{margin-top:18px}
+.dayhead{position:sticky;top:62px;z-index:3;display:flex;justify-content:space-between;gap:10px;align-items:baseline;background:rgba(20,15,20,.94);padding:8px 2px;border-bottom:1px solid var(--line)}
+.dayhead h2{margin:0;font-family:var(--display);font-size:20px;font-weight:700}
+.dayhead span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.msgs{display:flex;flex-direction:column;gap:6px;padding-top:10px}
+.m{max-width:82%;padding:7px 12px 5px;border-radius:14px;display:flex;flex-direction:column;gap:1px}
+.m .who{font-size:12px;font-weight:700;opacity:.8}
+.m .tx{white-space:pre-wrap;overflow-wrap:anywhere}
+.m .tm{font-size:11px;opacity:.65;align-self:flex-end;font-variant-numeric:tabular-nums}
+.m.him{align-self:flex-start;background:var(--brass);color:#2a1a10;border-start-start-radius:4px}
+.m.her{align-self:flex-end;background:var(--theirs);color:var(--wall);border-start-end-radius:4px}
+mark{background:var(--rose);color:#fff;border-radius:3px;padding:0 2px}
+.empty{margin-top:40px;text-align:center;color:var(--muted);line-height:1.7}
+@media (max-width:480px){h1{font-size:30px}.dayhead{top:108px}}
+</style>
+</head>
+<body>
+<main id="lock">
+  <div class="card">
+    <div class="eyebrow">המוזיאון שלנו · גישה פרטית</div>
+    <h1>הארכיון שלנו</h1>
+    <p class="muted" style="margin:0">כל ההודעות מהצ׳אט, לפי תאריכים. נפתח רק עם הסיסמה.</p>
+    <form id="lockForm" autocomplete="off">
+      <input id="pw" name="pw" type="password" autocomplete="current-password" placeholder="סיסמה" aria-label="סיסמה">
+      <button class="btn" id="unlockBtn" type="submit">פתיחה</button>
+      <div class="err" id="err" role="status"></div>
+    </form>
+  </div>
+</main>
+
+<div id="app" hidden>
+  <div class="wrap">
+    <header class="top">
+      <div class="eyebrow">יצחק ואלמוג · ארכיון הצ׳אט</div>
+      <h1>הארכיון שלנו</h1>
+      <div class="stats"><span id="sCount">0 הודעות</span><span id="sRange"></span><span><span class="dot" id="dot"></span><span id="sNet">מתחבר…</span></span></div>
+    </header>
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="חיפוש בהודעות" aria-label="חיפוש בהודעות">
+      <select id="jump" aria-label="מעבר לתאריך"><option value="">מעבר לתאריך…</option></select>
+      <button class="ghost" id="dl" type="button">הורדה כקובץ</button>
+      <button class="ghost" id="lockBtn" type="button">נעילה</button>
+    </div>
+    <div id="list"></div>
+    <div class="empty" id="empty" hidden>עוד אין הודעות בארכיון.<br>כל הודעה שנשלחת בצ׳אט של המוזיאון נשמרת כאן אוטומטית.</div>
+  </div>
+</div>
+
+<script>
+const LOCK={"salt": "SqJaHwqrY9V7In+2JCxnkw==", "iv": "ntd+1Ckw6o43rGqR", "ct": "E36iuM12xxUZOhSaEcidA86yg71MoLqpowEs5pD3KKzVWu5NHV1LTKu1g6j1bolR5Y6ypnPF9xxfUFXvUwDJfgrqlxWXH5sE8+lE8aqHBfpxzgJE1PLM4oUQKRecTtf5ti/Z6t44Lpeo3uj5kUZK5hvqbA30xfPsQJTM/lb9Z+AkV6UptTNzgrhEk2/gtfUNkrfdgTd2h290og==", "it": 600000};
+const ARC_BASE="kesher-museum/2ffc1b394e7e41ab42c6278b/arc/";
+const BROKERS=["wss://mqtt.eclipseprojects.io:443/mqtt","wss://broker.emqx.io:8084/mqtt","wss://broker.hivemq.com:8884/mqtt","wss://test.mosquitto.org:8081/mqtt"];
+const NAME={ him:"יצחק", her:"אלמוג" };
+const $=id=>document.getElementById(id);
+const unb64=s=>Uint8Array.from(atob(s),ch=>ch.charCodeAt(0));
+let PRIV=null, fails=0;
+const recs={};      // day -> {id: sealed}
+const plain=new Map(); // id -> {mid,from,text,t}
+const clients=[];
+
+/* ---------- tiny MQTT 3.1.1 client over WebSocket (QoS 0) ---------- */
+function miniMqtt(url, clientId){
+  const enc=new TextEncoder(), dec=new TextDecoder();
+  const ev={}; const on=(n,f)=>((ev[n]=ev[n]||[]).push(f),api); const emit=(n,...a)=>(ev[n]||[]).forEach(f=>{ try{ f(...a); }catch(e){} });
+  let ws=null, buf=new Uint8Array(0), ping=null, ackTimer=null, retry=null, pid=1;
+  const api={ connected:false, on, subscribe, publish, end };
+  const str=s=>{ const b=enc.encode(s); return [b.length>>8,b.length&255,...b]; };
+  const lenBytes=n=>{ const o=[]; do{ let d=n%128; n=Math.floor(n/128); if(n>0) d|=128; o.push(d); }while(n>0); return o; };
+  const packet=(h,body)=>{ const l=lenBytes(body.length); const p=new Uint8Array(1+l.length+body.length); p[0]=h; p.set(l,1); p.set(body,1+l.length); return p; };
+  const send=p=>{ if(ws && ws.readyState===1) ws.send(p); };
+  function open(){
+    clearTimeout(retry);
+    try{ ws=new WebSocket(url,["mqtt"]); }catch(e){ emit("error",e); schedule(); return; }
+    ws.binaryType="arraybuffer"; buf=new Uint8Array(0);
+    ws.onopen=()=>{
+      const body=[...str("MQTT"),4,0x02,0,30,...str(clientId)];
+      send(packet(0x10,Uint8Array.from(body)));
+      ackTimer=setTimeout(()=>{ emit("error",new Error("no answer from server")); try{ ws.close(); }catch(e){} },10000);
+    };
+    ws.onmessage=e=>{
+      const d=new Uint8Array(e.data); const nb=new Uint8Array(buf.length+d.length); nb.set(buf); nb.set(d,buf.length); buf=nb;
+      for(;;){
+        if(buf.length<2) break;
+        let mult=1, len=0, i=1, b;
+        do{ if(i>=buf.length) return; b=buf[i++]; len+=(b&127)*mult; mult*=128; }while(b&128);
+        if(buf.length<i+len) break;
+        handle(buf[0], buf.subarray(i,i+len)); buf=buf.slice(i+len);
+      }
+    };
+    ws.onerror=()=>emit("error",new Error("websocket error"));
+    ws.onclose=e=>{
+      clearTimeout(ackTimer); clearInterval(ping);
+      const was=api.connected; api.connected=false; emit("close",e&&e.code); if(was) emit("offline");
+      schedule();
+    };
+  }
+  function schedule(){ clearTimeout(retry); retry=setTimeout(open,3000); }
+  function handle(h,body){
+    const type=h>>4;
+    if(type===2){ // CONNACK
+      clearTimeout(ackTimer);
+      if(body[1]===0){ api.connected=true; clearInterval(ping); ping=setInterval(()=>send(Uint8Array.from([0xC0,0])),25000); emit("connect"); }
+      else { emit("error",new Error("refused, code "+body[1])); try{ ws.close(); }catch(e){} }
+    } else if(type===3){ // PUBLISH
+      const qos=(h>>1)&3; const tl=(body[0]<<8)|body[1]; const topic=dec.decode(body.subarray(2,2+tl));
+      let p=2+tl; if(qos>0){ const id=[body[p],body[p+1]]; p+=2; if(qos===1) send(Uint8Array.from([0x40,2,...id])); }
+      emit("message",topic,dec.decode(body.subarray(p)));
+    }
+  }
+  function subscribe(topics){
+    const list=Array.isArray(topics)?topics:[topics]; const id=pid++&0xffff||1;
+    const body=[id>>8,id&255]; for(const t of list) body.push(...str(t),0);
+    send(packet(0x82,Uint8Array.from(body)));
+  }
+  function publish(topic,msg,opts={}){
+    const body=Uint8Array.from([...str(topic),...enc.encode(msg)]);
+    send(packet(0x30|(opts.retain?1:0),body));
+  }
+  function end(){ clearTimeout(retry); clearInterval(ping); try{ ws&&ws.close(); }catch(e){} }
+  open();
+  return api;
+}
+
+
+
+/* unlock: the password decrypts the archive's private key; nothing is stored */
+$("lockForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const pw=$("pw").value; if(!pw) return;
+  $("unlockBtn").disabled=true; $("err").textContent="פותח…";
+  try{
+    const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
+    const k=await crypto.subtle.deriveKey({name:"PBKDF2",salt:unb64(LOCK.salt),iterations:LOCK.it,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+    const pk8=await crypto.subtle.decrypt({name:"AES-GCM",iv:unb64(LOCK.iv)},k,unb64(LOCK.ct));
+    PRIV=await crypto.subtle.importKey("pkcs8",pk8,{name:"ECDH",namedCurve:"P-256"},false,["deriveKey"]);
+    $("pw").value=""; $("lock").hidden=true; $("app").hidden=false; boot();
+  }catch(err){
+    fails++; const wait=Math.min(30,2*fails);
+    $("err").textContent="סיסמה שגויה. אפשר לנסות שוב בעוד "+wait+" שניות.";
+    setTimeout(()=>{ $("unlockBtn").disabled=false; $("err").textContent="סיסמה שגויה. נסו שוב."; },wait*1000);
+    return;
+  }
+});
+$("lockBtn").onclick=()=>{ PRIV=null; plain.clear(); location.reload(); };
+
+async function openRec(sealed){
+  const u=unb64(sealed);
+  const pub=await crypto.subtle.importKey("raw",u.slice(0,65),{name:"ECDH",namedCurve:"P-256"},false,[]);
+  const k=await crypto.subtle.deriveKey({name:"ECDH",public:pub},PRIV,{name:"AES-GCM",length:256},false,["decrypt"]);
+  const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:u.slice(65,77)},k,u.slice(77));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+const okId=k=>/^[\w-]{1,48}$/.test(k), okDay=d=>/^\d{4}-\d{2}-\d{2}$/.test(d);
+function loadCache(){
+  for(const key of ["museum-arc","arc-cache"]){
+    try{ const o=JSON.parse(localStorage.getItem(key)||"{}"); for(const [d,r] of Object.entries(o)) if(okDay(d) && r && typeof r==="object") recs[d]=Object.assign(recs[d]||{},r); }catch(e){}
+  }
+}
+function saveCache(){ try{ localStorage.setItem("arc-cache",JSON.stringify(recs)); }catch(e){} }
+let renderT=null;
+async function absorb(day,r){
+  let newOnes=0;
+  for(const [id,v] of Object.entries(r)){
+    if(!okId(id) || typeof v!=="string" || v.length>6000) continue;
+    recs[day]=recs[day]||{}; if(!recs[day][id]) recs[day][id]=v;
+    if(plain.has(id)) continue;
+    try{ const m=await openRec(recs[day][id]); if(m && typeof m.text==="string" && (m.from==="him"||m.from==="her") && Number.isFinite(m.t)){ plain.set(id,m); newOnes++; } }catch(e){}
+  }
+  if(newOnes){ clearTimeout(renderT); renderT=setTimeout(render,150); }
+  return newOnes;
+}
+
+function boot(){
+  loadCache();
+  (async()=>{ for(const [d,r] of Object.entries(recs)) await absorb(d,r); render(); })();
+  BROKERS.forEach((url,i)=>{
+    const c=miniMqtt(url,"ka_"+Math.random().toString(36).slice(2,10)+"_"+i);
+    c.on("connect",()=>{ c.subscribe([ARC_BASE+"+"]); net(); });
+    c.on("close",net); c.on("error",net);
+    c.on("message",async(t,str)=>{
+      const day=t.slice(ARC_BASE.length); if(!okDay(day)) return;
+      let b; try{ b=JSON.parse(str); }catch(e){ return; } if(!b || typeof b.r!=="object") return;
+      await absorb(day,b.r); saveCache();
+      if(Object.keys(recs[day]||{}).some(k=>!(k in b.r))) c.publish(ARC_BASE+day,JSON.stringify({v:1,d:day,r:recs[day]}),{retain:true});
+    });
+    clients.push(c);
+  });
+  setInterval(net,2000);
+  $("q").addEventListener("input",()=>{ clearTimeout(renderT); renderT=setTimeout(render,120); });
+  $("jump").addEventListener("change",()=>{ const el=document.getElementById("d-"+$("jump").value); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); $("jump").value=""; });
+  $("dl").onclick=download;
+}
+function net(){
+  const n=clients.filter(c=>c.connected).length;
+  $("dot").classList.toggle("on",n>0);
+  $("sNet").textContent = n ? "מעודכן בזמן אמת" : "לא מחובר · מציג מה שנשמר במכשיר";
+}
+
+const fmtDay=new Intl.DateTimeFormat("he-IL",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+const fmtShort=new Intl.DateTimeFormat("he-IL",{day:"numeric",month:"short",year:"numeric"});
+const fmtTime=new Intl.DateTimeFormat("he-IL",{hour:"2-digit",minute:"2-digit"});
+const dayKey=t=>{ const d=new Date(t); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); };
+
+function highlight(el,text,q){
+  if(!q){ el.textContent=text; return; }
+  const low=text.toLowerCase(), ql=q.toLowerCase(); let i=0, j;
+  while((j=low.indexOf(ql,i))!==-1){ el.append(text.slice(i,j)); const mk=document.createElement("mark"); mk.textContent=text.slice(j,j+q.length); el.append(mk); i=j+q.length; }
+  el.append(text.slice(i));
+}
+function render(){
+  const q=$("q").value.trim();
+  const all=[...plain.values()].sort((a,b)=>a.t-b.t);
+  $("sCount").textContent=all.length.toLocaleString("he-IL")+" הודעות";
+  $("sRange").textContent= all.length ? "מ־"+fmtShort.format(all[0].t)+" עד "+fmtShort.format(all[all.length-1].t) : "";
+  const shown=q ? all.filter(m=>m.text.toLowerCase().includes(q.toLowerCase())) : all;
+  const byDay=new Map(); for(const m of shown){ const k=dayKey(m.t); if(!byDay.has(k)) byDay.set(k,[]); byDay.get(k).push(m); }
+  const days=[...byDay.keys()].sort().reverse();
+  const list=$("list"); list.textContent="";
+  const jump=$("jump"); jump.length=1;
+  for(const k of days){
+    const msgs=byDay.get(k);
+    const sec=document.createElement("section"); sec.className="day"; sec.id="d-"+k;
+    const head=document.createElement("div"); head.className="dayhead";
+    const h=document.createElement("h2"); h.textContent=fmtDay.format(msgs[0].t);
+    const c=document.createElement("span"); c.textContent=msgs.length+(msgs.length===1?" הודעה":" הודעות");
+    head.append(h,c); sec.appendChild(head);
+    const box=document.createElement("div"); box.className="msgs";
+    for(const m of msgs){
+      const row=document.createElement("div"); row.className="m "+m.from;
+      const w=document.createElement("div"); w.className="who"; w.textContent=NAME[m.from];
+      const tx=document.createElement("div"); tx.className="tx"; highlight(tx,m.text,q);
+      const tm=document.createElement("div"); tm.className="tm"; tm.textContent=fmtTime.format(m.t);
+      row.append(w,tx,tm); box.appendChild(row);
+    }
+    sec.appendChild(box); list.appendChild(sec);
+    const o=document.createElement("option"); o.value=k; o.textContent=fmtShort.format(msgs[0].t)+" ("+msgs.length+")"; jump.appendChild(o);
+  }
+  $("empty").hidden=all.length>0;
+  if(all.length && !shown.length){ const e=document.createElement("p"); e.className="empty"; e.textContent="לא נמצאו הודעות עם \""+q+"\"."; list.appendChild(e); }
+}
+function download(){
+  const all=[...plain.values()].sort((a,b)=>a.t-b.t); let out="הארכיון שלנו · יצחק ואלמוג\n", last="";
+  for(const m of all){ const k=dayKey(m.t); if(k!==last){ out+="\n— "+fmtDay.format(m.t)+" —\n"; last=k; } out+=fmtTime.format(m.t)+"  "+NAME[m.from]+": "+m.text+"\n"; }
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([out],{type:"text/plain;charset=utf-8"})); a.download="archive-"+dayKey(Date.now())+".txt"; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1000);
+}
+</script>
+</body>
+</html>
